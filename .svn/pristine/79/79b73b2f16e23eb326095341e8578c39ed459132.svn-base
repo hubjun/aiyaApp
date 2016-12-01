@@ -1,0 +1,15 @@
+aiyaController.controller('mylogController', [
+  '$scope',
+  '$stateParams',
+  'logisticService',
+  '$q',
+  function ($scope, $stateParams, logisticService, $q) {
+    var shippingStatusDesc = ['部分发货', '已发货', '部分退货', '已退货', '用户收货', '已收货(已签收)'];
+    logisticService.get($stateParams.sn)
+      .then(function (logisInfo) {
+        if($scope.$$destroyed) return $q.reject();
+        logisInfo.shippingStatus = shippingStatusDesc[logisInfo.shippingStatus];
+        $scope.logisInfo = logisInfo;
+      });
+  }
+]);

@@ -1,0 +1,123 @@
+aiyaController.controller('favoriteController',[
+  '$scope',
+  '$ionicHistory',
+  'favoriteService',
+  'userService',
+  'ArrayUtil',
+  'CommonUtil',
+  '$state',
+  function($scope,$ionicHistory,favoriteService,userService,ArrayUtil,CommonUtil,$state){
+    var isAllSelected = false;
+    $scope.products = [];
+    var productList = [];
+    var page = {};
+    var params = {
+      pageNumber: 1,
+      pageSize: 5
+    }
+    /*初始化商品列表*/
+    var init = function(){
+      favoriteService.getProducts(params)
+        .then(function(data){
+          for(var i = 0; i < data.list.length; i++){
+            var product = data.list[i];
+            product.isSelected = isAllSelected;
+            data.list[i] = product;
+          }
+          $scope.products = $scope.products.concat(data.list);
+          console.log($scope.products);
+          page = data.page;
+        },function(err){
+          //console.log(err);
+          CommonUtil.tip(err);
+        });
+    }
+    init();
+
+    $scope.canEdit = false;//默认不能编辑
+    $scope.back = function(){
+      $ionicHistory.goBack();
+    };
+    $scope.remove = function(product){
+      favoriteService.removeProduct(product).then(function(){
+          $scope.products = ArrayUtil.remove($scope.products, product);
+      },function(err){
+        //console.log(err);
+        CommonUtil.tip(err);
+      });
+    };
+    $scope.removeAll = function(){
+      for(var i = 0; i < $scope.products.length; i++){
+        var product = $scope.products[i];
+        if(product.isSelected){
+          productList.push(product);
+        }
+      }
+      favoriteService.removeProduct(productList).then(function(){
+        for(var i = 0; i < productList.length; i++){
+          $scope.products = ArrayUtil.remove($scope.products, productList[i]);
+        }
+      },function(){
+
+      });;
+    };
+    /*当前用户*/
+    userService.getInfo()
+      .then(function(data){
+        $scope.currentUser = data;
+      },function(err){
+        //console.log(err);
+        CommonUtil.tip(err);
+      });
+
+    /*编辑*/
+    $scope.edit = function(){
+      $scope.canEdit = !$scope.canEdit;
+    }
+
+    /*加载更多*/
+    $scope.loadMore = function(){
+      if(page.hasNextPage){
+        params.pageNumber++;
+        init();
+      }
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    }
+
+    /*刷新*/
+    $scope.doRefresh = function(){
+      $scope.$apply(function(){
+        params.pageNumber = 1;
+        favoriteService.getProducts(params)
+          .then(function(data){
+            for(var i = 0; i < data.list.length; i++){
+              var product = data.list[i];
+              product.isSelected = isAllSelected;
+              data.list[i] = product;
+            }
+            $scope.products = data.list;
+            page = data.page;
+          },function(err){
+            //console.log(err);
+            CommonUtil.tip(err);
+          })
+          .finally(function(){
+            $scope.$broadcast('scroll.refreshComplete');
+          });
+      });
+    }
+
+    $scope.toggleSelectAll = function(){
+      isAllSelected = !isAllSelected;
+      for(var i=0; i < $scope.products.length; i++){
+        var product = $scope.products[i];
+        product.isSelected = isAllSelected;
+        $scope.products[i] = product;
+      }
+    }
+    $scope.productInfo = function(pId){
+      $state.go('productInfo', {'id':pId});
+      console.log('品牌id:'+pId);
+    };
+
+  }]);

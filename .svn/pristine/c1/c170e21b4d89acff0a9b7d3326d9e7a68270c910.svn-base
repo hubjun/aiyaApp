@@ -1,0 +1,14 @@
+<ion-view class="emailContent" view-title="固定电话">
+  <div class="bar bar-header bar-stable">
+    <a class="button button-dark ion-ios-arrow-back icon-left button-clear" ng-click="back()"></a>
+    <h1 class="title">固定电话</h1>
+    <a class="button button-dark ion-ios-more icon-right button-clear" nav-button></a>
+  </div>
+  <ion-content class="has-header">
+    <div class="padding emailDiv">
+      <input type="text" ng-model="content.email" placeholder="请输入您正在使用的座机" class="emailInput">
+      <!--<span class="phoneTxt">你现在正在使用的座机</span>-->
+      <a class="button button-block button-positive" ng-click="">确 定</a>
+    </div>
+  </ion-content>
+</ion-view>

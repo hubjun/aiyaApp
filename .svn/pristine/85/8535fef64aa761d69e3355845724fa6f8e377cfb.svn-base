@@ -1,0 +1,43 @@
+<ion-view class="setting" hide-nav-bar="true" view-title="设置">
+  <!-- header-bar -->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">设置</div>
+    <div class="buttons buttons-right">
+      <span class="right-buttons">
+        <button class="button button-dark button-clear ion-ios-more icon-right" nav-button></button>
+      </span>
+    </div>
+  </div>
+
+  <ion-content class="has-header">
+    <ion-list>
+      <ion-item class="item-button-right item-icon-right" ui-sref="userInfo">
+        <h2>个人信息</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+      <ion-item class="item-button-right item-icon-right" ui-sref="address">
+        <h2>收货地址</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+      <ion-item class="item-button-right item-icon-right" ui-sref="modifyPwd">
+        <h2>修改密码</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+      <ion-item class="item-button-right item-icon-right" ui-sref="aboutOur">
+        <h2>关于我们</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+      <ion-item class="item-button-right item-icon-right" ui-sref="linkUs">
+        <h2>联系我们</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+      <div class="logout button-bar">
+        <button class="button button-positive" ng-click="logout()">退出当前账号</button>
+      </div>
+  </ion-content>
+</ion-view>
+

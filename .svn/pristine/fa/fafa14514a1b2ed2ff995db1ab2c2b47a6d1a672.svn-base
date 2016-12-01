@@ -1,0 +1,43 @@
+<ion-view view-title="找回密码" hide-nav-bar="true">
+  <!--header-->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">找回密码</div>
+  </div>
+
+  <ion-content class="has-header loginCon" scrollbar-y="false">
+    <form ng-submit="submit()">
+      <div class="padding emailDiv" ng-repeat="user in userList">
+        <input type="text"
+               class="emailInput"
+               ng-model="user.mobile"
+               placeholder="请输入你的手机号码">
+        <label>
+          <input type="text"
+                 class="emailInput infoCode"
+                 ng-model="user.authCode"
+                 placeholder="请输入短信验证码">
+        </label>
+        <label>
+          <input type="button" class="button button-block" id="codeBtn" value="免费获取验证码" ng-click="sendMessage()"/>
+        </label>
+        <label class="item item-input resetPwd" style="width: 100%;">
+          <input type="{{pwTypeHandle ? 'text' : 'password'}}"
+                 ng-model="user.password"
+                 placeholder="请输入新密码">
+          <label class="toggle">
+            <input type="checkbox" ng-model="pwTypeHandle">
+            <a class="track">
+              <div class="handle"></div>
+            </a>
+          </label>
+        </label>
+      </div>
+      <div class="padding emailDiv">
+        <button type="submit" class="button button-block button-positive button-next modifyPhone">提交</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

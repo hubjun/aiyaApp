@@ -1,0 +1,242 @@
+<ion-view class="orderDetail" view-title="订单详情" hide-nav-bar="true" cache-view="false">
+  <!--header-->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">订单详情</div>
+    <div class="buttons buttons-right">
+      <span class="right-buttons">
+        <button class="button button-dark button-clear ion-ios-more icon-right" nav-button></button>
+      </span>
+    </div>
+  </div>
+
+  <ion-content ng-show="order" class="has-header" scrollbar-y="false">
+    <div class="pay-status">
+      <i class="payment"></i>
+      <div class="left-con">
+        <!--<h2 ng-if="!order.isExpire && order.orderStatus !=3 && order.orderStatus != 5 && shippingStatus != 1 && shippingStatus != 3 && shippingStatus != 5">{{paymentStatusDesc}}</h2>-->
+        <h2 ng-if="!order.isMonthly && !isExpire && order.orderStatus != '1' && order.orderStatus != '2' && order.orderStatus != '3' && order.orderStatus != '4' && order.orderStatus != '5' && paymentStatus != '1' && paymentStatus != '3' && paymentStatus != '5' && paymentStatus != '6' && shippingStatus != '1' && shippingStatus != '2' && shippingStatus != '3' && shippingStatus != '4' && shippingStatus != '5' && shippingStatus != '6'">{{order.paymentStatusDesc}}</h2>
+        <div ng-if="order.isMonthly">
+          <!--<span ng-if="order.orderStatus != 4 && order.orderStatus != 5">-->
+            <!--{{paymentStatusDesc}}-->
+          <!--</span>-->
+          <!--未支付-->
+          <div ng-if="paymentStatus == '0'">
+            <h2 ng-if="shippingStatus == '0'">待付款，待发货</h2>
+            <h2 ng-if="shippingStatus == '1'">待付款，部分发货</h2>
+            <h2 ng-if="shippingStatus == '2'">待付款，已发货</h2>
+            <h2 ng-if="shippingStatus == '3'">待付款，部分退货</h2>
+            <h2 ng-if="shippingStatus == '4'">已退货</h2>
+            <h2 ng-if="shippingStatus == '5' || shippingStatus == '6'">待付款，已收货</h2>
+          </div>
+          <!--已支付-->
+          <div ng-if="paymentStatus == '2'">
+            <h2 ng-if="shippingStatus == '0'">已付款，待发货</h2>
+            <h2 ng-if="shippingStatus == '1'">已付款，部分发货</h2>
+            <h2 ng-if="shippingStatus == '2'">已付款，待收货</h2>
+            <h2 ng-if="shippingStatus == '5' || shippingStatus == '6'">已付款，已收货</h2>
+            <h2 ng-if="shippingStatus == '3' && paymentStatus == '3'">部分退款，部分退货</h2>
+            <h2 ng-if="shippingStatus == '4' && paymentStatus == '4'">已退款，已退货</h2>
+          </div>
+          <h2 ng-if="paymentStatus == '2' && shippingStatus == '5' && shippingStatus == '6'">已完成</h2>
+
+          <!--<span ng-if="paymentStatus == 0">-->
+            <!--<span ng-if="orderStatus == 4">待月结</span>-->
+          <!--</span>-->
+          <!--<span ng-if="orderStatus == '0' && paymentStatus == '0'">待付款</span>-->
+          <span>月结订单</span>
+        </div>
+
+        <!--货到付款-->
+        <div ng-if="!order.isMonthly && order.orderStatus == '5'">
+          <!--未支付-->
+          <div ng-if="paymentStatus == '0'">
+            <h2 ng-if="shippingStatus == '0'">待付款，待发货</h2>
+            <h2 ng-if="shippingStatus == '1'">待付款，部分发货</h2>
+            <h2 ng-if="shippingStatus == '2'">待付款，已发货</h2>
+          </div>
+          <!--已支付-->
+          <div ng-if="paymentStatus == '2'">
+            <h2 ng-if="shippingStatus == '5' || shippingStatus == '6'">已付款，已收货</h2>
+            <h2 ng-if="shippingStatus == '3' && paymentStatus == '3'">部分退款，部分退货</h2>
+            <h2 ng-if="shippingStatus == '4' && paymentStatus == '4'">已退款，已退货</h2>
+          </div>
+          <!--<div ng-if="shippingStatus != '5' || shippingStatus != '6'">-->
+          <!--<h2>{{shippingStatusDesc}}</h2>-->
+          <!--</div>-->
+          <div ng-if="paymentStatus == '2' && shippingStatus == '5' || shippingStatus == '6'">
+            <h2>已完成</h2>
+          </div>
+          <span>货到付款</span>
+        </div>
+        <!--取消-->
+        <div ng-if="!order.isMonthly && !order.isExpire && order.orderStatus == '5' && order.orderStatus == '3'">
+          <h2>已取消，货到付款</h2>
+        </div>
+
+        <!--月结订单-->
+        <div ng-if="!order.isMonthly && order.orderStatus == '4'">
+          <div ng-if="paymentStatus == '0'">
+            <h2 ng-if="shippingStatus == '0'">待付款，待发货</h2>
+            <h2 ng-if="shippingStatus == '1'">待付款，部分发货</h2>
+            <h2 ng-if="shippingStatus == '2'">待付款，已发货</h2>
+            <h2 ng-if="shippingStatus == '5' || shippingStatus == '6'">待付款，已收货</h2>
+          </div>
+          <h2 ng-if="paymentStatus == '2' && shippingStatus == '5' && shippingStatus == '6'">已完成</h2>
+          <span>月结订单</span>
+        </div>
+
+        <h2 ng-if="isExpire">已过期</h2>
+
+        <!--普通订单,退款、物流状态-->
+        <div ng-if="!order.isMonthly && paymentStatus == '3' && orderStatus == '1'">
+          <!--<h2 ng-if="!isMonthly && paymentStatus == '2'">部分退货</h2>-->
+          <h2 ng-if="shippingStatus == '3'">部分退款，部分发货</h2>
+          <h2 ng-if="shippingStatus == '0'">部分退款，待发货</h2>
+          <h2 ng-if="shippingStatus == '5' || shippingStatus == '6'">部分退款，已收货</h2>
+          <h2 ng-if="shippingStatus == '1'">部分退款，部分发货</h2>
+          <h2 ng-if="shippingStatus == '2'">部分退款，待收货</h2>
+          <h2 ng-if="shippingStatus == '4'">部分退款，已退货</h2>
+        </div>
+
+        <div ng-if="!order.isMonthly &&paymentStatus == '4'">
+          <div ng-if="order.orderStatus == '1'">
+            <h2 ng-if="shippingStatus == '4'">已退款，已退货</h2>
+            <h2 ng-if="shippingStatus == '0'">已退款,未发货</h2>
+          </div>
+        </div>
+        <!--已支付-->
+        <div ng-if="!order.isMonthly && paymentStatus == '2'">
+          <h2 ng-if="shippingStatus == '1'">已支付，部分发货</h2>
+          <h2 ng-if="shippingStatus == '2'">已支付，待收货</h2>
+          <h2 ng-if="order.orderStatus == '1' && shippingStatus == '3'">已支付，部分退货</h2>
+          <h2 ng-if="order.orderStatus == '1' && shippingStatus == '0'">已支付，待发货</h2>
+          <h2 ng-if="shippingStatus == '5' || shippingStatus == '6'">已支付，待评价</h2>
+        </div>
+
+        <!--取消-->
+        <span ng-if="!order.isMonthly && !order.isExpire && order.orderStatus == 3">已取消</span>
+
+        <div ng-if="!order.isMonthly && order.isExpire && order.orderStatus != 5 && paymentStatus == '0'">
+          <p>订单将在{{::order.rtime.d}}天{{::order.rtime.h}}小时后</p>
+          <p>自动取消</p>
+        </div>
+      </div>
+    </div>
+    <div class="igap"></div>
+
+    <div class="wait-contact">
+      <div class="row consignee">
+        <span class="col">收货人：{{::order.consignee}}</span>
+        <span class="col">电话：{{::order.phone}}</span>
+      </div>
+      <div class="row address">
+        <span class="col">{{::order.areaName}}{{::order.address}}</span>
+      </div>
+    </div>
+    <div class="igap"></div>
+
+    <ul class="list">
+      <li class="item purchaseProductItem" ng-repeat="product in order.productList" ng-show="show($index, order)">
+        <a class = "productLink" ng-href="#/product/info/{{product.id}}">
+          <div class="purchaseProductItem">
+        <div class="productImg">
+          <div class="productImgBorder">
+            <img ng-src="{{product.image}}" class=""/>
+          </div>
+
+        </div>
+        <div class="productDesc">
+          <h2 class="productDesc-title">{{::product.name}}</h2>
+          <p class="productDesc-spec"><span ng-if="product.specificationName">{{::product.specificationName}}：{{::product.specificationValuesName}}</span></p>
+          <p class="productDesc-price color-positive">
+            <span class="">￥{{::product.price|number:2}}</span>
+          </p>
+        </div>
+        <div class="productNum">×{{::product.quantity}}</div>
+          </div>
+        </a>
+      </li>
+    </ul>
+    <div class="moreOrders" ng-if = "order.productList.length>2">
+      <ul class="list">
+        <li class="item" ng-click="expand(order)" ng-bind = "orderDetailToggle">查看全部</li>
+      </ul>
+    </div>
+
+    <ion-list>
+      <ion-item class="payment-list">
+        <div class="pay">
+          <h2>运费</h2>
+          <span>￥{{::order.freight|number:2}}</span>
+        </div>
+      </ion-item>
+      <ion-item class="payment-list">
+        <div class="pay">
+          <h2 ng-if="paymentStatus != 2">应付款（含运费）</h2>
+          <h2 ng-if="paymentStatus == 2">实付款（含运费）</h2>
+          <span>￥{{::order.amount|number:2}}</span>
+        </div>
+      </ion-item>
+    </ion-list>
+    <div class="igap"></div>
+    <ion-list ng-if="order.hasYcInquiry">
+      <ion-item class="payment-info">
+        <div class="wait-contact">
+          <div class="row consignee"><span>义齿类产品寄件地址:</span></div>
+          <div class="row">
+            <span class="col">收件人：齿研社</span>
+            <span class="col">电话：400-688-8469</span>
+          </div>
+          <div class="row address">
+            <span class="col">深圳市南山区南海大道1052号海翔广场3楼305室</span>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item class="payment-info">
+        <div>
+          <div class="li">订单编号：{{::order.sn}}</div>
+          <div class="li">创建日期：{{::order.createDate}}</div>
+          <div class="li">支付方式：{{::order.paymentMethodName}}</div>
+          <div class="li" ng-if="order.couponCode">优惠劵码：{{::order.couponCode}}</div>
+          <div class="li" ng-if="order.couponCode">优惠金额：{{::order.couponDiscount | currency: '￥'}}</div>
+          <div class="li" ng-if="order.promotion">
+            促销活动：{{::order.promotion}}
+          </div>
+          <div class="li" ng-if="order.promotion">优惠金额：{{::order.promotionDiscount | currency: '￥'}}</div>
+          <div class="li">配送方式：{{::order.shippingMethodName}}</div>
+          <div class="li memo">附言：{{::order.memo}}</div>
+        </div>
+      </ion-item>
+    </ion-list>
+    <!--<div class="igap"></div>-->
+    <ion-list ng-if = "isInvoice">
+      <ion-item class="invoice">
+        <h2>发票信息</h2>
+        <div class="li invoiceTitle">发票抬头：{{invoiceTitle}}</div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar class="orderDetail-footer">
+    <div class="row">
+      <div class="col col-20 button-QQ">
+        <a class="QQ" ng-click="linkHelp()"></a>
+        <p class="QQTxt" ng-click="linkHelp()">客服</p>
+      </div>
+      <div class="col-80 button-bar">
+        <button class="button" ng-click="buyAgain(order.id)">再次购买</button>
+        <!--<button class="button" ui-sref="orderDetail({sn: order.sn})">查看订单</button>-->
+        <button class="button" ng-if="shippingStatus == 1 || shippingStatus == 2 || order.orderStatus == 2" ui-sref="mylog({sn: order.sn})">我的物流</button>
+        <button class="button" ng-if="shippingStatus == 2" ng-click="confirmSingleOrder(order.sn,$index)">确认收货</button>
+        <button class="button" ng-if="!order.isExpire && !order.isMonthly && order.orderStatus != '4' && order.paymentStatus == '0' && order.orderStatus != '3'" ng-click="cancelSingleOrder(order.sn,$index)">取消订单</button>
+        <button class="button orderbuy" ng-if="order.orderStatus != 3 && order.orderStatus != 2 && paymentStatus == 0" ui-sref="orderPay({sn: order.sn})">立即付款</button>
+        <button class="button" ng-if="paymentStatus == 2 &&shippingStatus == 0">提醒发货</button>
+        <!--<button class="button" ng-if="shippingStatus == 5  && paymentStatus == 2 || paymentStatus == 1">立即评价</button>-->
+      </div>
+    </div>
+  </ion-footer-bar>
+</ion-view>

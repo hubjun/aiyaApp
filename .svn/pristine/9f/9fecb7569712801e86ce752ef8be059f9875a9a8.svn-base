@@ -1,0 +1,42 @@
+aiyaController.controller('orderDetailController', [
+  '$scope',
+  '$stateParams',
+  'orderService',
+  '$q',
+  function($scope, $stateParams, orderService, $q) {
+    var sn = $stateParams.sn;
+    orderService.get(sn)
+      .then(function (order) {
+        if($scope.$$destroyed) return $q.reject();
+        $scope.order = order;
+        //折叠展示商品
+        $scope.show = function ($index, order) {
+          return order.expanded || $index < 2;
+        };
+        $scope.showHandle = function (order) {
+          return !order.expanded
+        };
+        $scope.expand = function (order) {
+          order.expanded = true;
+        };
+
+        var setRemainTime = function () {
+          var expireTime = new Date(order.expire).getTime();
+          var remianTime = expireTime - new Date().getTime(),
+            dTime = remianTime / 1000 / (60 * 60 * 24),
+            d = Math.floor(dTime),
+            hTime = (dTime - d) * 24,
+            h = Math.floor(hTime);
+          order.rtime = {d: d, h: h};
+        };
+
+        if(order.paymentStatus == '0') {
+          setRemainTime();
+        }
+      })
+      .then(function (order) {
+        console.log('查询物流');
+        //查询物流
+      })
+  }
+]);

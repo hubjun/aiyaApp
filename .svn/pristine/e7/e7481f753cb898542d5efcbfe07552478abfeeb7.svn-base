@@ -1,0 +1,314 @@
+.home-page{
+  .bar-aiyaku{
+    .bar-header-left{
+      margin: 0 9px 0 0;
+      font-size: 25px;
+    }
+    .bar-header-right{
+      margin: 0 0 0 10px;
+      font-size: 25px;
+    }
+  }
+  .item-input-wrapper{
+    background: #fff;
+    border: 1px solid #dcdcdc;
+    input{
+      width: 100%;
+      height: 28px;
+    }
+  }
+  .has-badge{
+    position: relative;
+    .badge-aiyaku{
+      width: 20px;
+      height: 18px;
+      position: absolute;
+      top: 0;
+      right: -3px;
+      color: #fff;
+      font-size: 10px;
+      line-height: 12px;
+      padding: 2px 3px 3px;
+      background: #920019;
+    }
+  }
+
+  /*home-slide*/
+  .home-slide{
+    ion-slide{
+      text-align: center;
+      //height: 150px;
+      width: 100%;
+      img{
+        height: 7.5rem;
+        width: 16rem;
+      }
+    }
+    .slider-pager{
+      bottom: rem(18);
+      .slider-pager-page{
+        font-size: 8px;
+      }
+    }
+  }
+
+  /*home-recompro-detailmend*/
+  .first-recommend{
+    padding: rem(10) 0 0 0;
+    .head-recommend{
+      .row{
+        padding: 5px 0;
+      }
+      border-bottom: 1px solid #dedede;
+      .title-recom{
+        h2{
+          margin: 0;
+          color: #FF5F0F;
+          font-size: 16px;
+        }
+      }
+      .recom-more{
+        text-align: right;
+        span{
+          text-align: right;
+          font-size: 16px;
+          color: #555;
+          a{
+            color: #555;
+            font-size: 16px;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+    .recomm-list{
+      width: 4.9rem;
+      height: 8.6rem;
+      border: 1px solid #D4D4D4;
+      overflow: hidden;
+      .recommend-item{
+        .imgbox {
+          height: 4.9rem;
+          img {
+            width: 100%;
+            height: 4.9rem;
+          }
+        }
+      }
+    }
+    .pro-detail{
+      padding: 7px 0;
+      text-align: left;
+      color: #252525;
+      p.pro-name{
+        padding: 0 2px;
+        margin: 0 0 3px 0;
+        font-size: rem(26);
+        height:rem(80);
+      }
+      .pro-price{
+        height:rem(30);
+        overflow: hidden;
+        .discount-pri{
+          color: #FF4901;
+          font-size: rem(22);
+          line-height:rem(30);
+        }
+        .fact-pri{
+          color: #555555;
+          font-size: rem(22);
+          text-decoration: line-through;
+          line-height:rem(30);
+        }
+      }
+    }
+
+  }
+
+  .floor-head{
+    padding: 0 10px;
+    .row-line{
+      border-bottom: 1px solid #dedede;
+      padding-left: 0;
+      .col{
+        padding: 0;
+      }
+      .img-icon{
+        span{
+          width: 46px;
+          height: 26px;
+          display: inline-block;
+        }
+        h3{
+          color: #252525;
+          margin: 0;
+          display: inline-block;
+          font-size: 16px;
+          vertical-align: super;
+        }
+      }
+      .head1{
+        span{
+          background: url(../img/fl1.png) no-repeat;
+        }
+      }
+      .head2{
+        span{
+          background: url(../img/fl2.png) no-repeat;
+        }
+      }
+      .head3{
+        span{
+          background: url(../img/fl3.png) no-repeat;
+        }
+      }
+      .head4{
+        span{
+          background: url(../img/fl4.png) no-repeat;
+        }
+      }
+      .head5{
+        span{
+          background: url(../img/fl5.png) no-repeat;
+        }
+      }
+      .head6{
+        span{
+          background: url(../img/fl6.png) no-repeat;
+        }
+      }
+      .head7{
+        span{
+          background: url(../img/fl7.png) no-repeat;
+        }
+      }
+      .head8{
+        span{
+          background: url(../img/fl8.png) no-repeat;
+        }
+      }
+      .fl-more{
+        text-align: right;
+        span{
+          color: #484848;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  .floor-ad{
+    padding: 0 10px;
+    .row{
+      padding: 5px 0;
+    }
+    .fl-slide{
+      ion-slide{
+        width: 100%;
+        height: 170px;
+        img{
+          width: 100%;
+          height: 170px;
+        }
+      }
+      .slider-pager{
+        bottom: 5px;
+      }
+    }
+    .ad-con{
+      width: 100%;
+      border: 1px solid #dedede;
+      border-bottom: 0 none;
+      .fl-img{
+        height: 84px;
+        padding-top:12px;
+        img{
+          width: 100%;
+          height: 60px;
+        }
+        text-align: center;
+        border-bottom: 1px solid #dedede;
+      }
+    }
+  }
+
+  .pro-list{
+    float:left;
+    padding: 10px 3px;
+    .list-con{
+      border: 1px solid #dedede;
+      .pro-item{
+        width: 100%;
+        height: 7.45rem;
+        img{
+          width: 100%;
+          height: 7.45rem;
+        }
+      }
+      .list-detail{
+        padding: 7px 3px 3px;
+        p.pro-name{
+          height: 34px;
+          color: #252525;
+          font-size: 14px;
+          line-height: 17px;
+          margin: 0 0 3px;
+        }
+        .list-price{
+          .dis-pri{
+            color: #FF5F0F;
+            font-size: 15px;
+          }
+          .fact-pri{
+            color: #484848;
+            font-size: 14px;
+            text-decoration: line-through;
+          }
+        }
+      }
+    }
+  }
+
+  .search-tips{
+    padding: 20px 12px;
+    h2{
+      color: #FF5F0F;
+      font-size: 16px;
+      font-weight: 800;
+      text-align: left;
+      margin: 0;
+    }
+    .item-list{
+      .list{
+        .item{
+          max-width: 350px;
+          color: #252525;
+          display: inline-block;
+          padding: 10px 16px;
+          margin: 10px 12px 0 0;
+          font-size: 0.65rem;
+          -webkit-border-radius: 4px;
+          -moz-border-radius: 4px;
+          border-radius: 4px;
+        }
+        .keywordActive{
+          color:#FF5F0F;
+        }
+      }
+    }
+  }
+  .search-list{
+    .list{
+      .item{
+        color: #484848;
+        font-size: 15px;
+      }
+    }
+  }
+
+  .bar-footer {
+    height: 50px;
+    border: none;
+    padding: 0;
+  }
+}

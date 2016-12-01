@@ -1,0 +1,58 @@
+{
+  "code": 1,
+  "msg": "成功",
+  "data":{
+    "list": [
+      {
+        "floor":"1F",
+        "productCategoryId":1,
+        "productCategoryName":"口腔其他产品",
+        "productCategoryList":[
+          {
+            "id":1,
+            "name":"器械保养类"
+          }
+        ],
+        "brandList":[
+          {
+            "id":1,
+            "name":"贺利氏",
+            "logo":"/upload/image/default_thumbnail.jpg",
+            "url":""
+          }
+        ],
+        "adPositionList":[
+          {
+            "id":1,
+            "path":"/upload/image/201512/10033b09-b150-41dc-95f9-536b809b27cc.png",
+            "url":"http://www.51kanya.com/product/content/201506/919.html"
+          }
+        ],
+        "productList":[
+          {
+            "id":332,
+            "sn":"201504013232",
+            "name":"测试商品",
+            "fullName":"柳苑吸潮纸尖1[0.02/15#]",
+            "isSectionPrice":true,
+            "price":"19.00",
+            "price1":"15.00",
+            "quantity1":50,
+            "price2":"10.00",
+            "quantity2":100,
+            "cost":"30.00",
+            "marketPrice":"50.00",
+            "image":"/upload/image/201506/57c5a94d-f6fd-4389-9e11-1434be6cd712-medium.jpg",
+            "unit":"盒",
+            "isMarketable":true,
+            "isList":true,
+            "isTop":true,
+            "stock":1000,
+            "isYcInquiry":false,
+            "isHot":true
+          }
+        ]
+      }
+    ]
+  }
+}

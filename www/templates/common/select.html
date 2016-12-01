@@ -1,0 +1,18 @@
+<ion-modal-view ng-controller="commonSelectController">
+    <ion-header-bar  class="cdfg-common-title"  align-title="center">
+      <button ng-click="prevStep()" class="button button-clear title-back-button">
+        <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+      </button>
+      <span class="title" ng-bind="title"></span>
+    </ion-header-bar>
+     <ion-content scrollbar-y="false" class="cdfg-background">
+        <div class="list cdfg-divder-big">
+             <div bindonce="" class="item item-icon-right cdfg-border-none cdfg-list-divder" ng-repeat="sd in selectData"  ng-click="selectItem(sd)">
+                    <!--选项-->
+                    <p>{{::sd.name}}</p>
+                    <!--选中红色对勾-->
+                    <i ng-if="data.id == sd.id" class="icon ion-ios-checkmark-empty assertive"></i>
+                </div>
+          </div>
+     </ion-content>
+</ion-modal-view>

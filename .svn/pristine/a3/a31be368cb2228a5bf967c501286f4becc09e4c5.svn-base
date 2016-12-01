@@ -1,0 +1,736 @@
+var aiyaController = angular.module('starter.controllers', []);
+
+aiyaController.controller('FindAssistant',['$scope','$location','$ionicLoading','StringUtil','$cordovaCamera','$ionicActionSheet',function($scope,$location,$ionicLoading,StringUtil,$cordovaCamera,$ionicActionSheet){
+  $scope.$on('$ionicView.enter',function(){
+    //判断是否登录
+  });
+  var productList = [{
+    'productImage':'',
+    'productName':'',
+    'forBrand':'',
+    'category':'',
+    'purchaseNumber':''
+  }];
+  $scope.name = ''; //联系人姓名
+  $scope.phone = '';//联系人电话
+  $scope.hospitalName = ''//联系人医院地址
+  $scope.productList = productList;
+  /*新增*/
+  $scope.addProduct = function(){
+    var item =  {
+      'productImage':'',
+      'productName':'',
+      'forBrand':'',
+      'category':'',
+      'purchaseNumber':''
+    };
+    $scope.productList.push(item);
+  }
+  $scope.cutProduct = function(){
+    if($scope.productList.length > 1){
+      $scope.productList.splice($scope.productList.length-1,1);
+    }
+  }
+  $scope.next = function(){
+    var isPass = true;
+    var msg = '';
+    for(var i = 0; i< $scope.productList.length; i++){
+       var item = $scope.productList[i];
+       if(StringUtil.isEmpty(item.productName)){
+          msg = '请输入产品名称';
+          isPass = false;
+          break;
+       }
+      if(StringUtil.isEmpty(item.forBrand)){
+        msg = '请输入品牌名称'
+        isPass = false;
+        break;
+      }
+      if(StringUtil.isEmpty(item.category)){
+        msg = '请输入规格'
+        isPass = false;
+        break;
+      }
+      if(StringUtil.isEmpty(item.purchaseNumber)){
+        msg = '请输入数量'
+        isPass = false;
+        break;
+      }
+    }
+    if(isPass) {
+      $location.path('/tab/assistant/confirm');
+    } else {
+      $ionicLoading.show({template:msg,noBackdrop:true,duration:2000});
+    }
+  }
+  $scope.takePhoto = function(index){
+    var options = {};
+    var optionWindow =  $ionicActionSheet.show({
+      buttons: [
+        {text:'拍照'},
+        {text:'从相册选择'}
+      ],
+      titleText:'选择照片',
+      cancelText:'取消',
+      cancel: function(){
+
+      },
+      buttonClicked: function(order) {
+        optionWindow();//再次触发隐藏
+        if(order == 0){
+            options = {
+              destinationType: Camera.DestinationType.FILE_URI,
+              sourceType: Camera.PictureSourceType.CAMERA       //图片来源  0|1 : 相机  2:图册
+            }
+        }else if(order == 1){
+          options = {
+            quality: 100,     //图片质量 0-100
+            allowEdit: false,                                        //在选择之前允许修改截图
+            maximumImagesCount: 1,
+            mediaType:0,   //可选媒体类型：圖片=0，只允许选择图片將返回指定DestinationType的参数。 視頻格式=1，允许选择视频，最终返回 FILE_URI。ALLMEDIA= 2，允许所有媒体类型的选择。
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM
+          }
+        }
+        $cordovaCamera.getPicture(options).then(function(imageURI) {
+           $scope.productList[index].productImage = imageURI;
+        }, function(err) {
+        });
+      }
+    });
+  }
+
+  $scope.confirmPulish = function(){
+    var resposebody = {name: $scope.name,hospitalName: $scope.hospitalName,phone:$scope.phone,productList:$scope.productList};
+    notepad.save(resposebody,function(rs){
+      if(rs.code == 1){
+        $ionicLoading.show({template:'发布成功,我们会在一小时内给您报价',noBackdrop:true,duration:2000});
+      }
+    });
+  };
+
+
+}]);
+
+aiyaController.controller('assistantConfirm',['$scope','$ionicHistory',function($scope,$ionicHistory){
+  $scope.confirmPulish = function(){
+
+  }
+}]);
+
+aiyaController.controller('BrandCtrl',['$scope','$ionicPopover','brand','$ionicHistory',function($scope,$ionicPopover,brand,$ionicHistory){
+  var searchParam = {
+    keyword: '',
+    makeType: ''
+  };
+  $scope.tabShow = 'ALL';
+  $scope.brands = brand.search(searchParam);
+
+  $scope.changeTab=function(val){
+    $scope.tabShow = val;
+    //数据请求
+    if(val == 'ALL'){
+      searchParam.makeType = '';
+    }else if(val == 'IMPORT'){
+      searchParam.makeType = false;
+    }else if(val == 'HOME'){
+      searchParam.makeType = true;
+    }
+    $scope.brands = brand.search(searchParam);
+  }
+
+  //下拉更新
+  $scope.doRefresh=function(){
+    brand.search(searchParam);
+    $scope.$broadcast('scroll.refreshComplete');
+  }
+  //上拉更新
+  $scope.loadMore=function(){
+    console.log('加载更多数据');
+    $scope.$broadcast('scroll.infiniteScrollComplete');
+  }
+  $ionicPopover.fromTemplateUrl("ez-popover.html", {
+      scope: $scope
+    })
+ /*   .cssClass(function(){
+      $scope.background=red;
+    })*/
+    .then(function(popover){
+      $scope.popover = popover;
+    })
+  $scope.openPopover = function($event) {
+    $scope.popover.show($event);
+  };
+  $scope.closePopover = function() {
+    $scope.popover.hide();
+  };
+  //销毁事件回调处理：清理popover对象
+  $scope.$on("$destroy", function() {
+    $scope.popover.remove();
+  });
+  // 隐藏事件回调处理
+  $scope.$on("popover.hidden", function() {
+    // Execute action
+  });
+  //删除事件回调处理
+  $scope.$on("popover.removed", function() {
+    // Execute action
+  });
+}]);
+
+aiyaController.controller('FavoriteCtrl',['$scope','$ionicHistory','favorite',function($scope,$ionicHistory,favorite){
+  $scope.back = function(){
+    $ionicHistory.goBack();
+  }
+  favorite.favoriteProductList().success(function(data){
+    if(data.code == 0){
+      alert(data.msg);
+    }
+    $scope.products = data.data.list;
+  });
+
+
+  $scope.remove = function(pro){
+    favorite.remove(pro.id).success(function(data){
+      alert(data.msg);
+    });
+    //$scope.products.splice($scope.products.indexOf(pro), 1);
+  }
+  $scope.removeAll = function(){
+    favorite.removeAll().success(function(data){
+      alert(data.msg);
+    });
+  }
+}]);
+
+aiyaController.controller('filterListCtrl', ['$scope','$ionicLoading','$q','$timeout','filterProList', function($scope,$ionicLoading,$q,$timeout,filterProList){
+
+  $scope.toggleDisplay = true;
+  $scope.isColumnHide = false;
+  $scope.isRowlistHide = true;
+
+  $scope.moreData = true;
+  $scope.obj_datalist = new Array();
+  $scope.paging_parameter = {
+      keyValue: '',
+      salesDesc: '',
+      dateDesc: '',
+      priceOrder: '',
+      pageNumber: 0,
+      pageSize: 5
+  };
+
+  $scope.toggleList = function(){
+    if($scope.isRowlistHide == true){
+        $scope.isRowlistHide = false;
+        $scope.isColumnHide = true;
+
+        $scope.toggleDisplay = false;
+    }else{
+        $scope.isRowlistHide = true;
+        $scope.isColumnHide = false;
+
+        $scope.toggleDisplay = true;
+    }
+  }
+
+  //$scope.sortBy = function(val){
+  //    if(val == 'sales'){
+  //        return paging_parameter.salesDesc = true;
+  //    }else if(val == 'newproduct'){
+  //        return paging_parameter.dateDesc = true;
+  //    }else if(val = 'pri'){
+  //        paging_parameter.priceOrder = asc;
+  //    }
+  //    data(param);
+  //};
+
+  var data = function(){
+    filterProList.filterProList().get($scope.paging_parameter, function(rs){
+
+      if(rs.code === 1){
+        if(rs.data.list.length > 0){
+          $.each(rs.data.list, function(i, item){
+            $scope.obj_datalist.push(item);
+          })
+        }else{
+          $scope.moreData = false;
+        }
+      }else {
+        $ionicLoading.show({
+          template: rs.msg,
+          noBackdrop: true,
+          duration: 2000
+        });
+      }
+    });
+  };
+
+  //下拉刷新
+  $scope.doFilterFresh = function(){
+      data();
+      $scope.$broadcast("scroll.refreshComplete");
+  }
+
+  //上拉刷新
+  $scope.loadMoreList = function(){
+      //debugger
+      $ionicLoading.show({
+        template: "加载中...",
+        duration: 300
+      });
+
+      $scope.paging_parameter.pageNumber++;
+      //var message = JSON.stringify($scope.paging_parameter);
+      data();
+
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+      $timeout(function(){
+        $ionicLoading.hide();
+      },1500);
+
+      /*promise.then(
+          function(rs){
+            debugger
+              if(rs != null){
+                  $.each(rs, function(i, item){
+                      $scope.obj_datalist.push(item);
+                  })
+                  console.log($scope.obj_datalist);
+              }else{
+                  $scope.moreData = true;
+              }
+          },
+          function (reason) {
+              console.log("抱歉,请求数据失败！");
+          }
+      ).finally(function(){
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+          $timeout(function(){
+            $ionicLoading.hide();
+          },2000);
+      });*/
+
+
+  };
+
+}]);
+
+/*采用这种注入编译后期js压缩*/
+aiyaController.controller('HomeCtrl',['$rootScope','$scope','$state','index','ENV','$ionicLoading','$location','$ionicActionSheet','$window',function($rootScope,$scope,$state,index,ENV,$ionicLoading,$location,$ionicActionSheet,$window){
+
+  var loadData = function(){
+    index.recommedproductlist().get(null,function(rs){
+      if(rs.code == 1){
+        $scope.recommedproductlist = rs.data.list;
+      } else {
+        $ionicLoading.show({template:rs.msg,noBackdrop:true,duration:2000});
+      }
+    }, function(err){
+      console.log('有错误');
+    });
+
+    index.floorproductlist().get(null,function(rs){
+      if(rs.code == 1){
+        $scope.floorproductlist = rs.data.list;
+      } else {
+        $ionicLoading.show({template:rs.msg,noBackdrop:true,duration:2000});
+      }
+    },function(err){
+      console.log('有错误');
+    });
+  }
+  loadData();
+
+  $rootScope.imgUrl = ENV.imgUrl;
+
+  //$scope.purchaseCounts = index.purchaseCount();
+  index.purchaseCount().get(function(rs){
+    if(rs.code === 1 ){
+        $scope.purchaseCounts = rs.data;
+        //alert($scope.purchaseCounts.quantity);
+    }
+  });
+
+  $scope.setFloorHeadStyle = function(floor){
+    var floorStyle = '';
+    switch (floor){
+      case '1F':
+        floorStyle = 'head1';
+        break;
+      case '2F':
+        floorStyle = 'head2';
+        break;
+      case '3F':
+        floorStyle = 'head3';
+        break;
+      case '4F':
+        floorStyle = 'head4';
+        break;
+      case '5F':
+        floorStyle = 'head5';
+        break;
+      case '6F':
+        floorStyle = 'head6';
+        break;
+      case '7F':
+        floorStyle = 'head7';
+        break;
+      case '8':
+        floorStyle = 'head8';
+        break;
+      default :
+        floorStyle = 'head1';
+    }
+    return floorStyle;
+  }
+
+  $scope.doHomeRresh = function(){
+    loadData();
+    $scope.$broadcast("scroll.refreshComplete");
+  };
+
+  $rootScope.toProductInfo = function(id){
+    $location.path('/product/info/' + id);
+  };
+
+  //搜索跳转
+  $scope.jumpSearchPage = function(){
+    $state.go('homeSearch');
+  };
+
+  /*监听路由判断网路状态*/
+  $rootScope.$on('$stateChangeStart',function(event){
+    if (navigator.connection) {
+      var networdType = navigator.connection.type;
+      if (networdType.toUpperCase().indexOf('NONE') > -1 || networdType.toUpperCase().indexOf('UNKNOWN') > -1) {
+        event.preventdefault();
+        var oldUrl = $location.url();
+        $location.url('/network');
+        $location.replace();
+      }
+    }
+  });
+
+  $scope.linkHelp = function(){
+    $ionicActionSheet.show({
+      buttons: [
+        { text: '拨打耗材客服电话' },
+        { text: '拨打义齿加工客服电话' },
+        { text: '耗材在线咨询' },
+        { text: '义齿加工在线咨询' }
+      ],
+      titleText: '服务电话<br/>周一至周六09:00-18:00(法定节假日除外)',
+      cancelText: '取消',
+      cancel: function() {
+        // add cancel code..
+      },
+      buttonClicked: function(index) {
+        switch(index){
+          case 0:
+              $window.location.href="tel://"+ENV.consumableTel;
+              break;
+          case 1:
+              $window.location.href="tel://"+ENV.toothTel;
+              break;
+          case 2:
+              break;
+          case 3:
+              break;
+        }
+        return true;
+      }
+    });
+  }
+}]);
+
+//aiyaController.controller('HomeSearchCtrl', ['$scope','$timeout','homeSearch', function($scope, $timeout, homeSearch){
+//    var timeout;
+//
+//    $scope.homeHotKeyworld = homeSearch.homeHotKeyworld();
+//
+//    $scope.watch('keyworld', function(newVal,oldVal){
+//      debugger
+//        if(timeout){
+//            $timeout.cancel(timeout);
+//        }
+//        //console.log(newVal);
+//        console.log('keyworld:' + $scope.keyword);
+//
+//        timeout = $timeout(function(keyworld){
+//            homeSearch.keyList(keyworld)
+//              .success(function(data,msg){
+//                  if(msg.code === 1){
+//                      $scope.dataList = data.list;
+//                  }
+//              });
+//        }, 800);
+//    });
+//
+//    $scope.doHomeSearchRefresh = function(){
+//      homeSearch.homeHotKeyworld();
+//      $scope.$broadcast('scroll.refreshComplete');
+//    };
+//}]);
+aiyaController.controller('HomeSearchCtrl', ['$scope','homeSearch','$timeout',function($scope, homeSearch,$timeout){
+
+  var timeout;
+  $scope.keyword = '';
+  //$scope.homeHotKeyworld = homeSearch.homeHotKeyworld();
+
+  homeSearch.homeHotKeyworld().get(null, function(rs){
+      if(rs.code === 1){
+          $scope.homeHotKeyworld = rs.data.list;
+      }else{
+          $ionicLoading.show({
+              template: rs.msg,
+              duration: 1500
+          });
+      }
+  });
+
+  $scope.$watch('keyword', function(newVal,oldVal){
+    //console.log('newVal'+ newVal + '  oldVal:'+oldVal);
+
+    if($scope.keyword){
+      if(timeout){
+        $timeout.cancel(timeout);
+      }
+      //alert('no timeout');
+      timeout = $timeout(function(){
+        homeSearch.keyList().get({keyword:$scope.keyword, pageNumber:1, pageSize:10}, function(rs){
+          if(rs.code == 1){
+            $scope.dataList = rs.data.list;
+          }else{
+            $ionicLoading.show({
+              template: rs.msg,
+              duration: 1500
+            });
+          }
+        });
+      }, 300);
+    }
+
+  });
+
+  $scope.doHomeSearchRefresh = function(){
+    homeSearch.homeHotKeyworld();
+    $scope.$broadcast('scroll.refreshComplete');
+  };
+
+}]);
+
+aiyaController.controller('moreMRCtrl',['$scope','moreMR','ENV',function($scope,moreMR,ENV){
+
+    $scope.imgurl = ENV.imgUrl;
+
+    $scope.recommendMoreList = moreMR.recommendMoreList();
+}]);
+
+aiyaController.controller('mylog',function($scope,$ionicHistory){
+  $scope.back = function(){
+    $ionicHistory.goBack();
+  }
+
+});
+
+aiyaController.controller('networkCtrl',['$scope','$stateParams',function($scope,$stateParams){
+
+}])
+
+aiyaController.controller('orderList',function($scope,$ionicHistory){
+  $scope.back = function(){
+    $ionicHistory.goBack();
+  }
+  $scope.items = [];
+  for(var i=0;i<5000;i++)
+    $scope.items.push(["item",i+1].join(""));
+
+});
+aiyaController.controller('orderDel',function($scope,$ionicHistory){
+  $scope.back = function(){
+    $ionicHistory.goBack();
+  }
+  $scope.items = [];
+  for(var i=0;i<5000;i++)
+    $scope.items.push(["item",i+1].join(""));
+
+});
+aiyaController.controller('orderEdit',function($scope,$ionicHistory){
+  $scope.back = function(){
+    $ionicHistory.goBack();
+  }
+  $scope.items = [];
+  for(var i=0;i<5000;i++)
+    $scope.items.push(["item",i+1].join(""));
+
+});
+aiyaController.controller('rapidList',function($scope,$ionicHistory){
+  $scope.back = function(){
+    $ionicHistory.goBack();
+  }
+  $scope.items = [];
+  for(var i=0;i<5000;i++)
+    $scope.items.push(["item",i+1].join(""));
+
+});
+
+aiyaController.controller('proCateCtrl', ['$scope','$ionicLoading','$state','$ionicSlideBoxDelegate','categoryList', function($scope,$ionicLoading,$state,$ionicSlideBoxDelegate,categoryList){
+    //页面激活时
+    $scope.$on('$ionicView.enter', function(){
+        getNavCategory();
+    });
+    $scope.secondID = null;
+    $scope.obj_imgList = null;
+    $scope.obj_thirdList = new Array();
+
+    //一级分类菜单列表
+    function getNavCategory(){
+        categoryList.navCategory().get('null', function(rs){
+            if(rs.code ===1){
+                $scope.obj_navCategory = rs.data.list;
+                if(rs.data.list.length > 0){
+                  $scope.getSecondCategory(rs.data.list[0].id);
+                }
+            }else{
+                $ionicLoading.show({
+                    template: rs.msg
+                });
+            }
+        })
+        //$scope.CategoryList = CategoryList.navCategory();
+    };
+
+    //二级类别列表
+    $scope.getSecondCategory = function(typeNum){
+        console.log('一级id,'+typeNum);
+        categoryList.imgSecondCategory().get({id: typeNum}, function(rs){
+            if(rs.code === 1){
+                $scope.obj_imgList = rs.data.list;
+              console.log($scope.obj_imgList.length);
+            }else{
+                $ionicLoading.show({
+                    template: rs.msg,
+                    duration: 1500
+                });
+            }
+        })
+        //$scope.modelss = null;
+        $scope.$watchCollection('obj_imgList ', function () {
+          $ionicSlideBoxDelegate.update();
+        })
+        //$scope.$watch('modelss', function(){
+        //    $scope.modelss = $scope.obj_imgList[0];
+        //})
+
+        categoryList.secondCategoryName().get({id: typeNum}, function(rs){
+            if(rs.code === 1){
+                $scope.obj_sencondCategoryName = rs.data.list;
+                //debugger
+                for(var i = 0;i < rs.data.list.length;i++){
+                  getThirdCategory(i,rs.data.list[i].id);
+                }
+            }else{
+              $ionicLoading.show({
+                  template: rs.msg,
+                  duration: 1500
+              });
+            }
+        })
+
+        //console.log('二级id,'+$scope.secondID);
+    };
+
+    var getThirdCategory = function(index,id){
+      categoryList.thirdCategoryList().get({id:id}, function(rs){
+        if(rs.code === 1){
+          //debugger
+          $scope.obj_thirdList[index] = rs.data.list;
+        }else{
+          $ionicLoading.show({
+            template: rs.msg,
+            duration: 1500
+          });
+        }
+      });
+    };
+
+    $scope.selectTab = function(e,id){
+        e.target.className = 'li button button-clear category-select';
+        $(e.target).siblings().removeClass().addClass('li button button-clear tab-onblur');
+        $scope.getSecondCategory(id);
+    };
+
+    //搜索跳转
+    $scope.jumpSearchPage = function(){
+      $state.go('homeSearch');
+    };
+}]);
+
+aiyaController.controller('productInfoCtrl',['$scope','$stateParams','$ionicModal','productInfo','index','$ionicLoading',function($scope,$stateParams,$ionicModal,productInfo,index,$ionicLoading){
+  console.log($stateParams.id);
+
+  $scope.quantity = 1;//购买数量默认为1
+  $scope.addQuantity = function(){
+    $scope.quantity ++;
+  }
+  $scope.cutQuantity = function(){
+    $scope.quantity --;
+    if($scope.quantity < 1 ){
+      $scope.quantity = 1;
+      return;
+    }
+  }
+  /*加载商品详情*/
+  productInfo.get({id:$stateParams.id},function(rs){
+    if(rs.code === 1){
+      $scope.productInfo = rs.data.product.productInfo;//商品详情
+      $scope.reviewCount = rs.data.product.reviewCount;//评价个数
+      $scope.promotions =  rs.data.product.promotions;//促销活动
+      $scope.seoDescription = rs.data.product.seoDescription;//商品详情
+      $scope.specification = rs.data.product.specification;//商品规格详细信息
+    }
+  },function(err){
+    console.log(err.msg);
+  });
+  /*猜您喜欢*/
+  index.getrecommendproductc().get(function(rs){
+    if(rs.code === 1){
+      $scope.getrecommendproductc = rs.data.list;
+    }
+  },function(err){
+    console.log(err.msg);
+  });
+  /*收藏*/
+  $scope.collectProduct = function(){
+    $ionicLoading.show({template:'收藏成功',noBackdrop:true,duration:2000});
+  }
+  $scope.openSpecificationModal = function($event){
+    $ionicModal.fromTemplateUrl('specificationModal.html', {
+      scope: $scope,
+      animation:  'silde-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+      $scope.modal.show();
+    });
+  };
+
+  $scope.closeSpecificationModal = function() {
+    $scope.modal.remove();
+  }
+  // 清除
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+
+}]);
+
+aiyaController.controller('ToothOpCtrl',['$scope','$ionicHistory',function($scope,$ionicHistory){
+
+}]);
+
+aiyaController.controller('UserCtrl',['$scope','$ionicHistory','$window','ENV',function($scope,$ionicHistory,$window,ENV){
+  $scope.onLogin = function(){
+    $window.location.href = ENV.loginUrl;
+  }
+}])

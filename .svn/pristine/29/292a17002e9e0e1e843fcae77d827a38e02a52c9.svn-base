@@ -1,0 +1,118 @@
+aiyaController.controller('resetPwdController', [
+  '$scope',
+  '$state',
+  '$ionicLoading',
+  'userService',
+  'StringUtil',
+  'authCodeService',
+  'CommonUtil',
+  '$interval',
+  function($scope, $state, $ionicLoading, userService,StringUtil, authCodeService,CommonUtil,$interval) {
+    var userList = [{
+      'mobile': '',
+      'authCode': '',
+      'password':''
+    }];
+    $scope.userList = userList;
+    var tip = function (msg) {
+      $ionicLoading.show({
+        template: msg,
+        noBackdrop: true,
+        duration: 1500
+      });
+    };
+    var reg=/^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/;
+
+    $scope.submit = function () {
+      var isPass = true;
+      var msg = '';
+      for (var i = 0; i < $scope.userList.length; i++) {
+        var item = $scope.userList[i];
+        if (StringUtil.isEmpty(item.mobile)) {
+          msg = '请输入您的手机号码';
+          isPass = false;
+          break;
+        }
+        if(!reg.test(item.mobile)){
+          msg = '请输入有效的手机号码！';
+          isPass = false;
+          break;
+        }
+        if (StringUtil.isEmpty(item.authCode)) {
+          msg = '请输入短信验证码';
+          isPass = false;
+          break;
+        }
+        if(StringUtil.isEmpty(item.password)){
+          msg = '请输入新密码';
+          isPass = false;
+          break;
+        }
+        if(item.password.length<6 || item.password.length>20){
+          msg = '请输入6-20字的字符';
+          isPass = false;
+          break;
+        }
+      }
+      if (isPass) {
+        var opt = {
+          username: item.mobile,
+          password: item.password,
+          captchacode: item.authCode
+        };
+        userService.resetPwd(opt)
+          .then(function () {
+            tip('密码重置成功，即将返回');
+            setTimeout(function () {
+              $scope.back();
+            }, 1000);
+          }, function (errorMsg) {
+            tip(errorMsg);
+          })
+      } else {
+        $ionicLoading.show({template: msg, noBackdrop: true, duration: 2000});
+      }
+    };
+
+    var InterValObj; //timer变量，控制时间
+    var count = 60; //间隔函数，1秒执行
+    var curCount;//当前剩余秒数
+
+     $scope.sendMessage=function(){
+      var mobile = $scope.userList[0].mobile;
+      if (mobile) {
+        if(reg.test(mobile)){
+          authCodeService.get(mobile, 2)
+            .then(function () {
+              curCount = count;
+              //设置button效果，开始计时
+              $("#codeBtn").attr("disabled", "true");
+              $("#codeBtn").val(curCount + "秒后可重发");
+              InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+            },function(errorMsg){
+              CommonUtil.tip(errorMsg);
+            });
+        }else{
+          CommonUtil.tip('请输入有效的手机号码！');
+        }
+      }else {
+        CommonUtil.tip('请输入手机号码！');
+      }
+
+      //向后台发送处理数据
+
+    };
+
+    //timer处理函数
+    function SetRemainTime(){
+      if (curCount == 0) {
+        window.clearInterval(InterValObj);//停止计时器
+        $("#codeBtn").removeAttr("disabled");//启用按钮
+        $("#codeBtn").val("重新发送验证码");
+      }
+      else {
+        curCount--;
+        $("#codeBtn").val(curCount + "秒后可重发");
+      }
+    }
+  }]);

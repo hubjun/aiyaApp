@@ -1,0 +1,79 @@
+<ion-view view-title="个人信息" hide-nav-bar="true" cache-view="false">
+  <!-- header-bar -->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear"></i>
+    </button>
+    <div class="title">个人信息</div>
+    <div class="buttons buttons-right">
+      <span class="right-buttons">
+        <button class="button button-dark button-clear ion-ios-more icon-right" nav-button></button>
+      </span>
+    </div>
+  </div>
+  <form id= "uploadForm" style="display: none">
+    <!--<input type="file" id="browseFile" name="image" onchange="doUpload()" accept="image/*"/>-->
+    <input type="file" id="browseFile" name="image" onchange="doUpload()"/>
+    <input type="hidden" name="token" value="{{token}}"/>
+  </form>
+  <ion-content class="has-header" scrollbar-y="false">
+   <ion-list>
+     <ion-item class="item-icon-right" ng-click="linkHasPhoto()">
+       <h2 class="headPortrait">
+         头像
+         <span class="right-tip item-note userImg">
+           <img ng-if="user.isHasPhoto" ng-src="{{imgUrl + user.photo}}" alt="">
+           <img ng-if="!user.isHasPhoto" src="./img/myaiyaku/tou_icon.png">
+         </span>
+       </h2>
+       <i class="icon ion-chevron-right icon-accessory"></i>
+     </ion-item>
+     <ion-item class="item-icon-right">
+       <h2>用户名
+         <span class="right-tip item-note">{{user.username}}</span>
+       </h2>
+       <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
+     </ion-item>
+     <ion-item class="item-icon-right" ng-click="linkGender()">
+       <h2>性别
+         <span class="right-tip item-note">{{user.genderDesc}}</span>
+       </h2>
+       <i class="icon ion-chevron-right icon-accessory"></i>
+     </ion-item>
+     <ion-item class="item-icon-right" ui-sref="editDentistryName">
+       <h2>牙科名称
+         <span class="right-tip item-note">{{user.name}}</span>
+       </h2>
+       <i class="icon ion-chevron-right icon-accessory"></i>
+     </ion-item>
+     <ion-item class="item-icon-right" href="#/modifyPhone">
+       <h2>手机
+         <span class="right-tip item-note">{{::user.mobile}}</span>
+       </h2>
+       <i class="icon ion-chevron-right icon-accessory"></i>
+     </ion-item>
+     <ion-item class="item-icon-right" href="#/phone">
+       <h2>电话
+         <span class="right-tip item-note">{{::user.phone}}</span>
+       </h2>
+       <i class="icon ion-chevron-right icon-accessory"></i>
+     </ion-item>
+     <ion-item class="item-icon-right" href="#/email">
+       <h2>E-mail
+         <span class="right-tip item-note" ng-if="user.isHasEmail">{{user.email}}</span>
+         <span class="right-tip item-note" ng-if="!user.isHasEmail">空</span>
+       </h2>
+       <i class="icon ion-chevron-right icon-accessory"  ></i>
+     </ion-item>
+     <ion-item class="item-icon-right">
+       <h2>生日
+          <time-picker ng-if="!user.isHasBirth" class="right-tip item-note" title="请选择日期" hidetime="true" yearstart="1970" yearend="2017"
+                      time-picker-result="result" load-date-time="serverData.loadLazyTime" loadlazy="true"></time-picker>
+          <time-picker ng-if="user.isHasBirth" class="right-tip item-note" title="请选择日期" datetime="1970-01-01" hidetime="true" yearstart="1970" yearend="2017"
+                      time-picker-result="result"></time-picker>
+       </h2>
+       <i class="icon ion-chevron-right icon-accessory"></i>
+     </ion-item>
+   </ion-list>
+  </ion-content>
+</ion-view>

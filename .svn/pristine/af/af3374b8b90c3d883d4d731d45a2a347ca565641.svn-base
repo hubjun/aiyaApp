@@ -1,0 +1,43 @@
+<ion-view view-title="我的采购单" class="orderList">
+  <ion-header-bar align-title="center" >
+    <a class="button icon-left ion-chevron-left button-clear button-dark" ng-click="back()"></a>
+    <h1 class="title">我的采购单</h1>
+    <a class="button icon-right ion-more  button-clear  button-dark"></a>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <ion-item class="item item-button-right rapidItem">
+          <button class="button rapidBtn">快速采购</button>
+      </ion-item>
+      <ion-item class="orderSearch">
+        <div class="orderListSearch">
+          <input type="search" placeholder="搜索您想要的商品" class="searchInput">
+          <i class="ion-ios-search searchBtn"></i>
+        </div>
+        <a class="orderEdit">编辑</a>
+        <ion-checkbox class="present">
+          目前缺货？
+        </ion-checkbox>
+      </ion-item>
+      <ion-item collection-repeat="item in items" class="item item-thumbnail-left orderListRepeat">
+        <ion-checkbox ng-model="isChecked">
+          <img ng-src="img/ionic.png"/>
+          <h2 class="orderListName">HAGER咬合垫/咬颌块</h2>
+          <p class="orderListNorms">规格型号：54867</p><br/>
+          <p>
+            <span class="prometPrice">￥16429.00</span>
+            <span class="marketPrice">￥99999.99</span>
+            <span class="orderListNum">X1000</span>
+          </p>
+         <!-- <ion-option-button class="button-positive">...</ion-option-button>-->
+        </ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar>
+    <ion-checkbox ng-model="isChecked" class="selectAll">
+      全选
+    </ion-checkbox>
+    <button class="goCalcu">删除<span>1</span></button>
+  </ion-footer-bar>
+</ion-view>

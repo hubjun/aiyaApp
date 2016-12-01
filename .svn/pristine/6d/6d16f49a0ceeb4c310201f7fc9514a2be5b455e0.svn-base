@@ -1,0 +1,62 @@
+<ion-view view-title="我的收藏夹" class="favorite" hide-tabs="true">
+  <!-- header-bar -->
+  <!--header-->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">我的收藏夹</div>
+    <!--<div class="buttons buttons-right">-->
+      <button class="button button-clear">
+        <a class="button button-clear button-dark" ng-click="edit()"><span ng-if="!canEdit">编辑</span><span ng-if="canEdit">完成</span></a>
+        <a class="button button-dark button-clear ion-ios-more icon-right" ng-if="!canEdit" nav-button></a>
+      </button>
+    <!--</div>-->
+  </div>
+
+  <ion-content class="has-header">
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+    <ion-list>
+      <ion-item ng-if="!canEdit" ng-repeat="pro in products"  class="item item-thumbnail-left">
+        <img ng-src="{{imgUrl}}{{pro.image}}" ng-click="productInfo(pro.id)"/>
+        <a ui-sref="productInfo(id={{pro}})">
+            <p class="faName">{{pro.name}}</p><br/>
+        </a>
+          <!--是否有区间价-->
+          <p class="faOldPrice" ng-if="(pro.isSectionPrice == '' || !pro.isSectionPrice) && (pro.isYcInquiry == '' || !pro.isYcInquiry || currentUser.isAuthoriz)">{{pro.marketPrice | currency : '￥'}}</p>
+          <img style="float: right;height: 20px;" ng-src="img/joinCart.jpg" ng-if="!pro.isYcInquiry || currentUser.isAuthoriz" product-specification-filter product-id="{{pro.id}}"/>
+          <p class="faNewPrice" ng-if="(pro.isSectionPrice != '' && pro.isSectionPrice) && (pro.isYcInquiry == '' || !pro.isYcInquiry || currentUser.isAuthoriz)">{{pro.price2  | currency : '￥'}} - {{pro.price | number : 2}}</p>
+          <p class="faNewPrice" ng-if="(pro.isSectionPrice == '' || !pro.isSectionPrice) && (pro.isYcInquiry == '' || !pro.isYcInquiry || currentUser.isAuthoriz)">{{pro.price  | currency : '￥'}}</p>
+          <!--立即询价-->
+          <p class="faNewPrice" ng-if="pro.isYcInquiry && !currentUser.isAuthoriz"  ui-sref="tab.toothOpEnquiry">立即询价</p>
+          <ion-option-button class="button-assertive" ng-click="remove(pro)">
+            &nbsp;取消收藏&nbsp;
+          </ion-option-button>
+      </ion-item>
+
+      <div ng-if="canEdit" ng-repeat="pro in products" class="edit">
+        <ion-checkbox ng-model="pro.isSelected" class="item item-thumbnail-left">
+          <img ng-src="{{imgUrl}}{{pro.image}}"/>
+          <p class="faName">{{pro.name}}</p><br/>
+          <!--是否有区间价-->
+          <p class="faOldPrice" ng-if="(pro.isSectionPrice == '' || !pro.isSectionPrice) && (pro.isYcInquiry == '' || !pro.isYcInquiry || currentUser.isAuthoriz)">{{pro.marketPrice | currency : '￥'}}</p>
+          <p class="faNewPrice" ng-if="(pro.isSectionPrice != '' && pro.isSectionPrice) && (pro.isYcInquiry == '' || !pro.isYcInquiry || currentUser.isAuthoriz)">{{pro.price2  | currency : '￥'}} - {{pro.price | number : 2}}</p>
+          <p class="faNewPrice" ng-if="(pro.isSectionPrice == '' || !pro.isSectionPrice) && (pro.isYcInquiry == '' || !pro.isYcInquiry || currentUser.isAuthoriz)">{{pro.price  | currency : '￥'}}</p>
+          <!--立即询价-->
+          <p class="faNewPrice" ng-if="pro.isYcInquiry && pro.isYcInquiry && !currentUser.isAuthoriz">立即询价</p>
+        </ion-checkbox>
+      </div>
+    </ion-list>
+    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" ></ion-infinite-scroll>
+  </ion-content>
+  <ion-footer-bar class="row" ng-if="canEdit">
+    <div class="select-all col">
+      <label class="checkbox">
+        <input type="checkbox" ng-click="toggleSelectAll()">
+        <span>全选</span>
+      </label>
+    </div>
+    <button class="col-25 button button-positive" ng-click="removeAll()">删 除</button>
+  </ion-footer-bar>
+</ion-view>
+

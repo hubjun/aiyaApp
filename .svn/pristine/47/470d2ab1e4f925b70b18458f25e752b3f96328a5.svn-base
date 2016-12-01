@@ -1,0 +1,2405 @@
+var aiyaController = angular.module('starter.controllers', []);
+
+/**
+ * Created by xionghuilin on 2016/5/26.
+ */
+aiyaController.controller('addressController',[
+  '$scope',
+  '$rootScope',
+  '$state',
+  '$stateParams',
+  '$ionicListDelegate',
+  '$timeout',
+  'userAddressService',
+  'CommonUtil',
+  function($scope,$rootScope,$state,$stateParams,$ionicListDelegate,$timeout,userAddressService,CommonUtil){
+
+    $scope.goBack = goBack;
+    //返回上一页
+    function goBack() {
+      //todo 清空缓存
+      //$ionicHistory.goBack();
+      //判断wap是否能获取到上一页路由 没有则返回首页
+      if (!$ionicHistory.backView()) {
+        $state.go('home');
+        return;
+      }
+      ($ionicHistory.backView() && $ionicHistory.backView().url.indexOf('login') > 0) ? $ionicHistory.goBack(-2) : $ionicHistory.goBack();
+    }
+
+
+    //初始化方法
+    $scope.init = function () {
+      $scope.selectedAddress = {
+        id: $stateParams.addrId//左侧checkbox选择框，带过来的以选择地址的id，用于控制左侧checkbox选择框的勾选
+      };
+      $scope.selectedItem = $stateParams.addrId;//选择的数据信息，记录选择地址的ID，用于传给地址详情，从地址服务中获取详细信息。
+      userAddressService.getList().then(function(data){
+        $scope.addressList = data.list;
+      },function(err){
+        CommonUtil.tip(err);
+      });
+    };
+
+    //进入页面，刷新页面。
+    $scope.$on('$ionicView.beforeEnter', function () {
+      $scope.init();
+    });
+
+    //删除地址方法
+    $scope.deleteAddressInfo = function (addressId) {
+      if ($scope.hasShowedPopup) {
+        return;
+      }
+      $scope.hasShowedPopup = true;
+      $timeout(function () {
+        $scope.hasShowedPopup = false;
+      });
+
+      $ionicListDelegate.closeOptionButtons();
+      CommonUtil.confirm('提示', '信息删除后不可恢复', '确认')
+        .then(function (res) {
+          if (res) {
+            userAddressService.delete(addressId).then(function(data){
+              $scope.init();
+              if ($scope.selectedAddress.id == addressId) {
+                $rootScope.$broadcast('SELECT_ADDRESS_DELETED', addressId);//通知其他页面，当前选中地址被删除
+              }
+            },function(err){
+              CommonUtil.tip(err);
+            });
+          }
+        });
+    };
+
+    //广播地址信息，广播出ID，需要的在自己页面接收。发送的是全部数据。
+    $scope.selectAddressData = function (addr) {
+      $scope.selectedAddress.id = addr.id;//勾选上当前地址信息
+      $rootScope.$broadcast('SELECT_ADDRESS', addr);//广播出去
+      $scope.$ionicGoBack();
+    };
+
+    //点击编辑按钮跳转逻辑
+    $scope.editAddress = function (addr) {
+      $rootScope.$broadcast('SELECT_ADDRESS', addr);
+      if ($scope.selectedAddress.id == addr.id) {//如果没有地址信息，去补全地址，然后直接返回
+        $state.go('tab.addressDetail', {addressId: addr.id, isSelect: true});
+      } else {
+        $state.go('tab.addressDetail', {addressId: addr.id});
+      }
+    };
+    //设置默认地址方法
+    $scope.setDefaultAddress = function (addressId) {
+      $ionicListDelegate.closeOptionButtons();
+      userAddressService.setDefault(addressId).then(function(){
+        $scope.init();
+      },function(err){
+        CommonUtil.tip(err);
+      });
+    };
+
+
+}]);
+
+/**
+ * Created by 熊辉林 on 2016/5/23.
+ */
+aiyaController.controller('addressDetailController',[
+  '$scope',
+  function($scope){
+    $scope.$on('$ionicView.enter', function () {
+      $scope.$broadcast('address-detail');
+    });
+
+    $scope.submitAddressb = function () {
+      $scope.$broadcast('address-detail-submit');
+    }
+}]);
+
+
+aiyaController.controller('addressDetailFormController',[
+  '$scope',
+  '$rootScope',
+  '$stateParams',
+  'userAddressService',
+  'CommonUtil',
+  function($scope,$rootScope,$stateParams,userAddressService,CommonUtil){
+    //初始化开关：true的时候需要初始化。false时候不需要初始化
+    $scope.initFlag = true;
+    $scope.init = function () {
+
+      $scope.validate = false;
+      $scope.addressId = $stateParams.addressId;//获得传来的addressId，如果没有就是新建地址
+      $scope.isSelect = $stateParams.isSelect;//true，编辑选中的条目/false，编辑非选中条目
+      if ($scope.addressId) {
+        //如果id存在，则从网上获取地址信息//实际上是从上一个页面带过来的 数据
+        $scope.addressInfo = userAddressService.get($scope.addressId).then(function(data){
+          $scope.addressInfo.receiver = data.receiver.consignee;
+          $scope.addressInfo.mobile = data.receiver.phone;
+          $scope.addressInfo.addr = data.receiver.address;
+          $scope.addressInfo.areaName = data.receiver.areaName;
+          $scope.addressInfo.passportNo = data.receiver.zipCode;
+        },function(err){
+          CommonUtil.tip(err);
+        });
+      } else {
+        //如果id不存在，则为新增；
+        //保存地址参数
+        $scope.addressInfo = {
+          receiver: '',
+          mobile: '',
+          addr: '',
+          areaName:'',
+          passportNo: ''
+        };
+      }
+    };
+    $scope.$on('address-detail', function () {
+      if ($scope.initFlag) {
+        $scope.init();
+      } else {
+        $scope.initFlag = true;
+      }
+    });
+
+    $rootScope.$on('LOCATION', function (evt, data) {
+      $scope.addressInfo.areaName = data.name;
+/*      $scope.addressInfo.provinceText = data['LOCATION1'].text;
+      $scope.addressInfo.province = data['LOCATION1'].value;
+      $scope.addressInfo.cityText = data['LOCATION2'].text;
+      $scope.addressInfo.city = data['LOCATION2'].value;
+      $scope.addressInfo.countyText = data['LOCATION3'].text;
+      $scope.addressInfo.county = data['LOCATION3'].value;
+      if(data['LOCATION4']){
+        $scope.addressInfo.townText = data['LOCATION4'].text;
+        $scope.addressInfo.town = data['LOCATION4'].value;
+      }else{
+        $scope.addressInfo.townText = '';
+        $scope.addressInfo.town = '';
+      }*/
+    });
+
+ /*   $scope.submitAddress = function () {
+      if ($scope.submiting) {
+        return;
+      }
+      $scope.submiting = true;
+      $scope.validate = true;
+      if ($scope.addressDetailForm.$valid &&
+        ($scope.addressInfo.province!='' && $scope.addressInfo.city!='' && $scope.addressInfo.county!=null || $scope.addressInfo.town!='')) {
+        addressService.addOrUpdateAddress($scope.addressInfo)
+          .success(function (response, status, headers, config) {
+            //测试用业务逻辑
+            $scope.submiting = false;
+            if (response.code == 1) {
+              popupService.toastr('信息保存成功');
+              $timeout(function () {
+                if ($scope.isSelect) {
+                  $rootScope.$broadcast('SELECT_ADDRESS_CHANGED', $scope.addressInfo);//通知其他页面，当前选中地址被删除
+                  $scope.$ionicGoBack(-2);
+                } else {
+                  $scope.$ionicGoBack();
+                }
+              }, 1000);
+            } else if (response.code == -10) {
+              popupService.toastr('最多只能保存10个联系人');
+            } else {
+              popupService.toastr('信息保存失败');
+            }
+          })
+      } else if (!$scope.addressDetailForm.receiver.$valid) {
+        $scope.focusReceiver = true;
+        $scope.submiting = false;
+      } else if ($scope.addressDetailForm.mobile.$error.required) {
+        popupService.toastr('请填写正确的手机号');
+        $scope.focusMobile = true;
+        $scope.submiting = false;
+      } else if (!$scope.addressDetailForm.mobile.$valid) {
+        popupService.toastr('请填写正确的手机号');
+        $scope.focusMobile = true;
+        $scope.submiting = false;
+      } else if (!$scope.addressInfo.province || !$scope.addressInfo.city) {
+        popupService.toastr('请选择所在省市');
+        $scope.submiting = false;
+      } else if (!$scope.addressDetailForm.addr.$valid) {
+        if($scope.addressDetailForm.addr.$viewValue.length>5){
+          popupService.toastr('详细地址长度不能超过40个汉字');
+        }else{
+          popupService.toastr('详细地址长度不能少于5个字符');
+        }
+        $scope.focusAddr = true;
+        $scope.submiting = false;
+      }
+    };
+
+*/
+    $scope.$on('address-detail-submit', $scope.submitAddress);
+
+    //选择联系人(从手机选择联系人)
+    $scope.selectContact = function () {
+      $scope.initFlag = false;
+      navigator.contacts.pickContact(function (contact) {
+          $scope.$apply(function () {
+            $scope.addressInfo.receiver = !!contact.displayName ? contact.displayName : contact.name.formatted;
+            $scope.addressInfo.mobile = contact.phoneNumbers[0].value.replace(/-/g, '').replace(/ /g, "");
+
+          });
+        }, function (err) {
+          alert('读取联系人失败');
+        }
+      );
+    };
+}]);
+
+aiyaController.controller('FindAssistant',[
+  '$scope',
+  '$location',
+  '$ionicLoading',
+  'StringUtil',
+  '$cordovaCamera',
+  '$ionicActionSheet',
+  function($scope,$location,$ionicLoading,StringUtil,$cordovaCamera,$ionicActionSheet){
+  $scope.$on('$ionicView.enter',function(){
+    //判断是否登录
+  });
+  var productList = [{
+    'productImage':'',
+    'productName':'',
+    'forBrand':'',
+    'category':'',
+    'purchaseNumber':''
+  }];
+  $scope.name = ''; //联系人姓名
+  $scope.phone = '';//联系人电话
+  $scope.hospitalName = ''//联系人医院地址
+  $scope.productList = productList;
+  /*新增*/
+  $scope.addProduct = function(){
+    var item =  {
+      'productImage':'',
+      'productName':'',
+      'forBrand':'',
+      'category':'',
+      'purchaseNumber':''
+    };
+    $scope.productList.push(item);
+  }
+  $scope.cutProduct = function(){
+    if($scope.productList.length > 1){
+      $scope.productList.splice($scope.productList.length-1,1);
+    }
+  }
+  $scope.next = function(){
+    var isPass = true;
+    var msg = '';
+    for(var i = 0; i< $scope.productList.length; i++){
+       var item = $scope.productList[i];
+       if(StringUtil.isEmpty(item.productName)){
+          msg = '请输入产品名称';
+          isPass = false;
+          break;
+       }
+      if(StringUtil.isEmpty(item.forBrand)){
+        msg = '请输入品牌名称'
+        isPass = false;
+        break;
+      }
+      if(StringUtil.isEmpty(item.category)){
+        msg = '请输入规格'
+        isPass = false;
+        break;
+      }
+      if(StringUtil.isEmpty(item.purchaseNumber)){
+        msg = '请输入数量'
+        isPass = false;
+        break;
+      }
+    }
+    if(isPass) {
+      $location.path('/tab/assistant/confirm');
+    } else {
+      $ionicLoading.show({template:msg,noBackdrop:true,duration:2000});
+    }
+  }
+  $scope.takePhoto = function(index){
+    var options = {};
+    var optionWindow =  $ionicActionSheet.show({
+      buttons: [
+        {text:'拍照'},
+        {text:'从相册选择'}
+      ],
+      titleText:'选择照片',
+      cancelText:'取消',
+      cancel: function(){
+
+      },
+      buttonClicked: function(order) {
+        optionWindow();//再次触发隐藏
+        if(order == 0){
+            options = {
+              destinationType: Camera.DestinationType.FILE_URI,
+              sourceType: Camera.PictureSourceType.CAMERA       //图片来源  0|1 : 相机  2:图册
+            }
+        }else if(order == 1){
+          options = {
+            quality: 100,     //图片质量 0-100
+            allowEdit: false,                                        //在选择之前允许修改截图
+            maximumImagesCount: 1,
+            mediaType:0,   //可选媒体类型：圖片=0，只允许选择图片將返回指定DestinationType的参数。 視頻格式=1，允许选择视频，最终返回 FILE_URI。ALLMEDIA= 2，允许所有媒体类型的选择。
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM
+          }
+        }
+        $cordovaCamera.getPicture(options).then(function(imageURI) {
+           $scope.productList[index].productImage = imageURI;
+        }, function(err) {
+        });
+      }
+    });
+  }
+
+  $scope.confirmPulish = function(){
+    var resposebody = {name: $scope.name,hospitalName: $scope.hospitalName,phone:$scope.phone,productList:$scope.productList};
+    notepad.save(resposebody,function(rs){
+      if(rs.code == 1){
+        $ionicLoading.show({template:'发布成功,我们会在一小时内给您报价',noBackdrop:true,duration:2000});
+      }
+    });
+  };
+
+
+}]);
+
+aiyaController.controller('assistantConfirm',['$scope','$ionicHistory',function($scope,$ionicHistory){
+  $scope.confirmPulish = function(){
+
+  }
+}]);
+
+aiyaController.controller('brandController',[
+  '$scope',
+  '$ionicPopover',
+  'brandService',
+  '$ionicLoading',
+  function($scope,$ionicPopover,brandService,$ionicLoading){
+    var searchParam = {
+      keyword: '',
+      makeType: ''
+    };
+    $scope.tabShow = 'ALL';
+    $scope.brandList = brandService.search(searchParam);
+    $scope.filterCategoryFrist = '';
+
+    $scope.changeTab=function(val){
+      $scope.tabShow = val;
+      //数据请求
+      if(val == 'ALL'){
+        searchParam.makeType = '';
+      }else if(val == 'IMPORT'){
+        searchParam.makeType = false;
+      }else if(val == 'HOME'){
+        searchParam.makeType = true;
+      }
+      $scope.brandList = brandService.search(searchParam);
+    }
+
+    //下拉更新
+    $scope.doRefresh=function(){
+      brandService.search(searchParam);
+      $scope.$broadcast('scroll.refreshComplete');
+    }
+
+    //上拉更新
+    $scope.loadMore=function(){
+      console.log('加载更多数据');
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    }
+
+    //$ionicPopover.fromTemplateUrl("ez-popover.html", {
+    //    scope: $scope
+    //  })
+    //  /*   .cssClass(function(){
+    //   $scope.background=red;
+    //   })*/
+    //  .then(function(popover){
+    //    $scope.popover = popover;
+    //  })
+    //$scope.openPopover = function($event) {
+    //  $scope.popover.show($event);
+    //};
+    //$scope.closePopover = function() {
+    //  $scope.popover.hide();
+    //};
+    ////销毁事件回调处理：清理popover对象
+    //$scope.$on("$destroy", function() {
+    //  $scope.popover.remove();
+    //});
+    //// 隐藏事件回调处理
+    //$scope.$on("popover.hidden", function() {
+    //  // Execute action
+    //});
+    ////删除事件回调处理
+    //$scope.$on("popover.removed", function() {
+    //  // Execute action
+    //});
+  }]);
+
+/**
+ * Created by chh on 2016/5/23.
+ */
+aiyaController.controller('commonSelectController',[
+  '$rootScope',
+  '$scope',
+  'userAddressService',
+  'CommonUtil',
+  function($rootScope,$scope,userAddressService,CommonUtil){
+    var selectMode;
+    var localData = {};
+    var sourceData = [];//每一步的数据源
+    var checkData={};   //选中的数据
+    var step=0;
+    function init(){
+      selectMode = $scope.data.selectMode;//选择模式，根据不同的选择模式，绑定不同的数据
+      $scope.data.selectValue = $scope.data.defaultValue;//默认值，非必需，新增则没有，编辑则有
+      $scope.children = $scope.data.children;//接受连续选择模式中传来的数据
+
+
+      userAddressService.getProvinceList().then(function(data){
+        $scope.selectData = data.list;
+      },function(err){
+        CommonUtil.tip(err);
+      });
+      //初始化：根据选择类型来选择数据、设定标题
+      $scope.title ='选择地区';
+      $scope.selectData = localData.selectData;
+      $scope.level = localData.level;
+
+    }
+
+    //前一步
+    $scope.prevStep = function(){
+      if(step==0){
+        $rootScope.closeSelectModal();
+      }else{
+        step--;
+        $scope.data = window.cdfg.utils.deepCopyForObj(sourceData[step]);
+        init();
+      }
+    }
+
+    //选择
+    var isFlag = false; //防止多次点击
+    $scope.selectItem = function (val) {
+      if(isFlag)return false;
+      isFlag = true;
+      $scope.title = val.fullName;/*
+      checkData[selectMode + $scope.level]= window.cdfg.utils.deepCopyForObj(val);
+      $scope.data.selectValue = val.value;//选择效果，让选择的项目为当前选择项
+      $scope.data.defaultValue = val.value;
+      //保存当前步骤的数据源
+      sourceData[step] = window.cdfg.utils.deepCopyForObj($scope.data);*/
+      step++;
+      //判断是否是连续选择 省市县联动
+      var params = {
+        id:val.id
+      }
+      userAddressService.getCityList(params).then(function(data){
+        if(data.list != null && data.list !='') {
+          $scope.selectData = data.list;
+        }else{
+          $rootScope.$broadcast(selectMode, val);
+          $rootScope.closeSelectModal();
+        }
+      },function(err){
+        CommonUtil.tip(err);
+      });
+     /* if (val.children) {
+        //如果是多重选择，则继续选。
+        var childrenData = locationService.formatData($scope.level, val.children);
+        //更新当前页面数据进入第二级
+        $scope.data.defaultValue= $scope.data.defaultValue2;
+        $scope.data.defaultValue2= $scope.data.defaultValue3;
+        $scope.data.children= JSON.stringify(childrenData);
+
+        init();
+      }
+      //如果选完了，就返回。
+      else {
+
+      }*/
+      setTimeout(function(){
+        isFlag = false;
+      },500)
+    };
+    $scope.$on('commonSelect:show',function(e,o){
+      step = 0;
+      checkData=[];
+      sourceData = [];
+      $scope.data=o;
+      init();
+    });
+}]);
+
+
+aiyaController.controller('favoriteController',[
+  '$scope',
+  '$ionicHistory',
+  'favoriteService',
+  'userService',
+  'ArrayUtil',
+  'CommonUtil',
+  function($scope,$ionicHistory,favoriteService,userService,ArrayUtil,CommonUtil){
+    var isAllSelected = false;
+    $scope.products = [];
+    var productList = [];
+    var page = {};
+    var params = {
+      pageNumber: 1,
+      pageSize: 5
+    }
+    /*初始化商品列表*/
+    var init = function(){
+      favoriteService.getProducts(params)
+        .then(function(data){
+          for(var i = 0; i < data.list.length; i++){
+            var product = data.list[i];
+            product.isSelected = isAllSelected;
+            data.list[i] = product;
+          }
+          $scope.products = $scope.products.concat(data.list);
+          console.log($scope.products);
+          page = data.page;
+        },function(err){
+          //console.log(err);
+          CommonUtil.tip(err);
+        });
+    }
+    init();
+
+    $scope.canEdit = false;//默认不能编辑
+    $scope.back = function(){
+      $ionicHistory.goBack();
+    };
+    $scope.remove = function(product){
+      favoriteService.removeProduct(product).then(function(){
+          $scope.products = ArrayUtil.remove($scope.products, product);
+      },function(err){
+        //console.log(err);
+        CommonUtil.tip(err);
+      });
+    };
+    $scope.removeAll = function(){
+      for(var i = 0; i < $scope.products.length; i++){
+        var product = $scope.products[i];
+        if(product.isSelected){
+          productList.push(product);
+        }
+      }
+      favoriteService.removeProduct(productList).then(function(){
+        for(var i = 0; i < productList.length; i++){
+          $scope.products = ArrayUtil.remove($scope.products, productList[i]);
+        }
+      },function(){
+
+      });;
+    };
+    /*当前用户*/
+    userService.getInfo()
+      .then(function(data){
+        $scope.currentUser = data;
+      },function(err){
+        //console.log(err);
+        CommonUtil.tip(err);
+      });
+
+    /*编辑*/
+    $scope.edit = function(){
+      $scope.canEdit = !$scope.canEdit;
+    }
+
+    /*加载更多*/
+    $scope.loadMore = function(){
+      if(page.hasNextPage){
+        params.pageNumber++;
+        init();
+      }
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    }
+
+    /*刷新*/
+    $scope.doRefresh = function(){
+      $scope.$apply(function(){
+        params.pageNumber = 1;
+        favoriteService.getProducts(params)
+          .then(function(data){
+            for(var i = 0; i < data.list.length; i++){
+              var product = data.list[i];
+              product.isSelected = isAllSelected;
+              data.list[i] = product;
+            }
+            $scope.products = data.list;
+            page = data.page;
+          },function(err){
+            //console.log(err);
+            CommonUtil.tip(err);
+          })
+          .finally(function(){
+            $scope.$broadcast('scroll.refreshComplete');
+          });
+      });
+    }
+
+    $scope.toggleSelectAll = function(){
+      isAllSelected = !isAllSelected;
+      for(var i=0; i < $scope.products.length; i++){
+        var product = $scope.products[i];
+        product.isSelected = isAllSelected;
+        $scope.products[i] = product;
+      }
+    }
+
+  }]);
+
+aiyaController.controller('filterListCtrl', [
+  '$scope',
+  '$ionicLoading',
+  '$q',
+  '$timeout',
+  'userService',
+  'productService',
+  '$stateParams',
+  'CommonUtil',
+  function($scope,$ionicLoading,$q,$timeout,userService,productService,$stateParams,CommonUtil){
+  //页面激活时
+  $scope.$on('$ionicView.enter', function(){
+    //console.log('view.enter');
+    $scope.init();
+  });
+  $scope.toggleDisplay = true;
+  $scope.isColumnHide = false;
+  $scope.isRowlistHide = true;
+
+  $scope.tabCur = 'sales';
+
+  $scope.moreData = true;
+  $scope.params = {
+      markeType:'',
+      brandIds: $stateParams.brandId,
+      categoryIds:'',
+      keyword: '',
+      salesDesc: '',
+      dateDesc: '',
+      priceOrder: '',
+      pageNumber: 1,
+      pageSize: 6
+  };
+
+  $scope.toggleList = function(){
+    if($scope.isRowlistHide == true){
+        $scope.isRowlistHide = false;
+        $scope.isColumnHide = true;
+
+        $scope.toggleDisplay = false;
+    }else{
+        $scope.isRowlistHide = true;
+        $scope.isColumnHide = false;
+
+        $scope.toggleDisplay = true;
+    }
+  }
+
+    $scope.init = function(){
+      productService.getList($scope.params).then(function(data){
+        if(data.list.length > 0){
+          $scope.obj_datalist = data.list;
+        }else{
+          $scope.moreData = false;
+        }
+      },function(err){
+        CommonUtil.tip(err);
+      });
+    }
+
+  $scope.sortBy = function(val){
+      $scope.tabCur = val;
+
+      if(val == 'sales'){
+          $scope.params.salesDesc = true;
+          $scope.params.dateDesc = '';
+          $scope.params.priceOrder = '';
+      }else if(val == 'new'){
+          $scope.params.dateDesc = true;
+          $scope.params.salesDesc = '';
+          $scope.params.priceOrder = '';
+      }else if(val == 'pri'){
+          $scope.params.priceOrder = 'desc';
+          $scope.params.dateDesc = '';
+          $scope.params.salesDesc = '';
+      }
+    $scope.init();
+  };
+
+  //关键字搜索
+  $scope.$watch('keyValue', function(newVal, oldVal){
+    console.log('newVal'+ newVal + '  oldVal:'+oldVal);
+
+    if(newVal!== oldVal){
+      $scope.params.keyword = newVal;
+      $scope.init();
+    }
+  });
+
+  /*当前用户*/
+  userService.getInfo()
+    .then(function(data){
+      $scope.currentUser = data;
+    },function(err){
+     CommonUtil.tip(err);
+    });
+
+  //下拉刷新
+  $scope.doFilterFresh = function(){
+      $scope.init();
+      $scope.$broadcast("scroll.refreshComplete");
+  }
+
+  //上拉刷新
+  $scope.loadMoreList = function(){
+      //debugger
+      $ionicLoading.show({
+        template: "加载中...",
+        duration: 300
+      });
+
+      $scope.params.pageNumber++;
+      //var message = JSON.stringify($scope.paging_parameter);
+      $scope.init();
+
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+      $timeout(function(){
+        $ionicLoading.hide();
+      },1500);
+
+      /*promise.then(
+          function(rs){
+            debugger
+              if(rs != null){
+                  $.each(rs, function(i, item){
+                      $scope.obj_datalist.push(item);
+                  })
+                  console.log($scope.obj_datalist);
+              }else{
+                  $scope.moreData = true;
+              }
+          },
+          function (reason) {
+              console.log("抱歉,请求数据失败！");
+          }
+      ).finally(function(){
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+          $timeout(function(){
+            $ionicLoading.hide();
+          },2000);
+      });*/
+
+  };
+
+}]);
+
+/*采用这种注入编译后期js压缩*/
+aiyaController.controller('HomeCtrl',[
+  '$rootScope',
+  '$scope',
+  '$state',
+  'index',
+  'ENV',
+  'CommonUtil',
+  '$location',
+  '$ionicActionSheet',
+  '$window',
+  '$ionicSlideBoxDelegate',
+  function($rootScope,$scope,$state,index,ENV,CommonUtil,$location,$ionicActionSheet,$window,$ionicSlideBoxDelegate){
+  //页面激活时
+  $scope.$on('$ionicView.enter', function(){
+    //console.log('view.enter');
+    $ionicSlideBoxDelegate.update();
+  });
+  var loadData = function(){
+    index.recommedproductlist().get(null,function(rs){
+      if(rs.code == 1){
+        $scope.recommedproductlist = rs.data.list;
+      } else {
+        CommonUtil.tip(rs.msg);
+      }
+    }, function(err){
+      CommonUtil.tip(err);
+    });
+
+    index.floorproductlist().get(null,function(rs){
+      if(rs.code == 1){
+        $scope.floorproductlist = rs.data.list;
+      } else {
+        CommonUtil.tip(rs.msg);
+      }
+    },function(err){
+      console.log('有错误');
+    });
+  }
+  loadData();
+
+  $rootScope.imgUrl = ENV.imgUrl;
+
+  //轮播图
+  var adlistOpt = {
+    beginDate: '',
+    endDate: '',
+    positionId: 3
+  };
+  $scope.adList = null;
+  index.getAdlist(adlistOpt)
+    .then(function(ads){
+      $scope.adList = ads.list;
+    },function(errMsg){
+      CommonUtil.tip(errMsg);
+    });
+
+  //$scope.purchaseCounts = index.purchaseCount();
+  index.purchaseCount().get(function(rs){
+    if(rs.code === 1 ){
+        $scope.purchaseCounts = rs.data;
+        //alert($scope.purchaseCounts.quantity);
+    }
+  });
+
+  $scope.setFloorHeadStyle = function(floor){
+    var floorStyle = '';
+    switch (floor){
+      case '1F':
+        floorStyle = 'head1';
+        break;
+      case '2F':
+        floorStyle = 'head2';
+        break;
+      case '3F':
+        floorStyle = 'head3';
+        break;
+      case '4F':
+        floorStyle = 'head4';
+        break;
+      case '5F':
+        floorStyle = 'head5';
+        break;
+      case '6F':
+        floorStyle = 'head6';
+        break;
+      case '7F':
+        floorStyle = 'head7';
+        break;
+      case '8':
+        floorStyle = 'head8';
+        break;
+      default :
+        floorStyle = 'head1';
+    }
+    return floorStyle;
+  }
+
+  $scope.doHomeRresh = function(){
+    loadData();
+    $scope.$broadcast("scroll.refreshComplete");
+  };
+
+  //banner广告跳转
+  $rootScope.toProductInfo = function(id){
+    $location.path('/product/info/' + id);
+  };
+
+  //搜索跳转
+  $scope.jumpSearchPage = function(){
+    $state.go('homeSearch');
+  };
+
+  /*监听路由判断网路状态*/
+  $rootScope.$on('$stateChangeStart',function(event){
+    if (navigator.connection) {
+      var networdType = navigator.connection.type;
+      if (networdType.toUpperCase().indexOf('NONE') > -1 || networdType.toUpperCase().indexOf('UNKNOWN') > -1) {
+        event.preventdefault();
+        var oldUrl = $location.url();
+        $location.url('/network');
+        $location.replace();
+      }
+    }
+  });
+
+  $scope.linkHelp = function(){
+    $ionicActionSheet.show({
+      buttons: [
+        { text: '拨打耗材客服电话' },
+        { text: '拨打义齿加工客服电话' },
+        { text: '耗材在线咨询' },
+        { text: '义齿加工在线咨询' }
+      ],
+      titleText: '服务电话<br/>周一至周六09:00-18:00(法定节假日除外)',
+      cancelText: '取消',
+      cancel: function() {
+        // add cancel code..
+      },
+      buttonClicked: function(index) {
+        switch(index){
+          case 0:
+              $window.location.href="tel://"+ENV.consumableTel;
+              break;
+          case 1:
+              $window.location.href="tel://"+ENV.toothTel;
+              break;
+          case 2:
+              break;
+          case 3:
+              break;
+        }
+        return true;
+      }
+    });
+  }
+}]);
+
+
+aiyaController.controller('HomeSearchCtrl', [
+  '$scope',
+  'homeSearch',
+  '$timeout',
+  function($scope, homeSearch,$timeout){
+
+  var timeout;
+  $scope.keyword = '';
+  //$scope.homeHotKeyworld = homeSearch.homeHotKeyworld();
+
+  homeSearch.homeHotKeyworld().get(null, function(rs){
+      if(rs.code === 1){
+          $scope.homeHotKeyworld = rs.data.list;
+      }else{
+          $ionicLoading.show({
+              template: rs.msg,
+              duration: 1500
+          });
+      }
+  });
+
+  $scope.$watch('keyword', function(newVal,oldVal){
+    //console.log('newVal'+ newVal + '  oldVal:'+oldVal);
+
+    if($scope.keyword){
+      if(timeout){
+        $timeout.cancel(timeout);
+      }
+      //alert('no timeout');
+      timeout = $timeout(function(){
+        homeSearch.keyList().get({keyword:$scope.keyword, pageNumber:1, pageSize:10}, function(rs){
+          if(rs.code == 1){
+            $scope.dataList = rs.data.list;
+          }else{
+            $ionicLoading.show({
+              template: rs.msg,
+              duration: 1500
+            });
+          }
+        });
+      }, 300);
+    }
+
+  });
+
+  //搜索框内容清除
+  $scope.clearSearch = function(){
+    $scope.keyword = '';
+  }
+
+  $scope.doHomeSearchRefresh = function(){
+    homeSearch.homeHotKeyworld();
+    $scope.$broadcast('scroll.refreshComplete');
+  };
+
+}]);
+
+aiyaController.controller('loginController', [
+  '$scope',
+  '$state',
+  '$ionicLoading',
+  'userService',
+  function($scope, $state, $ionicLoading, userService){
+    var tip = function (msg) {
+      $ionicLoading.show({
+        template: msg,
+        noBackdrop: true,
+        duration: 1500
+      });
+    };
+
+    $scope.login = function () {
+      var opt = {
+            username: $scope.user.name,
+            password: $scope.user.password,
+            usertype: 1
+          };
+
+      $ionicLoading.show({template: '<div>登录中<ion-spinner icon="dots" style="vertical-align: middle;display:inline-block;height: 28px;width: 28px;fill: #fff"></ion-spinner></div>'});
+      $scope.$on('$destroy', function () {
+        $ionicLoading.hide();
+      });
+      userService.login(opt)
+        .then(function () {
+          $ionicLoading.hide();
+          tip('登录成功！');
+          setTimeout(function () {
+            $scope.back();
+          }, 1000);
+        }, function (errorMsg) {
+          $ionicLoading.hide();
+          tip(errorMsg);
+        });
+    }
+  }]);
+
+aiyaController.controller('modifyPwdController', [
+  '$scope',
+  '$state',
+  '$ionicLoading',
+  'CommonUtil',
+  'userService',
+  function($scope,$state,$ionicLoading,CommonUtil,userService){
+    $scope.modifyPwdSubmit = function(){
+      var opt = {
+        oldPwd: $scope.oldPwd,
+        password: $scope.newOkPwd,
+      };
+      userService.resetPwd(opt)
+        .then(function(){
+          CommonUtil.tip('密码修改成功');
+        }, function(error){
+          CommonUtil.tip(error);
+        })
+    }
+
+  }
+]);
+
+aiyaController.controller('moreMRCtrl',['$scope','moreMR','ENV',function($scope,moreMR,ENV){
+
+    $scope.imgurl = ENV.imgUrl;
+
+    $scope.recommendMoreList = moreMR.recommendMoreList();
+}]);
+
+aiyaController.controller('mylogController', [
+  '$scope',
+  '$stateParams',
+  'logisticService',
+  '$q',
+  function ($scope, $stateParams, logisticService, $q) {
+    var shippingStatusDesc = ['部分发货', '已发货', '部分退货', '已退货', '用户收货', '已收货(已签收)'];
+    logisticService.get($stateParams.sn)
+      .then(function (logisInfo) {
+        if($scope.$$destroyed) return $q.reject();
+        logisInfo.shippingStatus = shippingStatusDesc[logisInfo.shippingStatus];
+        $scope.logisInfo = logisInfo;
+      });
+  }
+]);
+
+aiyaController.controller('myOrdersController', [
+  '$scope',
+  '$stateParams',
+  '$timeout',
+  'CommonUtil',
+  'orderService',
+  '$state',
+  function ($scope, $stateParams, $timeout, CommonUtil, orderService,$state) {
+    var states = [
+      {type: 'all', tabIndex: 0, pageNumber: 1, pageSize: 3, hasMore: true, orders: [], loadPending: false, initated: false},
+      {type: 'wPay', tabIndex: 1, pageNumber: 1, pageSize: 3, hasMore: true, orders: [], loadPending: false, initated: false},
+      {type: 'wDeliver', tabIndex: 2, pageNumber: 1, pageSize: 3, hasMore: true, orders: [], loadPending: false, initated: false},
+      {type: 'wComfirm', tabIndex: 3, pageNumber: 1, pageSize: 3, hasMore: true, orders: [], loadPending: false, initated: false},
+      {type: 'wComment', tabIndex: 4, pageNumber: 1, pageSize: 3, hasMore: true, orders: [], loadPending: false, initated: false}
+    ];
+    var currentState = states[$stateParams.tab];
+
+    $scope.currentTab = currentState.tabIndex;
+
+    $scope.getState = function (type) {
+      return typeof type === 'string' ? _.find(states, {'type': type}) : _.find(states, {'tabIndex': type});
+    };
+
+    $scope.switchState = function (index) {
+      currentState = states[index];
+      $scope.currentTab = currentState.tabIndex;
+      $scope.currentType = currentState.type;
+      if(!currentState.orders.length) {
+        loadMore(currentState);
+      }
+    };
+    //折叠展示商品
+    $scope.show = function ($index, order) {
+      return order.expanded || $index < 2;
+    };
+    $scope.showHandle = function (order) {
+      return !order.expanded && order.productList.length > 2;
+    };
+    $scope.expand = function (order) {
+      order.expanded = true;
+    };
+    $scope.loadMore = loadMore;
+
+    //init
+    loadMore(currentState);
+
+    function loadMore (state) {
+      if(state.loadPending) return;
+      state.loadPending = true;
+      loadOrders(state)
+        .then(function (resp) {
+          state.initated = state.initated ? state.initated : !state.initated;
+          if(!resp.length) {
+            state.hasMore = false;
+          } else {
+            state.pageNumber++;
+          }
+        })
+        .finally(function () {
+          state.loadPending = false;
+          state.scope.$broadcast('scroll.infiniteScrollComplete');
+        });
+    };
+
+    $scope.cancelSingleOrder = function(sn){
+      //console.log(sn);
+      orderService.cancelOrder(sn)
+        .then(function(){
+          CommonUtil.tip('取消成功');
+        },function(){
+          CommonUtil.tip('取消订单失败');
+        })
+    };
+
+    $scope.confirmSingleOrder = function(sn){
+      orderService.confirmOrder(sn)
+        .then(function(){
+          CommonUtil.tip('确认成功');
+        }, function(){
+          CommonUtil.tip('确认失败');
+        });
+    };
+
+    /*再次购买*/
+    $scope.buyAgain = function(id){
+      var params = {
+        id:id
+      }
+      orderService.buyAgain(params).then(function(){
+        $state.go('purchaseOrderList');
+      },function(err){
+        CommonUtil.tip(err);
+      });
+    }
+
+    function loadOrders(state) {
+      var pn = state.pageNumber,
+          ps = state.pageSize,
+          ti = state.tabIndex;
+      return orderService.getList(pn, ps, {'type': ti})
+        .then(function (resp) {
+          var _orders = state.orders;
+          _.each(resp, function (order) {
+            _orders.push(order);
+          });
+          return resp;
+        });
+    }
+  }
+])
+.controller('myOrderAllController', ["$scope", function ($scope) {
+  $scope.state = $scope.getState('all');
+  $scope.state.scope = $scope;
+}])
+.controller('myOrderWpayController', ["$scope", function ($scope) {
+  $scope.state = $scope.getState('wPay');
+  $scope.state.scope = $scope;
+  //$scope.gopay
+}])
+.controller('myOrderWdeliverController', ["$scope", function ($scope) {
+  $scope.state = $scope.getState('wDeliver');
+  $scope.state.scope = $scope;
+}])
+.controller('myOrderWcomfirmController', ["$scope", function ($scope) {
+  $scope.state = $scope.getState('wComfirm');
+  $scope.state.scope = $scope;
+}])
+.controller('myOrderWcommentController', ["$scope", function ($scope) {
+  $scope.state = $scope.getState('wComment');
+  $scope.state.scope = $scope;
+}]);
+
+aiyaController.controller('networkCtrl',['$scope','$stateParams',function($scope,$stateParams){
+
+}])
+
+aiyaController.controller('waitPayCtrl', ['$scope', function($scope){
+
+}])
+
+aiyaController.controller('orderDetailController', [
+  '$scope',
+  '$stateParams',
+  'orderService',
+  '$q',
+  function($scope, $stateParams, orderService, $q) {
+    var sn = $stateParams.sn;
+    orderService.get(sn)
+      .then(function (order) {
+        if($scope.$$destroyed) return $q.reject();
+        $scope.order = order;
+        //折叠展示商品
+        $scope.show = function ($index, order) {
+          return order.expanded || $index < 2;
+        };
+        $scope.showHandle = function (order) {
+          return !order.expanded
+        };
+        $scope.expand = function (order) {
+          order.expanded = true;
+        };
+
+        var setRemainTime = function () {
+          var expireTime = new Date(order.expire).getTime();
+          var remianTime = expireTime - new Date().getTime(),
+            dTime = remianTime / 1000 / (60 * 60 * 24),
+            d = Math.floor(dTime),
+            hTime = (dTime - d) * 24,
+            h = Math.floor(hTime);
+          order.rtime = {d: d, h: h};
+        };
+
+        if(order.paymentStatus == '0') {
+          setRemainTime();
+        }
+      })
+      .then(function (order) {
+        console.log('查询物流');
+        //查询物流
+      })
+  }
+]);
+
+aiyaController.controller('orderListOk', [
+  '$scope',
+  '$ionicScrollDelegate',
+  'userAddressService',
+  '$stateParams',
+  'orderService',
+  '$rootScope',
+  '$ionicLoading',
+  '$state',
+  'CommonUtil',
+  function($scope,$ionicScrollDelegate,userAddressService,$stateParams,orderService,$rootScope,$ionicLoading,$state,CommonUtil){
+    /*是否有优惠*/
+    $scope.hasCoupon = false;
+    /*优惠码*/
+    $scope.coupon;
+    /*是否开具发票*/
+    $scope.isInvoice = false;
+    /*发票抬头*/
+    $scope.invoiceTitle;
+    /*备注*/
+    $scope.memo;
+
+    $scope.pushBill = {
+        checked: false
+    }
+
+  $scope.toggleBillChange = function(){
+    $scope.isInvoice = $scope.pushBill.checked;
+  }
+
+  $scope.scrollBottom = function(){
+    $ionicScrollDelegate.scrollBottom();
+  }
+    var product = $stateParams.productInfo;
+    console.log(product);
+    $scope.$on('$ionicView.loaded',function(){
+      orderService.directInfo(product).then(function(data){
+        console.log(data)
+        $rootScope.receiverInfo = data.receiverInfo;
+        $scope.products = data.products;
+        $scope.totalPrice = data.totalPrice;//应付总额
+        $scope.expressFee = _.gt(parseFloat(data.totalPrice),199) ? 0 : 12;
+        $scope.allPrice =_.add($scope.totalPrice,$scope.expressFee);
+        $scope.totalQuantity = data.totalQuantity;
+      },function(err){
+        console.log(err);
+      });
+    });
+
+    //优惠码确认
+    $scope.couponSure = function(coupon){
+      if(_.null)
+      var params = {
+        code:coupon,
+        directBuyIds:product.ids,
+        directQuantitys:product.quantitys
+      }
+      orderService.couponInfo(params).then(function(data){
+        $scope.hasCoupon = true;
+        $scope.couponPrice = data.couponPrice;
+        $scope.finalPrice = data.finalPrice;
+        /*应付金额*/
+        $scope.allPrice = $scope.allPrice - $scope.couponPrice;
+        console.log(data);
+      },function(err){
+        CommonUtil.tip(err);
+        console.log(err);
+      });
+    }
+
+    /*优惠码取消*/
+    $scope.couponCancel = function(){
+      $scope.hasCoupon = false;
+    }
+
+    /*订单提交*/
+    $scope.createOrder = function(){
+      productList = new Array();
+      var tempProduct = {
+        productId:'',
+        quantity:''
+      }
+      if(product != null && product !=''){
+        var ids = product.ids.split(',');
+        var quantitys = product.quantitys.toString().split(',');
+        for(var i = 0; i < ids.length; i++){
+          tempProduct.productId = ids[i];
+          tempProduct.quantity = quantitys[i];
+          productList.push(tempProduct);
+        }
+      }
+      var params = {
+        receiverId : $rootScope.receiverInfo.id,
+        memo: $scope.memo,
+        isInvoice: $scope.isInvoice,
+        couponCode: $scope.coupon,
+        invoiceTitle: $scope.invoiceTitle,
+        productList:productList
+      }
+      orderService.create(params).then(function(data){
+        console.log(data);
+        $state.go('orderPay',{sn:data.sn});
+      },function(err){
+        CommonUtil.tip(err);
+        console.log("订单提交:" + err);
+      });
+    }
+}]);
+
+aiyaController.controller('orderListPay', [
+  '$scope',
+  '$state',
+  '$stateParams',
+  '$q',
+  'orderService',
+  'CommonUtil',
+  'ENV',
+  function($scope,$state,$stateParams,$q,orderService,CommonUtil,ENV){
+    //console.log('支付页面:'+$stateParams.sn);
+    var params={
+      sn: $stateParams.sn
+    }
+    orderService.payInfo(params).then(function(data){
+      $scope.sn = data.payInfo.sn;
+      $scope.amountPrice = data.payInfo.amountPrice;
+      $scope.shippingMethodName = data.payInfo.shippingMethodName;
+      $scope.paymentMethodName = data.payInfo.paymentMethodName;
+    },function(err){
+      CommonUtil.tip(err);
+    });
+
+  $scope.$on('$ionicView.enter', function(){
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {
+      $scope.payShowWx = true;
+      $scope.payShowAli = false;
+    }else{
+      $scope.payShowWx = false
+      $scope.payShowAli = true;
+    }
+
+    //支付宝支付调起
+    $scope.alipay = function(sn){
+      //根据订单编号获取订单支付信息
+      $.ajax({
+        url:ENV.siteUrl+"order/payInfo",
+        method:"post",
+        data:{sn:sn,token:orderService.getToken},
+        success:function(result){
+          if(result.code == 1){
+            var data = {
+              sn:result.data.payInfo.sn,
+              name:result.data.payInfo.subject,
+              price:result.data.payInfo.amountPrice,
+              body:result.data.payInfo.body
+            }
+            //data.price = "0.01";
+            $.ajax({
+              url:ENV.siteUrl+"order/alipayparam",
+              method:"post",
+              data:data,
+              success:function(result){
+                result = JSON.stringify(result.data);
+                var results  = result.split(',');
+                for(var index in results){
+                  var eachStr = results[index];
+                  while(eachStr.indexOf("\"") != -1){
+                    eachStr = eachStr.replace("\"","");
+                  }
+                  eachStr = eachStr.replace("{","");
+                  eachStr = eachStr.replace("}","");
+                  var key = eachStr.substring(0,eachStr.indexOf(':'));
+                  var value = eachStr.substring(eachStr.indexOf(':')+1,eachStr.length);
+                  $("#alipaysubmit").html( $("#alipaysubmit").html() + "<input type=\"hidden\" name=\"" + key + "\" value=\"" + value + "\"/>");
+//            alert($("#alipaysubmit").html());
+                }
+                document.forms['alipaysubmit'].submit()
+//          alert("success");
+              },
+              error:function(){
+                alert("error");
+              }
+            });
+          }
+        },
+        error:function(){
+          alert("error");
+        }
+      });
+    }
+  })
+}]);
+
+aiyaController.controller('paySuccessController', [
+  '$scope',
+  '$ionicLoading',
+  '$stateParams',
+  'orderService',
+  'CommonUtil',
+  function($scope,$ionicLoading,$stateParams,orderService,CommonUtil){
+
+    console.log('sn' + $stateParams.sn);
+    var params = {
+      sn : $stateParams.sn
+    }
+    orderService.info(params).then(function(data){
+      $scope.amount = data.amount;
+      $scope.consignee = data.consignee;
+      $scope.area= data.area;
+      $scope.address = data.address;
+      $scope.phone = data.phone;
+      $scope.sn = data.sn;
+      $scope.productList = data.productList;
+    },function(err){
+      CommonUtil.tip(err);
+    });
+  }]);
+
+aiyaController.controller('productCategoryController', [
+  '$scope',
+  '$ionicLoading',
+  '$state',
+  '$ionicSlideBoxDelegate',
+  'categoryService',
+  function($scope, $ionicLoading, $state, $ionicSlideBoxDelegate, categoryService){
+
+    //页面激活时
+    $scope.$on('$ionicView.enter', function(){
+      getNavCategory();
+    });
+    $scope.secondID = null;
+    $scope.allCategory = null;
+    $scope.obj_imgList = null;
+    $scope.obj_imgSliders = null;
+    $scope.is_categoryAll = true;
+    $scope.obj_thirdList = new Array();
+
+    $scope.allCategory_paging = {
+      pageNumber: 1,
+      pageSize: ''
+    };
+
+    //全部商品
+    $scope.allCategory_paging.pageNumber = 1;
+    $scope.allCategory_paging.pageSize = 20;
+    categoryService.getAllHotCategory($scope.allCategory_paging)
+      .then(function(rs){
+        $scope.allCategory = rs;
+      },function(errormsg){
+        $ionicLoading.show({
+          template: errormsg,
+          duration: 1500
+        });
+      })
+
+    //一级分类菜单列表
+    function getNavCategory(){
+      categoryService.navCategory().get('null', function(rs){
+        if(rs.code ===1){
+          $scope.obj_navCategory = rs.data.list;
+          if(rs.data.list.length > 0){
+            $scope.getSecondCategory(rs.data.list[0].id);
+          }
+        }else{
+          $ionicLoading.show({
+            template: rs.msg
+          });
+        }
+      })
+      //$scope.categoryService = categoryService.navCategory();
+    };
+
+    //二级类别列表
+    $scope.getSecondCategory = function(typeNum){
+      console.log('一级id,'+typeNum);
+      categoryService.imgSecondCategory().get({id: typeNum}, function(rs){
+        if(rs.code === 1){
+          $scope.obj_imgList = rs.data.list;
+          $scope.obj_imgSliders = _.chunk($scope.obj_imgList, 2);
+          //var sliders = JSON.stringify($scope.obj_imgSliders);
+          //console.log($scope.obj_imgSliders);
+        }else{
+          $ionicLoading.show({
+            template: rs.msg,
+            duration: 1500
+          });
+        }
+      })
+      $scope.$watchCollection('obj_imgList ', function () {
+        $ionicSlideBoxDelegate.update();
+      })
+
+      categoryService.secondCategoryName().get({id: typeNum}, function(rs){
+        if(rs.code === 1){
+          $scope.obj_sencondCategoryName = rs.data.list;
+          //debugger
+          for(var i = 0;i < rs.data.list.length;i++){
+            getThirdCategory(i,rs.data.list[i].id);
+          }
+        }else{
+          $ionicLoading.show({
+            template: rs.msg,
+            duration: 1500
+          });
+        }
+      })
+
+      //console.log('二级id,'+$scope.secondID);
+    };
+
+    var getThirdCategory = function(index,id){
+      categoryService.thirdCategoryList().get({id:id}, function(rs){
+        if(rs.code === 1){
+          //debugger
+          $scope.obj_thirdList[index] = rs.data.list;
+        }else{
+          $ionicLoading.show({
+            template: rs.msg,
+            duration: 1500
+          });
+        }
+      });
+    };
+
+    $scope.selectTab = function(e,id){
+      e.target.className = 'li button button-clear category-select';
+      $(e.target).siblings().removeClass().addClass('li button button-clear tab-onblur');
+      if(e.target.id != undefined && e.target.id != 'undefined' && e.target.id == 'category-all'){
+        $scope.is_categoryAll = true;
+      }else {
+        $scope.is_categoryAll = false;
+        $scope.getSecondCategory(id);
+      }
+    };
+
+    //搜索跳转
+    $scope.jumpSearchPage = function(){
+      $state.go('homeSearch');
+    };
+
+  }]);
+
+aiyaController.controller('productInfoCtrl',[
+  '$scope',
+  '$stateParams',
+  'productService',
+  '$state',
+  'userService',
+  'favoriteService',
+  'CommonUtil',
+  function($scope,$stateParams,productService,$state,userService,favoriteService,CommonUtil){
+  console.log('$stateParams id：'+$stateParams.id);
+  $scope.product = {
+    id:$stateParams.id
+  };
+
+  /*加载商品详情*/
+    productService.getInfo($scope.product.id).then(function(data){
+      $scope.productInfo = data.product.productInfo;//商品详情
+      $scope.reviewCount = data.product.reviewCount;//评价个数
+      $scope.promotions =  data.product.promotions;//促销活动
+      $scope.seoDescription = data.product.seoDescription;//商品详情
+      $scope.specification = data.product.specification;//商品规格详细信息
+      $scope.productImages =data.product.productImages;//商品轮播图片
+    },function(err){
+      CommonUtil.tip(err);
+    });
+
+  /*猜您喜欢*/
+    productService.getRecommendProductc().then(function(data){
+      $scope.getrecommendproductc = data.list;
+    },function(err){
+      CommonUtil.tip(err.msg);
+    });
+
+  //收藏
+  $scope.collectProduct = function(){
+    var product ={'id': $stateParams.id};
+    //收藏之前必须先登录
+    if (userService.isLogin()){
+      favoriteService.addProduct(product).then(function(){
+        CommonUtil.tip('收藏成功');
+      },function(err){
+        CommonUtil.tip(err);
+      });
+    } else {
+      $state.go('login');
+    }
+  }
+
+}]);
+
+aiyaController.controller('purchaseOrderController', [
+  '$scope',
+  '$ionicLoading',
+  '$ionicScrollDelegate',
+  'CommonUtil',
+  'favoriteService',
+  'orderService',
+  'purchaseOrderService',
+  '$state',
+  function($scope,$ionicLoading, $ionicScrollDelegate, CommonUtil, favoriteService, orderService, purchaseOrderService, $state) {
+    var pageNumber, pageSize;
+    var resetModel = function () {
+      $scope.hasMore = true;
+      $scope.purchaseProducts = [];
+      pageNumber = 1;
+      pageSize = 5;
+    };
+
+    var loadMore = (function () {
+      var pending = false;
+      return function () {
+        if(pending) return;
+        pending = true;
+        var getProductsPromise = purchaseOrderService.getProducts(pageNumber, pageSize, $scope.filter);
+        var loadMorePromise = getProductsPromise.then(function (products) {
+            if(!products.length) {
+              $scope.hasMore = false;
+            } else {
+              _.each(products, function (p) {
+                $scope.purchaseProducts.push(p);
+              });
+              checkIsAllSelected();
+              pageNumber++;
+            }
+          })
+          .finally(function () {
+            pending = false;
+          });
+        loadMorePromise.abort = getProductsPromise.abort;
+        return loadMorePromise;
+      };
+    }());
+
+    var checkIsAllSelected = function () {
+      $scope.isAllSelected = $scope.purchaseProducts.length === _.filter($scope.purchaseProducts, {isSelected: true}).length;
+    };
+
+    //过滤条件
+    $scope.filter = {
+      isOutStock: false,
+      keyword: ''
+    };
+
+    //加载更多
+    $scope.loadMore = function () {
+      loadMore().finally(function () {
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      });
+    };
+
+    //全选
+    $scope.toggleSelectAll = function () {
+      if($scope.isAllSelected) {
+        _.each($scope.purchaseProducts, function (p) {
+          p.isSelected = true;
+        });
+        purchaseOrderService.select($scope.purchaseProducts);
+      } else {
+        _.each($scope.purchaseProducts, function (p) {
+          p.isSelected = false;
+        });
+        purchaseOrderService.unselect();
+      }
+    };
+
+    //单选
+    $scope.toggleSelectOne = function (product) {
+      if(product.isSelected) {
+        purchaseOrderService.select(product);
+      } else {
+        purchaseOrderService.unselect(product);
+      }
+      checkIsAllSelected();
+    };
+
+    //编辑数量
+    $scope.changeNumber = function (product) {
+      var product = {'productList':[{'productId': product.id,'quantity':product.quantity }]};
+      //console.log(product);/
+      purchaseOrderService.setQuantity(product);
+      //console.log($scope.product.quantity);
+    };
+
+    //删除
+    $scope.deleteProduct = function (products) {
+      var selectedProducts = _.filter($scope.purchaseProducts, {isSelected: true});
+      if(selectedProducts.length) {
+        purchaseOrderService.removeProduct(selectedProducts)
+          .then(function () {
+            _.pullAllWith(products, selectedProducts, function (p1, p2) {
+              return p1.id === p2.id;
+            });
+            purchaseOrderService.unselect(selectedProducts);
+            checkIsAllSelected();
+
+            CommonUtil.tip('删除成功');
+          })
+      }else {
+        CommonUtil.tip('请选择要删除的商品');
+      }
+    };
+
+    $scope.singleDelete = function(id){
+      //console.log(id);
+      purchaseOrderService.removeSingle(id)
+        .then(function(){
+          CommonUtil.tip('删除成功');
+        },function(errMsg){
+          CommonUtil.tip(errMsg);
+        })
+        .finally(function(){
+            //loadMore()
+            resetModel();
+            loadMorePromise = loadMore();
+          }
+        );
+    };
+
+    //结算
+    $scope.goOrderProcess = function(){
+      var selectedProducts = _.filter($scope.purchaseProducts, {isSelected: true});
+      console.log(selectedProducts);
+      if(selectedProducts.length){
+        var ids, quantitys;
+        if(!angular.isArray(selectedProducts)){
+          ids = [selectedProducts.id];
+          quantitys = [selectedProducts.quantity];
+        }else {
+          ids = _.map(selectedProducts, 'id');
+          quantitys = _.map(selectedProducts, 'quantity');
+          ids = ids.join(',');
+          quantitys = quantitys.join(',');
+        }
+        var product = {
+          ids: ids,
+          quantitys: quantitys
+        };
+        console.log(product);
+
+        $state.go('orderOk', {productInfo:product});
+      }else{
+        CommonUtil.tip('请选择需要结算的商品');
+      }
+
+    };
+    //库存检测
+    var directBuyPrecheck = function(){
+      var selectedProducts = _.filter($scope.purchaseProducts, {isSelected: true});
+      var opt = {
+        id: selectedProducts.id,
+        directQuantity: selectedProducts.quantity
+      }
+      console.log(opt.id);
+      return orderService.directBuyPrecheck(opt);
+    };
+
+    $scope.collectProduct = function(products){
+      var selectedProducts = _.filter($scope.purchaseProducts, {isSelected: true});
+      if(selectedProducts.length){
+        favoriteService.addProduct(selectedProducts)
+          .then(function(){
+            _.pullAllWith(products, selectedProducts, function (p1, p2) {
+              return p1.id === p2.id;
+            });
+            purchaseOrderService.unselect(selectedProducts);
+            checkIsAllSelected();
+
+            CommonUtil.tip('收藏成功');
+          }, function(err){
+            CommonUtil.tip(err);
+          })
+      }else {
+        CommonUtil.tip('请选择要收藏的商品');
+      }
+
+    };
+
+    //监听过滤条件
+    $scope.$watch('filter.isOutStock', function (newValue, oldValue) {
+      if(newValue !== oldValue) {
+        resetModel();
+        $ionicScrollDelegate.scrollTop();
+      }
+    });
+    $scope.$watch('filter.keyword', function (newValue, oldValue) {
+      if(newValue !== oldValue) {
+        resetModel();
+        $ionicScrollDelegate.scrollTop();
+      }
+    });
+
+    //初始化
+    //$scope.$on('$ionicView.enter', function(){
+      var loadMorePromise;
+      $ionicLoading.show();
+      $scope.$on('$destroy', function () {
+        loadMorePromise.abort();
+        //if(timer){
+        //  $timeout.cancel(timer);
+        //}
+      });
+
+      //setTimeout(function(){
+        $scope.state = purchaseOrderService.getState();
+        resetModel();
+        loadMorePromise = loadMore();
+        loadMorePromise.then(function () {
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+          $ionicLoading.hide();
+        }, function (errorMsg) {
+          CommonUtil.tip(errorMsg,2000);
+        });
+      //},300);
+    //});
+
+  }
+]);
+
+aiyaController.controller('rapidListController', [
+  '$scope',
+  'productService',
+  'userService',
+  function($scope,productService,userService){
+    var params = {
+      /*makeType	int	否	是否为国产品牌 0--国产 1--进口
+       brandIds	string	否	品牌ID集合,多个id用","分割
+       categoryIds	string	否	分类ID集合,多个id用","分割
+       keyword	string	否	商品搜索关键字
+       salesDesc	boolean	否	是否按销量降序
+       dateDesc	boolean	否	是否按新品降序
+       priceOrder	string	否	是否按价格排序 asc--升序 desc--降序
+       pageNumber	int	否	分页页码
+       pageSize	int	否	分页每页记录数*/
+      keyword:'',
+      pageNumber : 1,
+      pageSize : 20
+    }
+    $scope.productList = [];
+    var page = {};
+
+    var init = function(){
+      productService.getList(params).then(function(data){
+        if(params.pageNumber == 1){
+          $scope.productList = data.list;
+        }else{
+          $scope.productList = $scope.productList.concat(data.list);
+        }
+        page = data.page;
+      },function(err){
+        console.log(err);
+      });
+    }
+    init();
+    /*当前用户*/
+    userService.getInfo()
+      .then(function(data){
+        $scope.currentUser = data;
+      },function(err){
+        console.log(err);
+      });
+
+    /*加载更多*/
+    $scope.loadMore = function(){
+      if(page.hasNextPage){
+        params.pageNumber++;
+        init();
+      }
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    }
+
+    /*刷新*/
+    $scope.doRefresh = function(){
+      params.pageNumber = 1;
+      init();
+      $scope.$broadcast('scroll.refreshComplete');
+    }
+
+    /*搜索*/
+    $scope.search = function(keyword){
+      params.pageNumber = 1;
+      params.keyword = keyword;
+      init();
+    }
+}]);
+
+aiyaController.controller('registerController', [
+  '$scope',
+  '$state',
+  'userService',
+  'authCodeService',
+  '$ionicLoading',
+  function($scope, $state, userService, authCodeService, $ionicLoading){
+    var tip = function (msg) {
+      $ionicLoading.show({
+        template: msg,
+        noBackdrop: true,
+        duration: 1500
+      });
+    };
+    $scope.submit = function () {
+      var opt = {
+        username: $scope.user.mobile,
+        password: $scope.user.password1,
+        captchacode: $scope.user.authCode
+      };
+      userService.register(opt)
+        .then(function () {
+          tip('注册成功!即将返回登录页面');
+          setTimeout(function () {
+            $scope.back();
+          }, 1000);
+        }, function (errorMsg) {
+          tip(errorMsg);
+        });
+    };
+    $scope.user = {};
+    $scope.getAuthCode = function () {
+      var mobile = $scope.user.mobile;
+      if(mobile) {
+        authCodeService.get(mobile, 1)
+          .then(function () {
+            tip('验证码已发送!');
+          }, function (errorMsg) {
+            tip(errorMsg);
+          })
+      } else {
+        tip('请输入手机号码！');
+      }
+    };
+  }]);
+
+aiyaController.controller('resetPwdController', [
+  '$scope',
+  '$state',
+  '$ionicLoading',
+  'userService',
+  'authCodeService',
+  function($scope, $state, $ionicLoading, userService, authCodeService){
+    var tip = function (msg) {
+      $ionicLoading.show({
+        template: msg,
+        noBackdrop: true,
+        duration: 1500
+      });
+    };
+    $scope.getAuthCode = function () {
+      var mobile = $scope.mobile;
+      if(mobile) {
+        authCodeService.get(mobile, 2)
+          .then(function () {
+            tip('验证码已发送!');
+          }, function (errorMsg) {
+            tip(errorMsg);
+          })
+      } else {
+        tip('请输入手机号码！');
+      }
+    };
+    $scope.submit = function () {
+      var opt = {
+        username: $scope.mobile,
+        password: $scope.password,
+        captchacode: $scope.authCode
+      };
+      userService.resetPwd(opt)
+        .then(function () {
+          tip('密码重置成功，即将返回!');
+        }, function (errorMsg) {
+          tip(errorMsg);
+        })
+    }
+  }]);
+
+aiyaController.controller('toothOpCtrl',[
+  '$scope',
+  '$ionicLoading',
+  '$ionicPopover',
+  '$location',
+  '$state',
+  '$ionicSlideBoxDelegate',
+  'toothOplist',
+  //StringUtil
+  function($scope,$ionicLoading,$ionicPopover,$location,$state,$ionicSlideBoxDelegate,toothOplist){
+
+  //$scope.toothIMG = null;
+  $scope.toothMoredata = true;
+  $scope.obj_toothlist = new Array();
+  $scope.toothSlider = null;
+
+  $scope.$on('$ionicView.enter', function(){
+    data();
+    $ionicSlideBoxDelegate.update();
+  })
+  var tip = function(msg){
+    $ionicLoading.show({
+    template: msg,
+    duration: 1500
+    });
+  }
+  $scope.toothPageParame = {
+      keyword: '',
+      salesDesc: '',
+      pageNumber: 1,
+      pageSize: 6,
+      categoryIds: 147
+  }
+  //初始化立即询价
+  //$scope.enquiryList = [{
+  //  'toothName': '',
+  //  'customerName': '',
+  //  'cellPhone': '',
+  //  'phone': ''
+  //}]
+
+  $scope.toothDisplay = true;
+  $scope.isToothRowlistHide = true;
+  $scope.isToothRowColumnHide = false;
+
+  $scope.toothToggle = function(){
+    if($scope.isToothRowlistHide == true){
+      $scope.isToothRowlistHide = false;
+      $scope.isToothRowColumnHide = true;
+
+      $scope.toothDisplay = false;
+    }else{
+      $scope.isToothRowlistHide = true;
+      $scope.isToothRowColumnHide = false;
+
+      $scope.toothDisplay = true;
+    }
+  };
+
+  //图片广告
+  var opt = {
+    beginDate: '',
+    endDate: '',
+    positionId: 20
+  };
+  toothOplist.getBannerlist(opt)
+    .then(function(rs){
+      $scope.toothSlider = rs.list;
+    },function(errMsg){
+      tip(errMsg);
+    });
+  toothOplist.toothIMGlist().get(null, function(rs){
+      if(rs.code === 1 ){
+          $scope.toothIMG = rs.data.list;
+      }else{
+          tip(rs.msg);
+      }
+  });
+
+  //询价提交
+  $scope.enquirySubmit = function(){
+    //console.log("验证已通过~")
+    var submitOpt = {
+      contactName: $scope.enquiryList.customerName,
+      phone: $scope.enquiryList.phone,
+      hospitalName: $scope.enquiryList.toothName,
+      mobile: $scope.enquiryList.cellPhone
+    };
+    toothOplist.ycSave(submitOpt)
+      .then(function(rs){
+        tip(rs.msg);
+        //debugger
+      },function(errMsg){
+        tip(errMsg);
+      });
+    //var pass = true, msg = '';
+    //for(i = 0;i<$scope.enquiryList.length; i++){
+    //  var item = $scope.enquiryList[i];
+    //
+    //  if(StringUtil.isEmpty(item.toothName)){
+    //    msg = '请输入牙科名称';
+    //    console.log('请输入牙科名称');
+    //    pass = false;
+    //    break;
+    //  }
+    //  if(StringUtil.isEmpty(item.customerName)){
+    //    msg = '请输入您的姓名';
+    //    pass = false;
+    //    break;
+    //  }
+    //  if(StringUtil.isEmpty(item.cellPhone)){
+    //    msg = '请输入您的手机号码';
+    //    pass = false;
+    //    break;
+    //  }
+    //  if(StringUtil.isEmpty(item.phone)){
+    //    msg = '请输入您的固定电话';
+    //    pass = false;
+    //    break;
+    //  }
+    //  if(pass){
+    //    msg = 'pass';
+    //  }else{
+    //    $ionicLoading.show({template:msg,noBackdrop:true,duration:1500});
+    //  }
+    //}
+  }
+
+  var data = function(){
+      toothOplist.toothList().get($scope.toothPageParame, function(rs){
+        //debugger
+        if(rs.code === 1){
+              if(rs.data.list.length > 0){
+                //debugger
+                $.each(rs.data.list, function(i, item){
+                    $scope.obj_toothlist.push(item);
+                })
+              }else{
+                  $scope.toothMoredata = false;
+              }
+          }else{
+              tip(rs.msg);
+          }
+      })
+  };
+
+  //通用头部导航菜单
+  $ionicPopover.fromTemplateUrl('menu-popover.html', {
+    scope: $scope
+  }).then(function(popover){
+    $scope.popover = popover;
+  });
+  $scope.openPopover = function($event){
+    $scope.popover.show($event);
+  };
+  //销毁popover对象
+  $scope.$on('$destroy', function(){
+    $scope.popover.remove();
+  });
+  $scope.closePopover = function() {
+    $scope.popover.hide();
+  };
+  //隐藏事件回调处理
+  $scope.$on('popover.hidden', function() {
+    // Execute action
+  });
+  //删除事件回调处理
+  $scope.$on('popover.removed', function() {
+    // Execute action
+  });
+  //头部导航菜单跳转
+  $scope.topMenuBack = function(url){
+    $state.go(url);
+    $scope.popover.hide();
+  }
+
+  $scope.doToothFresh = function(){
+      data();
+      $scope.$broadcast("scroll.refreshComplete");
+  };
+
+  $scope.toothLoadMore = function(){
+      $scope.toothPageParame.pageNumber++;
+      data();
+      $scope.$broadcast("scroll.infiniteScrollComplete");
+  }
+
+}]);
+
+aiyaController.controller('toothOpEnquiryCtrl', [
+  '$scope',
+  '$ionicLoading',
+  '$state',
+  'StringUtil',
+  'toothOplist',
+  function($scope,$ionicLoading,$state,StringUtil,toothOplist){
+
+    $scope.enquiryList = [{
+      'toothName': '',
+      'customerName': '',
+      'cellPhone': '',
+      'phone': ''
+    }]
+
+    //立即询价-提交
+    $scope.enquirySubmit = function(){
+      console.log("验证已通过~")
+      //var pass = true, msg = '';
+      //for(i = 0;i<$scope.enquiryList.length; i++){
+      //  var item = $scope.enquiryList[i];
+      //
+      //  if(StringUtil.isEmpty(item.toothName)){
+      //    msg = '请输入牙科名称';
+      //    console.log('请输入牙科名称');
+      //    pass = false;
+      //    break;
+      //  }
+      //  if(StringUtil.isEmpty(item.customerName)){
+      //    msg = '请输入您的姓名';
+      //    pass = false;
+      //    break;
+      //  }
+      //  if(StringUtil.isEmpty(item.cellPhone)){
+      //    msg = '请输入您的手机号码';
+      //    pass = false;
+      //    break;
+      //  }
+      //  if(StringUtil.isEmpty(item.phone)){
+      //    msg = '请输入您的固定电话';
+      //    pass = false;
+      //    break;
+      //  }
+      //  if(pass){
+      //    msg = 'pass';
+      //  }else{
+      //    $ionicLoading.show({template:msg,noBackdrop:true,duration:1500});
+      //  }
+      //}
+    }
+
+}]);
+
+aiyaController.controller('userController',[
+  '$scope',
+  '$state',
+  '$timeout',
+  '$ionicLoading',
+  '$ionicActionSheet',
+  'userService',
+  function($scope, $state, $timeout, $ionicLoading, $ionicActionSheet, userService){
+    var userInfoPromise;
+    var tip = function (msg) {
+      $ionicLoading.show({
+        template: msg,
+        noBackdrop: true,
+        duration: 1500
+      });
+    };
+
+    $scope.$on('$destroy', function () {
+      if(userInfoPromise.abort) {
+        userInfoPromise.abort();
+      }
+      $ionicLoading.hide();
+    });
+
+    $ionicLoading.show();
+    userInfoPromise = userService.getInfo();
+
+    userInfoPromise.then(function (user) {
+      $scope.user = user;
+      $scope.userID = user.id;
+      $ionicLoading.hide();
+    }, function () {
+      $ionicLoading.hide();
+      $state.go('login');
+    });
+
+    //个人信息性别编辑
+    $scope.linkGender = function(){
+      $ionicActionSheet.show({
+        buttons: [
+          {text: '男'},
+          {text: '女'}
+        ],
+        titleText: '',
+        cancelText: '取消',
+        buttonClicked: function(index){
+          switch(index){
+            case 0:
+              userService.update({id: $scope.userID ,gender: 0})
+                .then(function(){
+                  tip('更新成功！');
+                },function(errormsg){
+                  tip(errormsg);
+                })
+              //console.log('男');
+              break;
+            case 1:
+              userService.update({id: $scope.userID ,gender: 1})
+                .then(function(){
+                  tip('更新成功！');
+                },function(errormsg){
+                  tip(errormsg);
+                })
+              //console.log('女');
+              break;
+          }
+          return true;
+        }
+      });
+    }
+    //个人信息牙科名称编辑
+    $scope.linkDentistryOk = function(){
+      var opt = {
+        name: $scope.dentistryName
+      }
+      userService.update(opt)
+        .then(function(){
+          tip('更新成功！');
+        },function(errMsg){
+          tip(errMsg);
+        })
+    }
+
+    //登出
+    $scope.logout = function(){
+      userService.logout()
+        .then(function(){
+          tip('成功退出！');
+          setTimeout(function(){
+            $scope.back();
+          },1000);
+        },function(errMsg){
+          tip(errMsg);
+        });
+    }
+}]);

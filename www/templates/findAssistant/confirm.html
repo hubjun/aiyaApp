@@ -1,0 +1,25 @@
+<ion-view view-title="发布需求">
+  <div class="bar bar-header bar-stable">
+    <button class="button button-dark button-clear icon-left ion-ios-arrow-back" ng-click="back()"></button>
+    <h1 class="title">发布需求</h1>
+    <button class="button button-dark button-clear icon-right ion-ios-more" nav-button></button>
+  </div>
+  <ion-content class="findAssistant_page has-header" scrollbar-y="false">
+    <div class="list list-inset">
+      <label class="item item-input">
+        <input type="text" placeholder="姓名" ng-model="name">
+      </label>
+      <div class="space"></div>
+      <label class="item item-input">
+        <input type="text" placeholder="电话" ng-model="phone">
+      </label>
+      <div class="space"></div>
+      <label class="item item-input">
+        <input type="text" placeholder="牙科名" ng-model="hospitalName">
+      </label>
+    </div>
+    <div class="padding">
+      <a class="button button-block button-positive button-next" ng-click="confirmPulish()">确认发布</a>
+    </div>
+  </ion-content>
+</ion-view>

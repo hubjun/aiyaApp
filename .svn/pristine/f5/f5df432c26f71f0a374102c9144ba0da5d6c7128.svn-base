@@ -1,0 +1,51 @@
+<div style="position: fixed;top:0;left:0;right:0;bottom:0;" ng-click="closeSpecificationModal()"></div>
+<ion-modal-view class="modal  specificationModal">
+  <ion-header-bar class="speci-header">
+    <img ng-src="{{productInfo.image}}"/>
+    <div>
+      <p class="price">{{productInfo.price | currency:'￥'}}</p>
+      <p class="" ng-if="memberPrice">会员价:{{memberPrice | currency:'￥'}}</p>
+      <p class="stock">库存{{productInfo.availableStock}}{{productInfo.unit}}</p>
+    </div>
+    <i class="closeButton ion-aiya icon-guanbi" ng-click="closeSpecificationModal()"></i>
+  </ion-header-bar>
+
+  <ion-content scrollbar-y="false">
+    <ion-item ng-if="specification.specificationValues.length > 0">
+      <label class="title">{{specification.name}}</label>
+      <div class="spec-box">
+        <label ng-repeat="specItem in specification.specificationValues" for="spec-radio">
+          <input type="radio"  name="spec-radio"
+                 ng-value="specItem.id"
+                 ng-model="$parent.product.specification"
+                 ng-click="handleSpec(specItem)"
+                 ng-disabled="specItem.availableStock == 0"/>
+          <div class="spec-content" ng-class="{'spec-noSelect':specItem.availableStock == 0, 'active': $parent.product.specification == specItem.id}">
+            {{specItem.name}}
+          </div>
+        </label>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <label class="title buy-number">购买数量<span ng-if="productInfo.isLimit" class="limitNo" >(每人限购{{productInfo.limitNo}}{{productInfo.unit}})</span></label>
+      <span class="numberBox">
+        <i class="operaButton ion-aiya icon-jian1" ng-click="cutQuantity()"></i>
+        <input ng-model="product.quantity" maxlength="{{productInfo.availableStock}}" onkeyup="this.value=this.value.replace(/\D/g,'')" ng-change="changeStock()" type="tel"/>
+        <i class="operaButton ion-aiya icon-zengjia" ng-click="addQuantity()"></i>
+      </span>
+    </ion-item>
+  </ion-content>
+
+  <ion-footer-bar class="speci-footer">
+    <div class="button-bar" ng-if="optionType">
+      <a class="button button-positive" ng-click="goOrderProcess()">确 定</a>
+    </div>
+    <div class="button-bar row" ng-if="optionType == null">
+      <a class="button button-buyNow" ng-click="buyNow()" ng-if="productInfo.availableStock != 0">立即购买</a>
+      <a class="button button-join" ng-click="joinCart()" ng-if="productInfo.availableStock !=0 ">加入采购单</a>
+      <a class="button button-noBuy" ng-if="productInfo.availableStock === 0">售罄</a>
+    </div>
+  </ion-footer-bar>
+</ion-modal-view>
+

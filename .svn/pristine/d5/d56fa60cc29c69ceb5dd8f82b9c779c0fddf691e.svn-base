@@ -1,0 +1,20 @@
+angular.module('starter.services')
+  .factory('homeSearch', [
+    '$resource',
+    'ENV',
+    function($resource, ENV) {
+      return {
+        homeHotKeyworld: function() {
+          return $resource(ENV.siteUrl + '/membersearchkey/fullsearchkeylist');
+        },
+
+        keyList: function() {
+          return $resource(ENV.siteUrl + '/product/search', {
+            keyword: '@keyword',
+            pageNumber: '@pageNumber',
+            pageSize: '@pageSize'
+          });
+        }
+      }
+    }
+  ]);

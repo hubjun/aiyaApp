@@ -1,0 +1,175 @@
+<ion-view class="order-ok" hide-nav-bar="true" view-title="订单确认">
+  <div class="bar bar-header bar-stable">
+    <a class="button button-dark ion-ios-arrow-back icon-left button-clear" ng-click="back()"></a>
+    <h1 class="title">订单确认</h1>
+    <a class="button button-dark ion-ios-more icon-right button-clear" nav-button></a>
+  </div>
+
+  <ion-content class="has-header" scrollbar-y="false">
+    <ion-list>
+      <ion-item class="item-icon-right" ui-sref="address({addrId:receiverInfo.id})" ng-if="receiverInfo != null && receiverInfo != ''">
+        <div class="address">
+            <div class="contact row">
+                <span class="customer col">收货人：{{receiverInfo.consignee}}</span>
+                <span class="phone col">电话：{{receiverInfo.phone}}</span>
+            </div>
+            <p>{{receiverInfo.areaName}}{{receiverInfo.address}}</p>
+        </div>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+      <ion-item class="item-icon-right"  ui-sref="address" ng-if="receiverInfo == null || receiverInfo == ''">
+        <span class="noAddress">
+          您还没有收货信息，请设置
+        </span>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+
+    <div class="gap"></div>
+    <ion-list>
+      <ion-item ng-repeat="product in products">
+          <div class="product-list row pad-0">
+              <div class="left-img col-27">
+                  <a href="#">
+                    <img ng-src="{{imgUrl}}{{product.image}}" alt="">
+                  </a>
+              </div>
+              <div class="mid-detail col-73">
+                  <span class="name">{{product.fullName | characters :39 :false}}</span>
+                  <span class="price">{{product.truePrice | currency : '￥'}}</span>
+              </div>
+              <!--<div class="right-count">-->
+                  <span class="count">X{{product.number}}</span>
+              <!--</div>-->
+          </div>
+      </ion-item>
+
+      <ion-item class="item-input-inset">
+        <div class="item-input-wrapper">
+          <input class="aiyaku-input-bar leaveMsg" type="text" placeholder="给爱牙库留言：" ng-model="orderInfo.memo"/>
+        </div>
+      </ion-item>
+
+      <!--配送方式-->
+      <ion-item class="item-icon-right" ng-click="showShippingMethod()" ng-if="defaultShippingMethod != null">
+        <div class="column-item">
+          <h2>配送方式</h2>
+          <span>{{defaultShippingMethod.name}}</span>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <div class="column-item freight">
+            <h2>运费：</h2>
+            <span>{{expressFee | currency: '￥'}}</span>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <div class="column-item total">
+          <h2>共{{totalQuantity}}件商品</h2>
+          <span><b>应付金额：</b>{{totalPrice | currency: '￥'}}</span>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <div class="row column-item discount pad-0">
+            <div class="col-20">
+                <h2>优惠码</h2>
+            </div>
+            <div class="col-80 item-input-inset pad-0">
+                <div class="item-input-wrapper item-button-right pad-0">
+                    <input class="aiyaku-input-bar" type="text" placeholder="输入您的优惠码" ng-model="orderInfo.coupon"/>
+                    <button class="button button-positive" ng-click="couponSure()">确定</button>
+                </div>
+            </div>
+        </div>
+      </ion-item>
+      <!--优惠卷折扣-->
+      <ion-item ng-show="orderInfo.hasCoupon">
+        <div class="column-item freight">
+          <h2>优惠卷折扣：</h2>
+          <span>{{couponPrice | currency: '￥'}}</span>
+        </div>
+      </ion-item>
+
+      <!--促销活动-->
+      <ion-item class="item-icon-right" ng-click="showPromotion()" ng-if="promotionList != null && promotionList.length > 0">
+        <div class="column-item" ng-repeat="promotion in promotionList| limitTo:1">
+          <h2>促销活动</h2>
+          <span>{{promotion.title}}</span>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+        </div>
+      </ion-item>
+
+        <ion-item class="bill pad-0">
+          <ion-toggle
+            ng-model="pushBill.checked"
+            toggle-class="toggle-stable"
+            ng-change="toggleBillChange()" ng-click="scrollBottom()" class="toggle-span">
+            是否开据发票
+          </ion-toggle>
+        </ion-item>
+        <ion-item id="sada" class="item-input-inset" ng-show="orderInfo.isInvoice">
+          <div class="item-input-wrapper">
+            <input class="aiyaku-input-bar" type="text" placeholder="发票抬头：" ng-model="orderInfo.invoiceTitle">
+          </div>
+        </ion-item>
+    </ion-list>
+
+  </ion-content>
+  <ion-footer-bar>
+    <div class="row pad-0 column-item list-total">
+      <span class="col-total col-75"><b>应付总额：</b>{{allPrice | currency: '￥'}}</span>
+      <button class="col-25 button button-positive" ng-click="createOrder()">提交订单</button>
+    </div>
+  </ion-footer-bar>
+</ion-view>
+
+<!--配送方式modal-->
+<script id="popover-shipping.html" type="text/ng-template">
+  <div class="modal aiya-popover aiya-popover-shipping">
+    <ion-header-bar>
+      <span class="title">配送方式</span>
+    </ion-header-bar>
+    <ion-content scrollbar-y="false">
+        <ion-item ng-repeat="shippingMethod in shippingMethodList">
+          <span>
+             {{shippingMethod.name}}
+            <span class="description" ng-if="shippingMethod.description != ''">
+              ({{shippingMethod.description}})
+            </span>
+          </span>
+          <label class="checkbox radio-fl">
+            <input type="radio" name="shippingMethod" ng-checked="defaultShippingMethod.id === shippingMethod.id" ng-value="shippingMethod.id" ng-click="selectShippingMethod(shippingMethod)"/>
+          </label>
+        </ion-item>
+    </ion-content>
+    <ion-footer-bar>
+      <div class="button-bar">
+        <button class="button button-positive" ng-click="shippingMethodConfirm()">确定</button>
+      </div>
+    </ion-footer-bar>
+  </div>
+</script>
+
+<!--活动详情-->
+<script id="popover-promotion.html" type="text/ng-template">
+  <div class="modal aiya-popover aiya-popover-promotion">
+    <ion-header-bar>
+      <span class="title">活动</span>
+    </ion-header-bar>
+    <ion-content scrollbar-y="false">
+      <ion-item ng-repeat="promotion in promotionList">
+        <i class="icon  ion-hook"></i>
+        <span>{{promotion.title}}</span>
+      </ion-item>
+    </ion-content>
+    <ion-footer-bar>
+      <div class="button-bar">
+        <button class="button button-positive" ng-click="closePromotion()">确定</button>
+      </div>
+    </ion-footer-bar>
+  </div>
+</script>

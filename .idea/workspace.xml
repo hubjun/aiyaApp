@@ -1,0 +1,1780 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/www/templates/adress/addressDetail.html" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" readonly="true" id="9a43dac7-e532-4785-b2b6-d40797793d4b" name="Default" comment="push">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/icon/drawable-hdpi-icon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/icon/drawable-ldpi-icon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/icon/drawable-mdpi-icon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/icon/drawable-xhdpi-icon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/icon/drawable-xxhdpi-icon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/icon/drawable-xxxhdpi-icon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/splash/drawable-land-hdpi-screen.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/splash/drawable-land-ldpi-screen.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/splash/drawable-land-mdpi-screen.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/splash/drawable-land-xhdpi-screen.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/splash/drawable-land-xxhdpi-screen.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/splash/drawable-land-xxxhdpi-screen.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/splash/drawable-port-hdpi-screen.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/splash/drawable-port-ldpi-screen.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/splash/drawable-port-mdpi-screen.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/splash/drawable-port-xhdpi-screen.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/splash/drawable-port-xxhdpi-screen.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/android/splash/drawable-port-xxxhdpi-screen.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/icon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon-40.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon-40@2x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon-50.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon-50@2x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon-60.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon-60@2x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon-60@3x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon-72.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon-72@2x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon-76.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon-76@2x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon-small.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon-small@2x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon-small@3x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/icon/icon@2x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/splash/Default-568h@2x~iphone.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/splash/Default-667h.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/splash/Default-736h.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/splash/Default-Landscape-736h.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/splash/Default-Landscape@2x~ipad.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/splash/Default-Landscape~ipad.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/splash/Default-Portrait@2x~ipad.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/splash/Default-Portrait~ipad.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/splash/Default@2x~iphone.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ios/splash/Default~iphone.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/splash.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/iconfont/iconfont.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/iconfont/iconfont.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/iconfont/iconfont.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/DMG.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/NSK.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/Ormco.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/QQ01.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/about/about_tu10.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/about/about_tu11.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/about/about_tu2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/about/about_tu3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/about/about_tu4.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/about/about_tu5.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/about/about_tu6.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/about/about_tu7.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/about/about_tu8.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/about/about_tu9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/about/list_img.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/about/tu_baout.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/ad01.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/add.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/addImg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/alipay.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/assistant_default.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/cartNull.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/category.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/cut.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/delivered.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/findNot.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/findNot.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/fl1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/fl2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/fl3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/fl4.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/fl5.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/fl6.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/fl7.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/fl8.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/icon-addr-edit.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/icon-network-error.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/ionic.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/joinCart.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/linkMap.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/linkPhone.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/loading.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/more-recommend1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/myaiyaku/bg.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/myaiyaku/collect.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/myaiyaku/message.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/myaiyaku/news.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/myaiyaku/orders.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/myaiyaku/purchase.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/myaiyaku/set.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/myaiyaku/settings.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/myaiyaku/tou_icon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/myaiyaku/vip.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/paySuccessBg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/pro1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/pro2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/pro3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/pro4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/pro5.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/productDefaut.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/productInfo/Collect.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/productInfo/QQ.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/productInfo/consumableImg.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/productInfo/default.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/productInfo/hook.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/productInfo/share.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/productInfo/ycImg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/s-1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/s-2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/s-3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/scoreborder.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/scoreborder2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/scroll-to-top-icon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/scrollTop.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/searchNull.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/star.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/starBack.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/t.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/t2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/t3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/waitPay.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/weichart.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/weichat.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/weichat01.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular/angular.min.js.gzip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/fonts/ionicons.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/fonts/ionicons.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/fonts/ionicons.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.bowerrc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.editorconfig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gulpfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hooks/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hooks/after_prepare/010_add_platform_class.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ionic.project" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/npm-debug.log" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/_mixins.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/_variables.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/about.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/address.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/addressDetail.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/aiyaku.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/brand.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/favorite.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/filterProductList.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/findAssistant.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/home.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/layout.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/linkUs.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/login.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/moreMR.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/myOrders.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/myaiyaku.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/mylog.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/orderDetail.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/orderEdit.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/orderList.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/orderOk.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/orderPay.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/orderSearch.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/paySuccess.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/productCategory.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/productInfo.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/purchaseOrder.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/purchaseProductItem.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/rapidList.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/specificationModal.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/toothOp.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/toothOpEnquiry.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/userInfo.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/utils.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scss/variable.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/css/aiyaku.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/css/aiyaku.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/css/aiyaku.util.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/data/index/floorproductlist.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/data/index/getrecommendproductc.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/data/navilist/productlist.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/data/order/directinfo.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/data/order/getRecommendProductC.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/data/product/info.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/data/product/search/list.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/data/purchase/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/data/receiver/list.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/iconfont/demo.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/iconfont/demo.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/iconfont/iconfont.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/iconfont/iconfont.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/appDev.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/config.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/address.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/addressDetailController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/assistant.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/assistantConfirm.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/brandController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/commonSelectController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/favoriteController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/filterProductListController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/homeController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/homeSearch.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/loginController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/main.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/modifyPwdController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/moreMR.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/myOrdersController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/mylogController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/network.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/orderDetail.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/orderDetailController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/orderOkController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/orderPay.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/paySuccessController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/productCategoryController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/productInfo.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/purchaseOrderController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/rapidListController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/registerController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/resetPwdController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/toothOpController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/toothOpEnquiry.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/userController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/userInfoController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/directives.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/filters.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/hmbaidu.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/inputFile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/pay.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/remLayout.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/route.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/authCodeService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/brandService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/categoryService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/favoriteService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/filterProListService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/homeSearchService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/homeService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/httpRequest.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/logisticService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/main.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/moreMRService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/orderService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/productService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/productSpecService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/purchaseOrderService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/toothOpService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/userAddressService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/services/userService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/utils.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-animate/.bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-animate/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-animate/angular-animate.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-animate/angular-animate.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-animate/angular-animate.min.js.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-animate/bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-animate/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-animate/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-cookies/.bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-cookies/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-cookies/angular-cookies.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-cookies/angular-cookies.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-cookies/angular-cookies.min.js.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-cookies/bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-cookies/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-cookies/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ios9-uiwebview.patch.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-mocks/.bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-mocks/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-mocks/angular-mocks.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-mocks/bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-mocks/ngAnimateMock.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-mocks/ngMock.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-mocks/ngMockE2E.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-mocks/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-sanitize/.bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-sanitize/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-sanitize/angular-sanitize.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-sanitize/angular-sanitize.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-sanitize/angular-sanitize.min.js.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-sanitize/bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-sanitize/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-sanitize/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/.bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/CHANGELOG.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/CONTRIBUTING.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/api/angular-ui-router.d.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/release/angular-ui-router.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/release/angular-ui-router.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/src/common.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/src/resolve.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/src/state.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/src/stateDirectives.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/src/stateFilters.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/src/templateFactory.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/src/urlMatcherFactory.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/src/urlRouter.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/src/view.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/src/viewDirective.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular-ui-router/src/viewScroll.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular/.bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular/angular-csp.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular/angular.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular/angular.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular/angular.min.js.map" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular/bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/angular/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/css/ionic.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/css/ionic.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/fonts/ionicons.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/angular-ui/angular-ui-router.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/angular-ui/angular-ui-router.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/angular/angular-animate.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/angular/angular-animate.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/angular/angular-resource.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/angular/angular-resource.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/angular/angular-sanitize.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/angular/angular-sanitize.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/angular/angular.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/angular/angular.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/ionic-angular.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/ionic-angular.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/ionic.bundle.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/ionic.bundle.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/ionic.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/js/ionic.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_action-sheet.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_animations.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_backdrop.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_badge.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_bar.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_button-bar.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_button.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_checkbox.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_form.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_grid.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_items.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_list.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_loading.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_menu.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_mixins.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_modal.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_platform.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_popover.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_popup.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_progress.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_radio.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_range.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_refresher.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_reset.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_scaffolding.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_select.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_slide-box.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_slides.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_spinner.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_tabs.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_toggle.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_transitions.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_type.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_util.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/_variables.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/ionic.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/ionicons/_ionicons-font.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/ionicons/_ionicons-icons.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/ionicons/_ionicons-variables.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/scss/ionicons/ionicons.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ionic/version.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/jquery/jquery.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/lodash/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/lodash/dist/lodash.core.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/lodash/dist/lodash.core.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/lodash/dist/lodash.fp.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/lodash/dist/lodash.fp.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/lodash/dist/lodash.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/lodash/dist/lodash.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/lodash/dist/mapping.fp.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/.bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/.bowerrc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/Gruntfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/app/js/main.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/app/js/src/Resource.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/app/js/src/ResourceConfiguration.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/app/js/src/ResourceFactory.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/app/js/src/ResourceRun.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/app/js/test/ResourceTest.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/dist/ng-resource.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/dist/ng-resource.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/karma.conf.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-resource/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ngCordova/.bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ngCordova/CHANGELOG.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ngCordova/LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ngCordova/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ngCordova/bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ngCordova/dist/ng-cordova-mocks.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ngCordova/dist/ng-cordova-mocks.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ngCordova/dist/ng-cordova.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ngCordova/dist/ng-cordova.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ngCordova/package.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/timepicer/timePicker.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/timepicer/timePicker.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/upload/ng-file-upload-shim.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/upload/ng-file-upload.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/pay/alipay.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/pay/wxpay.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/adress/address.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/adress/addressDetail.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/brand/brand.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/categoryList/filterProductList.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/categoryList/moreMR.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/categoryList/productCategory.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/categoryList/productInfo.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/categoryList/specificationModal.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/common/bottomTxt.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/common/noOrderTips.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/common/searchNull.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/common/select.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/error/network.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/favorite/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/findAssistant/confirm.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/findAssistant/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/home/home.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/home/homeSearch.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/logistics/mylog.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/order/orderDetail.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/order/orderOk.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/order/orderPay.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/order/orderSearch.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/order/paySuccess.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/purchaseOrder/purchaseOrderEdit.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/purchaseOrder/purchaseOrderList.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/purchaseOrder/rapidList.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/tabs.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/toothOp/enquiry.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/toothOp/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/about.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/contact.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/editDentistryName.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/email.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/evaluation.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/linkUs.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/login.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/modifyPhone.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/modifyPwd.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/myOrderList.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/myOrders.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/phone.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/register.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/resetPwd.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/setting.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/user.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/userAgree.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/user/userInfo.html" />
+    </list>
+    <list id="752942ff-9bb2-4110-b4c1-e9b105a5f95f" name="ignore" comment="" />
+    <list id="9f45d538-f4f0-4ddc-85a4-33a12d3eb493" name="New changelist" comment="" />
+    <ignored path="aiya-app.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="aiya-app" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/www/templates/favorite/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="21" column="20" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
+                <element signature="n#ion-list#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/www/js/services/toothOpService.js" />
+        <option value="$PROJECT_DIR$/www/js/services/httpRequest.js" />
+        <option value="$PROJECT_DIR$/www/js/controllers/modifyPwdController.js" />
+        <option value="$PROJECT_DIR$/www/templates/user/modifyPwd.html" />
+        <option value="$PROJECT_DIR$/scss/orderDetail.scss" />
+        <option value="$PROJECT_DIR$/www/js/controllers/brandController.js" />
+        <option value="$PROJECT_DIR$/www/templates/common/noOrderTips.html" />
+        <option value="$PROJECT_DIR$/www/js/utils.js" />
+        <option value="$PROJECT_DIR$/www/templates/toothOp/index.html" />
+        <option value="$PROJECT_DIR$/www/js/services.min.js" />
+        <option value="$PROJECT_DIR$/gulpfile.js" />
+        <option value="$PROJECT_DIR$/www/templates/home/homeSearch.html" />
+        <option value="$PROJECT_DIR$/www/js/services/homeSearchService.js" />
+        <option value="$PROJECT_DIR$/www/js/controllers/homeSearch.js" />
+        <option value="$PROJECT_DIR$/www/js/controllers/toothOpController.js" />
+        <option value="$PROJECT_DIR$/www/templates/categoryList/productCategory.html" />
+        <option value="$PROJECT_DIR$/scss/home.scss" />
+        <option value="$PROJECT_DIR$/www/js/app.js" />
+        <option value="$PROJECT_DIR$/www/js/services/userService.js" />
+        <option value="$PROJECT_DIR$/www/templates/brand/brand.html" />
+        <option value="$PROJECT_DIR$/scss/brand.scss" />
+        <option value="$PROJECT_DIR$/www/templates/categoryList/filterProductList.html" />
+        <option value="$PROJECT_DIR$/scss/filterProductList.scss" />
+        <option value="$PROJECT_DIR$/www/js/services/orderService.js" />
+        <option value="$PROJECT_DIR$/www/js/controllers/orderPay.js" />
+        <option value="$PROJECT_DIR$/www/js/config.js" />
+        <option value="$PROJECT_DIR$/www/js/controllers/myOrdersController.js" />
+        <option value="$PROJECT_DIR$/scss/mylog.scss" />
+        <option value="$PROJECT_DIR$/www/js/controllers.js" />
+        <option value="$PROJECT_DIR$/www/templates/order/orderDetail.html" />
+        <option value="$PROJECT_DIR$/www/js/controllers/orderDetailController.js" />
+        <option value="$PROJECT_DIR$/www/js/route.js" />
+        <option value="$PROJECT_DIR$/www/index.html" />
+        <option value="$PROJECT_DIR$/www/js/services/favoriteService.js" />
+        <option value="$PROJECT_DIR$/scss/purchaseOrder.scss" />
+        <option value="$PROJECT_DIR$/www/js/directives.js" />
+        <option value="$PROJECT_DIR$/www/js/controllers/homeController.js" />
+        <option value="$PROJECT_DIR$/www/js/controllers/filterProductListController.js" />
+        <option value="$PROJECT_DIR$/www/js/controllers/resetPwdController.js" />
+        <option value="$PROJECT_DIR$/www/templates/order/paySuccess.html" />
+        <option value="$PROJECT_DIR$/www/js/controllers/paySuccessController.js" />
+        <option value="$PROJECT_DIR$/www/templates/user/myOrderList.html" />
+        <option value="$PROJECT_DIR$/www/templates/user/myOrders.html" />
+        <option value="$PROJECT_DIR$/www/js/controllers/registerController.js" />
+        <option value="$PROJECT_DIR$/www/templates/favorite/index.html" />
+        <option value="$PROJECT_DIR$/www/js/controllers/favoriteController.js" />
+        <option value="$PROJECT_DIR$/www/css/aiyaku.css" />
+        <option value="$PROJECT_DIR$/www/templates/home/home.html" />
+        <option value="$PROJECT_DIR$/scss/toothOp.scss" />
+        <option value="$PROJECT_DIR$/www/js/controllers/mylogController.js" />
+        <option value="$PROJECT_DIR$/www/templates/logistics/mylog.html" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <gulpfiles>
+      <GulpfileState>
+        <gulpfile-path>$PROJECT_DIR$/gulpfile.js</gulpfile-path>
+      </GulpfileState>
+    </gulpfiles>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-11" />
+    <option name="width" value="1419" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="order" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="home" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aiya-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="editor.config.accepted" value="true" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="settings.editor.splitter.proportion" value="0.24975514" />
+    <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
+    <property name="SearchEverywhereHistoryKey" value="rou&#9;FILE&#9;file://D:/aiya-app/www/js/route.js&#10;mylogc&#9;null&#9;null&#10;mylogh&#9;FILE&#9;file://D:/aiya-app/www/templates/logistics/mylog.html&#10;toothopsc&#9;FILE&#9;file://D:/aiya-app/scss/toothOp.scss&#10;modifypwdc&#9;null&#9;null&#10;regisc&#9;FILE&#9;file://D:/aiya-app/www/js/controllers/registerController.js&#10;rout&#9;FILE&#9;file://D:/aiya-app/www/js/route.js&#10;homeh&#9;FILE&#9;file://D:/aiya-app/www/templates/home/home.html&#10;utils&#9;FILE&#9;file://D:/aiya-app/www/lib/ionic/scss/_util.scss&#10;utisc&#9;FILE&#9;file://D:/aiya-app/scss/utils.scss&#10;favori&#9;FILE&#9;file://D:/aiya-app/www/js/controllers/favoriteController.js&#10;config&#9;FILE&#9;file://D:/aiya-app/www/js/config.js&#10;myorderco&#9;null&#9;null&#10;paysu&#9;FILE&#9;file://D:/aiya-app/www/js/controllers/paySuccessController.js&#10;paysucc&#9;FILE&#9;file://D:/aiya-app/www/templates/order/paySuccess.html&#10;regis&#9;FILE&#9;file://D:/aiya-app/www/js/controllers/registerController.js&#10;resetc&#9;null&#9;null&#10;registecon&#9;null&#9;null&#10;resetpwdc&#9;null&#9;null&#10;filter&#9;FILE&#9;file://D:/aiya-app/www/js/controllers/filterProductListController.js&#10;app&#9;FILE&#9;file://D:/aiya-app/www/js/app.js&#10;home&#9;FILE&#9;file://D:/aiya-app/www/js/controllers/homeController.js&#10;categoh&#9;FILE&#9;file://D:/aiya-app/www/templates/categoryList/productCategory.html&#10;userser&#9;FILE&#9;file://D:/aiya-app/www/js/services/userService.js&#10;purchsc&#9;FILE&#9;file://D:/aiya-app/scss/purchaseOrder.scss&#10;myorder&#9;FILE&#9;file://D:/aiya-app/www/js/controllers/myOrdersController.js&#10;favoric&#9;null&#9;null&#10;orderok&#9;FILE&#9;file://D:/aiya-app/www/templates/order/orderOk.html&#10;orderde&#9;FILE&#9;file://D:/aiya-app/www/js/controllers/orderDetailController.js&#10;pays&#9;null&#9;null&#10;paysuc&#9;null&#9;null&#10;mylogsc&#9;FILE&#9;file://D:/aiya-app/scss/mylog.scss&#10;filterh&#9;FILE&#9;file://D:/aiya-app/www/templates/categoryList/filterProductList.html&#10;USERSER&#9;FILE&#9;file://D:/aiya-app/www/js/services/userService.js&#10;APP&#9;FILE&#9;file://D:/aiya-app/www/js/app.js&#10;myOrderAllController&#9;null&#9;null&#10;myorderc&#9;FILE&#9;file://D:/aiya-app/www/js/controllers/myOrdersController.js&#10;filterc&#9;FILE&#9;file://D:/aiya-app/www/js/controllers/filterProductListController.js&#10;orderokh&#9;FILE&#9;file://D:/aiya-app/www/templates/order/orderOk.html&#10;orderokc&#9;FILE&#9;file://D:/aiya-app/www/js/controllers/orderOkController.js&#10;filterproscss&#9;FILE&#9;file://D:/aiya-app/scss/filterProductList.scss&#10;filterpro&#9;FILE&#9;file://D:/aiya-app/www/js/controllers/filterProductListController.js&#10;brandh&#9;FILE&#9;file://D:/aiya-app/www/templates/brand/brand.html&#10;brandsc&#9;FILE&#9;file://D:/aiya-app/scss/brand.scss&#10;orderdetac&#9;FILE&#9;file://D:/aiya-app/www/js/controllers/orderDetailController.js&#10;orderd&#9;FILE&#9;file://D:/aiya-app/www/templates/order/orderDetail.html&#10;HOMESC&#9;FILE&#9;file://D:/aiya-app/scss/home.scss&#10;catego&#9;FILE&#9;file://D:/aiya-app/www/templates/categoryList/productCategory.html&#10;loginc&#9;null&#9;null&#10;categoryh&#9;FILE&#9;file://D:/aiya-app/www/templates/categoryList/productCategory.html" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="68" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth1" value="84" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth2" value="86" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth3" value="68" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth4" value="126" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder4" value="4" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth5" value="878" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder5" value="5" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth0" value="70" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth1" value="88" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth2" value="90" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth3" value="70" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder3" value="3" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth4" value="70" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth5" value="922" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder5" value="5" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+  </component>
+  <component name="RunManager" selected="PhoneGap/Cordova.app">
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhoneGap" factoryName="PhoneGap/Cordova">
+      <option name="myExecutable" />
+      <option name="myWorkDir" />
+      <option name="myCommand" />
+      <option name="myPassParent" value="true" />
+      <option name="myPlatform" />
+      <option name="myExtraArgs" />
+      <option name="hasTarget" value="false" />
+      <option name="target" />
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+    <configuration default="false" name="app" type="PhoneGap" factoryName="PhoneGap/Cordova">
+      <option name="myExecutable" value="C:\Users\xy\AppData\Roaming\npm\ionic.cmd" />
+      <option name="myWorkDir" value="D:\aiya-app" />
+      <option name="myCommand" value="run" />
+      <option name="myPassParent" value="true" />
+      <option name="myPlatform" value="browser" />
+      <option name="myExtraArgs" value="" />
+      <option name="hasTarget" value="false" />
+      <option name="target" value="" />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="PhoneGap/Cordova.app" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9a43dac7-e532-4785-b2b6-d40797793d4b" name="Default" comment="" />
+      <changelist id="752942ff-9bb2-4110-b4c1-e9b105a5f95f" name="ignore" comment="" />
+      <changelist id="9f45d538-f4f0-4ddc-85a4-33a12d3eb493" name="New changelist" comment="" />
+      <created>1464574870955</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1464574870955</updated>
+      <workItem from="1464574872717" duration="1160000" />
+      <workItem from="1464576428703" duration="8000" />
+      <workItem from="1464576849559" duration="537000" />
+      <workItem from="1464587025098" duration="698000" />
+      <workItem from="1464587889482" duration="131000" />
+      <workItem from="1464588390786" duration="341000" />
+      <workItem from="1464588797724" duration="11853000" />
+      <workItem from="1464657590982" duration="24430000" />
+      <workItem from="1464744835284" duration="22638000" />
+      <workItem from="1464830160730" duration="21019000" />
+      <workItem from="1464917344896" duration="23523000" />
+      <workItem from="1465003908469" duration="14531000" />
+      <workItem from="1465176669152" duration="24238000" />
+      <workItem from="1465263024597" duration="25279000" />
+      <workItem from="1465349202327" duration="22164000" />
+      <workItem from="1465694394320" duration="21311000" />
+      <workItem from="1465781224028" duration="19401000" />
+      <workItem from="1465867712438" duration="25947000" />
+      <workItem from="1465954399597" duration="21339000" />
+      <workItem from="1466040504954" duration="8170000" />
+      <workItem from="1466055877087" duration="9946000" />
+      <workItem from="1466385652564" duration="22276000" />
+      <workItem from="1466471801535" duration="25559000" />
+      <workItem from="1466558469635" duration="5086000" />
+      <workItem from="1466564936863" duration="16426000" />
+      <workItem from="1466645726674" duration="4755000" />
+      <workItem from="1466651828451" duration="18273000" />
+      <workItem from="1466731114330" duration="23810000" />
+      <workItem from="1466818028179" duration="21967000" />
+      <workItem from="1466990541243" duration="22994000" />
+      <workItem from="1467076666769" duration="8611000" />
+      <workItem from="1467085520325" duration="18755000" />
+      <workItem from="1467163179812" duration="3353000" />
+      <workItem from="1467166560692" duration="1826000" />
+      <workItem from="1467168409195" duration="1842000" />
+      <workItem from="1467170272923" duration="1944000" />
+      <workItem from="1467172235503" duration="1176000" />
+      <workItem from="1467178651033" duration="340000" />
+      <workItem from="1467179468681" duration="20408000" />
+      <workItem from="1467248622823" duration="40640000" />
+      <workItem from="1467335552469" duration="22279000" />
+      <workItem from="1467594621697" duration="11088000" />
+      <workItem from="1467681420914" duration="11931000" />
+      <workItem from="1467699215954" duration="12472000" />
+      <workItem from="1467768128892" duration="23587000" />
+      <workItem from="1467853484470" duration="12496000" />
+      <workItem from="1467939745665" duration="24666000" />
+      <workItem from="1468027714423" duration="14548000" />
+      <workItem from="1468199897249" duration="10340000" />
+      <workItem from="1468285844839" duration="17956000" />
+      <workItem from="1468372359475" duration="18923000" />
+      <workItem from="1468414596835" duration="118000" />
+      <workItem from="1468414725905" duration="757000" />
+      <workItem from="1468458394384" duration="5528000" />
+      <workItem from="1468545691226" duration="13525000" />
+      <workItem from="1480070378711" duration="2230000" />
+    </task>
+    <task id="LOCAL-00003" summary="首页，产品筛选分类列表bug">
+      <created>1464688603518</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1464688603518</updated>
+    </task>
+    <task id="LOCAL-00004" summary="采购单，齿研社，首页，登录，分类、样式bug">
+      <created>1464775956075</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1464775956075</updated>
+    </task>
+    <task id="LOCAL-00005" summary="改bug">
+      <created>1464862757699</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1464862757699</updated>
+    </task>
+    <task id="LOCAL-00006" summary="个人信息显示，编辑，修改 首页，筛选页bug">
+      <created>1464947847397</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1464947847397</updated>
+    </task>
+    <task id="LOCAL-00007" summary="小bug">
+      <created>1465034221526</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1465034221526</updated>
+    </task>
+    <task id="LOCAL-00008" summary="根据二级分类 跳转商品筛选分类数据,日期选择控件bug">
+      <created>1465209250982</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1465209250982</updated>
+    </task>
+    <task id="LOCAL-00009" summary="表单验证">
+      <created>1465295786888</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1465295786888</updated>
+    </task>
+    <task id="LOCAL-00010" summary="齿研社表单验证，用户信息bug">
+      <created>1465383385628</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1465383385628</updated>
+    </task>
+    <task id="LOCAL-00011" summary="个人信息，表单验证">
+      <created>1465725268479</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1465725268479</updated>
+    </task>
+    <task id="LOCAL-00012" summary="修改密码，重置密码">
+      <created>1465811345758</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1465811345758</updated>
+    </task>
+    <task id="LOCAL-00013" summary="齿研社分类筛选指令">
+      <created>1465899340676</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1465899340676</updated>
+    </task>
+    <task id="LOCAL-00014" summary="商品分类多条件筛选 及 bug">
+      <created>1465984893078</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1465984893078</updated>
+    </task>
+    <task id="LOCAL-00015" summary="热门搜索bug">
+      <created>1466074039042</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1466074039042</updated>
+    </task>
+    <task id="LOCAL-00016" summary="商品分类筛选、首页bug，客服">
+      <created>1466477528254</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1466477528254</updated>
+    </task>
+    <task id="LOCAL-00017" summary="订单状态，商品筛选列表bug">
+      <created>1466505361175</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1466505361175</updated>
+    </task>
+    <task id="LOCAL-00018" summary="产品筛选列表空白页面显示">
+      <created>1466560174377</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1466560174377</updated>
+    </task>
+    <task id="LOCAL-00019" summary="用户订单bug">
+      <created>1466563927699</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1466563927699</updated>
+    </task>
+    <task id="LOCAL-00020" summary="首页，采购单bug">
+      <created>1466646097495</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1466646097495</updated>
+    </task>
+    <task id="LOCAL-00021" summary="商品分类齿研社类立即询价，订单状态bug">
+      <created>1466676957541</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1466676957541</updated>
+    </task>
+    <task id="LOCAL-00022" summary="订单详细，首页，产品筛选bug">
+      <created>1466819270416</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1466819270416</updated>
+    </task>
+    <task id="LOCAL-00023" summary="首页搜索，修改密码，订单详情状态bug">
+      <created>1466851555886</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1466851555886</updated>
+    </task>
+    <task id="LOCAL-00024" summary="修改密码，订单状态">
+      <created>1467078087628</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1467078087628</updated>
+    </task>
+    <task id="LOCAL-00025" summary="我的订单，订单详细（订单状态），修改密码">
+      <created>1467110104036</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1467110104036</updated>
+    </task>
+    <task id="LOCAL-00026" summary="齿研社筛选">
+      <created>1467169899358</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1467169899358</updated>
+    </task>
+    <task id="LOCAL-00027" summary="齿研社，订单状态">
+      <created>1467249966496</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1467249966496</updated>
+    </task>
+    <task id="LOCAL-00028" summary="订单状态">
+      <created>1467285786971</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1467285786971</updated>
+    </task>
+    <task id="LOCAL-00029" summary="订单状态">
+      <created>1467296104692</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1467296104692</updated>
+    </task>
+    <task id="LOCAL-00030" summary="优化">
+      <created>1467339326551</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1467339326551</updated>
+    </task>
+    <task id="LOCAL-00031" summary="齿研社搜索，列表bug">
+      <created>1467362559162</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1467362559162</updated>
+    </task>
+    <task id="LOCAL-00032" summary="齿研社底部tab显示">
+      <created>1467367225368</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1467367225368</updated>
+    </task>
+    <task id="LOCAL-00033" summary="订单状态bug优化">
+      <created>1467628151467</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1467628151467</updated>
+    </task>
+    <task id="LOCAL-00034" summary="首页搜索bug">
+      <created>1467711226438</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1467711226438</updated>
+    </task>
+    <task id="LOCAL-00035" summary="首页搜索bug html">
+      <created>1467711499240</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1467711499240</updated>
+    </task>
+    <task id="LOCAL-00036" summary="首页楼层广告缩放、搜索bug，订单状态优化">
+      <created>1467712704894</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1467712704894</updated>
+    </task>
+    <task id="LOCAL-00037" summary="订单详细">
+      <created>1467768881572</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1467768881572</updated>
+    </task>
+    <task id="LOCAL-00038" summary="用户登录cookies，月结订单状态优化">
+      <created>1467799839014</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1467799839014</updated>
+    </task>
+    <task id="LOCAL-00039" summary="品牌广告绽放，订单空白页">
+      <created>1467940507877</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1467940507877</updated>
+    </task>
+    <task id="LOCAL-00040" summary="订单提交，未支付 订单详情bug">
+      <created>1467946327617</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1467946327617</updated>
+    </task>
+    <task id="LOCAL-00041" summary="用户订单待付款，待发货等等 为空时tips bug">
+      <created>1467973083245</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1467973083245</updated>
+    </task>
+    <task id="LOCAL-00042" summary="商品支付完成订单详情、物流bug">
+      <created>1468060766669</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1468060766669</updated>
+    </task>
+    <task id="LOCAL-00043" summary="物理设备匹配">
+      <created>1468229814444</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1468229814444</updated>
+    </task>
+    <task id="LOCAL-00044" summary="商品收藏，网络错误bug ,数据空提示bug">
+      <created>1468294419480</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1468294419480</updated>
+    </task>
+    <task id="LOCAL-00045" summary="首页silder广告">
+      <created>1468316601525</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1468316601525</updated>
+    </task>
+    <task id="LOCAL-00046" summary="home.html">
+      <created>1468401370909</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1468401370909</updated>
+    </task>
+    <task id="LOCAL-00047" summary="注册，找加码密码页面切换时，时间倒数停止">
+      <created>1468411861276</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1468411861276</updated>
+    </task>
+    <task id="LOCAL-00048" summary="支付成功 areaName">
+      <created>1468415368493</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1468415368493</updated>
+    </task>
+    <task id="LOCAL-00049" summary="商品收藏数据加载空白时等待loading动画">
+      <created>1468549031087</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1468549031087</updated>
+    </task>
+    <task id="LOCAL-00050" summary="home">
+      <created>1468576427662</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1468576427663</updated>
+    </task>
+    <task id="LOCAL-00051" summary="物流为空bug">
+      <created>1468577649235</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1468577649235</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="761149000" />
+  </component>
+  <component name="TodoView" selected-index="1">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-11" y="0" width="1419" height="1056" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2621289" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32575756" sideWeight="0.487882" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29577464" sideWeight="0.40094838" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2965368" sideWeight="0.59905165" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30411255" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19372295" sideWeight="0.4797048" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="订单状态" />
+    <MESSAGE value="优化" />
+    <MESSAGE value="齿研社搜索，列表bug" />
+    <MESSAGE value="齿研社底部tab显示" />
+    <MESSAGE value="订单状态bug优化" />
+    <MESSAGE value="首页搜索bug" />
+    <MESSAGE value="首页搜索bug html" />
+    <MESSAGE value="首页楼层广告缩放、搜索bug，订单状态优化" />
+    <MESSAGE value="订单详细" />
+    <MESSAGE value="用户登录cookies，月结订单状态优化" />
+    <MESSAGE value="品牌广告绽放，订单空白页" />
+    <MESSAGE value="订单提交，未支付 订单详情bug" />
+    <MESSAGE value="用户订单待付款，待发货等等 为空时tips" />
+    <MESSAGE value="用户订单待付款，待发货等等 为空时tips bug" />
+    <MESSAGE value="商品支付完成订单详情、物流bug" />
+    <MESSAGE value="物理设备匹配" />
+    <MESSAGE value="商品收藏，网络错误bug ,数据空提示bug" />
+    <MESSAGE value="首页silder广告" />
+    <MESSAGE value="home.html" />
+    <MESSAGE value="注册，找加码密码页面切换时，时间倒数停止" />
+    <MESSAGE value="支付成功 areaName" />
+    <MESSAGE value="商品收藏数据加载空白时等待loading动画" />
+    <MESSAGE value="home" />
+    <MESSAGE value="物流为空bug" />
+    <MESSAGE value="push" />
+    <option name="LAST_COMMIT_MESSAGE" value="push" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="5" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/www/lib/angular-ios9-uiwebview.patch.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/lib/upload/ng-file-upload.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5567">
+          <caret line="293" column="28" selection-start-line="293" selection-start-column="28" selection-end-line="293" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/lib/upload/ng-file-upload-shim.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1123">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/user/userInfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="54" selection-start-line="13" selection-start-column="54" selection-end-line="13" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/order/orderOk.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2204">
+          <caret line="116" column="122" selection-start-line="116" selection-start-column="110" selection-end-line="116" selection-end-column="122" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/orderOkController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1045">
+          <caret line="55" column="37" selection-start-line="55" selection-start-column="37" selection-end-line="55" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/orderDetailController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/order/orderDetail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="122" column="18" selection-start-line="122" selection-start-column="18" selection-end-line="122" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/services/orderService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="47" column="8" selection-start-line="47" selection-start-column="8" selection-end-line="47" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/services/favoriteService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scss/purchaseOrder.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="91" column="24" selection-start-line="91" selection-start-column="24" selection-end-line="91" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scss/layout.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="28" column="6" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/categoryList/productCategory.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scss/_variables.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/services/userService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic/version.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/homeController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="35" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/directives.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="632" column="18" selection-start-line="632" selection-start-column="18" selection-end-line="632" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="34" column="33" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/block.rnc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="228" column="12" selection-start-line="228" selection-start-column="12" selection-end-line="228" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/filterProductListController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2090">
+          <caret line="110" column="6" selection-start-line="110" selection-start-column="6" selection-end-line="110" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/user/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="589">
+          <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/user/resetPwd.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="23" column="70" selection-start-line="23" selection-start-column="70" selection-end-line="23" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/resetPwdController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1995">
+          <caret line="105" column="4" selection-start-line="105" selection-start-column="4" selection-end-line="107" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/phrase.rnc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="321" column="0" selection-start-line="321" selection-start-column="0" selection-end-line="321" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/order/paySuccess.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="20" column="44" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/npm-debug.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="971">
+          <caret line="72" column="42" selection-start-line="72" selection-start-column="42" selection-end-line="72" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/paySuccessController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="24" column="36" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="722">
+          <caret line="38" column="8" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="188" column="6" selection-start-line="188" selection-start-column="6" selection-end-line="188" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/user/myOrderList.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/user/myOrders.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic/scss/_util.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2565">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic/scss/_mixins.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="593" column="7" selection-start-line="593" selection-start-column="7" selection-end-line="593" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scss/_mixins.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="593" column="7" selection-start-line="593" selection-start-column="7" selection-end-line="593" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/myOrdersController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="135" column="14" selection-start-line="135" selection-start-column="14" selection-end-line="135" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/addressDetailController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="34" column="54" selection-start-line="34" selection-start-column="54" selection-end-line="34" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/user/modifyPwd.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="24" column="29" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/registerController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="46" column="23" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/home/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/favoriteController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1240">
+          <caret line="62" column="56" selection-start-line="62" selection-start-column="56" selection-end-line="62" selection-end-column="56" />
+          <folding>
+            <marker date="1468574967246" expanded="true" signature="1086:1093" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scss/toothOp.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="28" column="16" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/route.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="164" column="21" selection-start-line="164" selection-start-column="16" selection-end-line="164" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/logistics/mylog.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scss/utils.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="21" column="12" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/modifyPwdController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="626">
+          <caret line="36" column="36" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/css/aiyaku.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="0" column="62183" selection-start-line="0" selection-start-column="62171" selection-end-line="0" selection-end-column="62183" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/mylogController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="23" column="50" selection-start-line="23" selection-start-column="50" selection-end-line="23" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/favorite/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="21" column="20" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
+            <element signature="n#ion-list#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

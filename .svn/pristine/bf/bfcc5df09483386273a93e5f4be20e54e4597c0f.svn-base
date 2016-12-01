@@ -1,0 +1,25 @@
+.findAssistant_page{
+  color:#484848;
+  font-size:30px;
+  background-color:#F4F4F4;
+  .item{
+    border:1px solid #c8c7cc;
+  }
+  .icon-uploading{
+    font-size:20px;
+  }
+  .ion-option{
+    width:10px;
+    height:10px;
+  }
+  .button-next{
+    background-color:#ff5f0f;
+  }
+  .space{
+    height:10px;
+    background-color:#f4f4f4;
+  }
+  .list:last-child.card {
+    margin-bottom: 10px;
+  }
+}

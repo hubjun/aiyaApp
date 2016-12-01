@@ -1,0 +1,24 @@
+aiyaController.controller('paySuccessController', [
+  '$scope',
+  '$ionicLoading',
+  '$stateParams',
+  'orderService',
+  'CommonUtil',
+  function($scope,$ionicLoading,$stateParams,orderService,CommonUtil){
+
+    console.log('sn' + $stateParams.sn);
+    var params = {
+      sn : $stateParams.sn
+    }
+    orderService.info(params).then(function(data){
+      $scope.amount = data.amount;
+      $scope.consignee = data.consignee;
+      $scope.area= data.area;
+      $scope.address = data.address;
+      $scope.phone = data.phone;
+      $scope.sn = data.sn;
+      $scope.productList = data.productList;
+    },function(err){
+      CommonUtil.tip(err);
+    });
+  }]);

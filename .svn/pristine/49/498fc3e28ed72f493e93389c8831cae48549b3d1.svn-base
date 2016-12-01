@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>支付宝支付</title>
+    <script src="../lib/jquery/jquery.min.js"></script>
+    <script src="../js/pay.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+  $(function(){
+    var data = window.location.href.substring(window.location.href.indexOf("?"),window.location.href.length);
+    $.ajax({
+      url:httpUrl+"order/return_url"+data+"&token="+getCookie("AIYATOKEN"),
+      method:"get",
+      type:"json",
+      success:function(resultData){
+        alert(JSON.stringify(resultData));
+        if(resultData.code == 1){
+          location.href  = tabsUrl+"index.html#/paySuccess/"+resultData.data.sn;
+        }else{
+          alert("支付失败!")
+        }
+      },
+      error:function(){
+        alert("error");
+      }
+    });
+
+  })
+</script>
+</body>
+</html>
+
+    <!--<a  href="http://localhost:8000/index.html#/paySuccess">立即支付</a>-->
+

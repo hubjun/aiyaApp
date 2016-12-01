@@ -1,0 +1,162 @@
+/* 以下为地址列表 */
+.address {
+  .addr-background{
+    background: #f3f5f5;
+  }
+  .list{
+    border-top:1px solid #D2D1D5;
+  }
+
+  .addr-item{
+    margin-bottom: 0.625rem !important;
+  }
+  .addr-item-right {
+    width: 62px;
+    height: 84px;
+    -webkit-box-align: center;
+    position: absolute;
+    right: 0;
+    float: right;
+    top: 50%;
+    margin-top: -42px;
+    text-align: center;
+    border-left: 1px solid #ddd;
+    z-index: 10;
+  }
+  .addr-item-right img {
+    top: 50%;
+    width: 25px;
+    height: 25px;
+    margin-top: -10px;
+    position: relative;
+  }
+  .addr-itempr{
+    border-top:0 none;
+    .item-content {
+      padding: 16px 0px;
+    }
+  }
+
+  .addr-detail-icon {
+    color: #ccc;
+    font-size: 16px;
+    float: right;
+    position: absolute;
+    right: 4%;
+    padding: 6px 0 6px 0;
+  }
+
+  .addr-detail-icon:before {
+    content: "\f125";
+    font-family: "Ionicons";
+  }
+
+  .addr-detail-left {
+    float: left;
+  }
+
+  .item-block {
+    display: block;
+  }
+
+  .item-input-padding-right {
+    padding-right: 0 !important;
+  }
+
+  .item-input-max-width {
+    max-width: 68%;
+  }
+
+  .star.addr-detail-left {
+    margin-top: 4px;
+  }
+
+  .addr-default {
+    background-color: #ff5f0f;
+    color: #ffffff;
+    padding:1px 5px 1px 5px;
+    margin: -15px 0 0 0;
+    border-radius: 0 0 2px 2px;
+    position: absolute;
+    z-index: 5;
+    font-size:0.4rem !important;
+  }
+
+  .addr-check {
+    position: absolute;
+    top: 50%;
+    height: 20px;
+    margin: -15px -10px 0 0;
+    z-index: 5;
+  }
+
+
+  .addr-content {
+    width: 100%;
+    padding:2px 20px 10px 20px;
+    display: inline-block;
+    border-bottom: 1px dashed #DFDFDF;
+  }
+  .addr-content .receiver {
+    font-size: 0.7rem;
+    color: #252525;
+  }
+  .addr-content .mobile {
+    font-size: 0.7rem;
+    color: #252525;
+    float:right;
+  }
+  .addr-content .number {
+    font-size: 0.75rem;
+    color: #3e3e3e;
+  }
+  .addr-content .address {
+    font-size: 0.6rem;
+    color: #474747;
+    word-wrap: break-word;
+    overflow: hidden;
+    word-break: break-all;
+    white-space: normal;
+  }
+  .addressEditBtn{
+    padding: 10px 20px 0px 20px;
+    .defaultBtn{
+      font-size:0.6rem;
+      padding: 7px 0px;
+      text-indent: 4px;
+    }
+    .button{
+      min-height: 0;
+      min-width: 0;
+      line-height: 35px;
+      padding: 0px 19px;
+      color:#555555;
+      font-size:0.6rem;
+      float:right;
+      background:white;
+      border:1px solid #DADADA;
+    }
+    .editBtn {
+      margin-right: 18px;
+    }
+  }
+  .adressNull{
+    p{
+      text-align:center;
+    }
+    .addressNulltip1{
+      color: #252525;
+      font-size: 1.1rem;
+      margin-top: 6rem;
+    }
+    .addressNulltip2{
+      color: #7F7F7F;
+      font-size: 0.86rem;
+      margin-top: 17px;
+    }
+  }
+  .logout {
+    padding: 0px 12px 8px;
+  }
+}
+

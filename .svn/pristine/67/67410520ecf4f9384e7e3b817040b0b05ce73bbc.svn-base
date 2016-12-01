@@ -1,0 +1,213 @@
+aiyaController.controller('toothOpCtrl',[
+  '$scope',
+  '$ionicLoading',
+  '$ionicPopover',
+  '$location',
+  '$state',
+  '$ionicSlideBoxDelegate',
+  '$timeout',
+  'toothOplist',
+  //StringUtil
+  function($scope,$ionicLoading,$ionicPopover,$location,$state,$ionicSlideBoxDelegate,$timeout,toothOplist){
+    $scope.tabNav={curNav:'toothOp'};
+  //$scope.toothIMG = null;
+  $scope.toothMoredata = true;
+  $scope.obj_toothlist = new Array();
+  $scope.toothSlider = null;
+
+  $scope.$on('$ionicView.enter', function(){
+    data();
+    $ionicSlideBoxDelegate.update();
+  });
+  var tip = function(msg){
+    $ionicLoading.show({
+    template: msg,
+    duration: 1500
+    });
+  };
+  var page = {};
+  $scope.toothPageParame = {
+      keyword: '',
+      salesDesc: '',
+      pageNumber: 1,
+      pageSize: 6,
+      categoryIds: 147
+  }
+  //初始化立即询价
+  //$scope.enquiryList = [{
+  //  'toothName': '',
+  //  'customerName': '',
+  //  'cellPhone': '',
+  //  'phone': ''
+  //}]
+
+  $scope.toothDisplay = true;
+  $scope.isToothRowlistHide = true;
+  $scope.isToothRowColumnHide = false;
+
+  $scope.toothToggle = function(){
+    if($scope.isToothRowlistHide == true){
+      $scope.isToothRowlistHide = false;
+      $scope.isToothRowColumnHide = true;
+
+      $scope.toothDisplay = false;
+    }else{
+      $scope.isToothRowlistHide = true;
+      $scope.isToothRowColumnHide = false;
+
+      $scope.toothDisplay = true;
+    }
+  };
+
+  //图片广告
+  var opt = {
+    beginDate: '',
+    endDate: '',
+    positionId: 41
+  };
+  toothOplist.getBannerlist(opt)
+    .then(function(rs){
+      $scope.toothSlider = rs.list;
+    },function(errMsg){
+      tip(errMsg);
+    });
+  toothOplist.toothIMGlist().get(null, function(rs){
+      if(rs.code === 1 ){
+          $scope.toothIMG = rs.data.list;
+      }else{
+          tip(rs.msg);
+      }
+  });
+
+  $scope.toothSearch = function(key){
+    setTimeout(function(){
+      $scope.toothPageParame.keyword = key;
+      $scope.toothPageParame.pageNumber = 1;
+      data(true);
+    },1000)
+  };
+
+  //询价提交
+  $scope.enquirySubmit = function(){
+    console.log("验证已通过~")
+    var submitOpt = {
+      contactName: $scope.enquiryList.customerName,
+      phone: $scope.enquiryList.phone,
+      hospitalName: $scope.enquiryList.toothName,
+      mobile: $scope.enquiryList.cellPhone
+    };
+    toothOplist.ycSave(submitOpt)
+      .then(function(){
+        // debugger
+        tip('提交成功，请等待客服为您提供详细报价');
+      },function(){
+        tip('同一用户每天最多提交三次哦');
+      });
+    //var pass = true, msg = '';
+    //for(i = 0;i<$scope.enquiryList.length; i++){
+    //  var item = $scope.enquiryList[i];
+    //
+    //  if(StringUtil.isEmpty(item.toothName)){
+    //    msg = '请输入牙科名称';
+    //    console.log('请输入牙科名称');
+    //    pass = false;
+    //    break;
+    //  }
+    //  if(StringUtil.isEmpty(item.customerName)){
+    //    msg = '请输入您的姓名';
+    //    pass = false;
+    //    break;
+    //  }
+    //  if(StringUtil.isEmpty(item.cellPhone)){
+    //    msg = '请输入您的手机号码';
+    //    pass = false;
+    //    break;
+    //  }
+    //  if(StringUtil.isEmpty(item.phone)){
+    //    msg = '请输入您的固定电话';
+    //    pass = false;
+    //    break;
+    //  }
+    //  if(pass){
+    //    msg = 'pass';
+    //  }else{
+    //    $ionicLoading.show({template:msg,noBackdrop:true,duration:1500});
+    //  }
+    //}
+  }
+
+  var data = function(other){
+      toothOplist.toothList().get($scope.toothPageParame, function(rs){
+        //debugger
+        if(rs.code === 1){
+              if(rs.data.list.length > 0){
+                //debugger
+                if(other){
+                  $scope.obj_toothlist = new Array();
+                }
+                if($scope.toothPageParame.pageNumber == 1){
+                  $scope.obj_toothlist =rs.data.list;
+                }else{
+                  $scope.obj_toothlist = $scope.obj_toothlist.concat(rs.data.list);
+                }
+                $scope.isAuthoriz = rs.data.isAuthoriz;
+                // $.each(rs.data.list, function(i, item){
+                //     $scope.obj_toothlist.push(item);
+                // })
+                page = rs.data.page;
+              }else{
+                  $scope.toothMoredata = false;
+              }
+          }else{
+              tip(rs.msg);
+          }
+      })
+  };
+
+  //通用头部导航菜单
+  // $ionicPopover.fromTemplateUrl('menu-popover.html', {
+  //   scope: $scope
+  // }).then(function(popover){
+  //   $scope.popover = popover;
+  // });
+  // $scope.openPopover = function($event){
+  //   $scope.popover.show($event);
+  // };
+  // //销毁popover对象
+  // $scope.$on('$destroy', function(){
+  //   $scope.popover.remove();
+  // });
+  // $scope.closePopover = function() {
+  //   $scope.popover.hide();
+  // };
+  // //隐藏事件回调处理
+  // $scope.$on('popover.hidden', function() {
+  //   // Execute action
+  // });
+  // //删除事件回调处理
+  // $scope.$on('popover.removed', function() {
+  //   // Execute action
+  // });
+  // //头部导航菜单跳转
+  // $scope.topMenuBack = function(url){
+  //   $state.go(url);
+  //   $scope.popover.hide();
+  // }
+
+  $scope.doToothFresh = function(){
+      data();
+      $scope.$broadcast("scroll.refreshComplete");
+  };
+
+  $scope.toothLoadMore = function(){
+      if(page.hasNextPage){
+        $scope.toothPageParame.pageNumber++;
+        data();
+      }
+      $scope.$broadcast("scroll.infiniteScrollComplete");
+      $timeout(function(){
+        $ionicLoading.hide();
+      },1500);
+  }
+
+}]);

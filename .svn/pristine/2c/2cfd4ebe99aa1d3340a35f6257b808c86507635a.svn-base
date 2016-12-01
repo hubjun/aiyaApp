@@ -1,0 +1,70 @@
+<ion-view view-title="我的收藏夹" class="favorite">
+  <!-- header-bar -->
+  <!--header-->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">我的收藏夹</div>
+    <!--<div class="buttons buttons-right">-->
+      <button class="button button-clear">
+        <a class="button button-clear button-dark" ng-click="edit()"><span ng-if="!canEdit">编辑</span><span ng-if="canEdit">完成</span></a>
+        <a class="button button-dark button-clear ion-ios-more icon-right" ng-if="!canEdit" nav-button></a>
+      </button>
+    <!--</div>-->
+  </div>
+
+  <ion-content class="has-header" scrollbar-y="false">
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+    <div ng-if="networkError" ng-include="'templates/error/network.html'" ng-clik="init()"></div>
+    <ion-list ng-if="products.length>=1">
+      <ion-item ng-if="!canEdit" ng-repeat="pro in products"  class="item item-thumbnail-left" ui-sref="productInfo({id:pro.id})">
+        <img ng-src="{{pro.image}}"/>
+        <a>
+            <p class="faName">{{pro.name}}</p><br/>
+        </a>
+          <!--是否有区间价-->
+          <p class="faOldPrice" ng-if="pro.priceType == 'normal'">{{pro.marketPrice | currency : '￥'}}</p>
+          <img ng-if="pro.priceType !='yc' && pro.isMarketable" style="float: right;height: 20px;" ng-src="img/joinCart.jpg" product-specification-filter product-id="{{pro.id}}" option-type="joinCart"/>
+          <p ng-if="!pro.isMarketable" style="float: right;height: 20px;">商品已下架</p>
+          <p class="faNewPrice" ng-if="pro.priceType == 'more'">{{pro.price2  | currency : '￥'}} - {{pro.price | number : 2}}</p>
+          <p class="faNewPrice"  ng-if="pro.priceType == 'normal'">{{pro.price  | currency : '￥'}}</p>
+          <!--立即询价-->
+          <p class="faNewPrice" ng-if="pro.priceType == 'yc'"  ui-sref="tab.toothOpEnquiry">立即询价</p>
+          <ion-option-button class="button-assertive" ng-click="remove(pro)">
+            &nbsp;取消收藏&nbsp;
+          </ion-option-button>
+      </ion-item>
+
+      <div ng-if="canEdit" ng-repeat="pro in products" class="edit">
+        <ion-checkbox ng-model="pro.isSelected" class="item item-thumbnail-left" ng-click="toggleSelectOne(pro)">
+          <img ng-src="{{pro.image}}"/>
+          <p class="faName">{{pro.name}}</p><br/>
+          <!--是否有区间价-->
+          <p class="faOldPrice" ng-if="pro.priceType == 'normal'">{{pro.marketPrice | currency : '￥'}}</p>
+          <p ng-if="!pro.isMarketable" style="float: right;height: 20px;">商品已下架</p>
+          <p class="faNewPrice" ng-if="pro.priceType == 'more'">{{pro.price2  | currency : '￥'}} - {{pro.price | number : 2}}</p>
+          <p class="faNewPrice"  ng-if="pro.priceType == 'normal'">{{pro.price  | currency : '￥'}}</p>
+          <!--立即询价-->
+          <p class="faNewPrice" ng-if="pro.priceType == 'yc'"  ui-sref="tab.toothOpEnquiry">立即询价</p>
+        </ion-checkbox>
+      </div>
+      <div ng-if="canEdit" class="editHeight"></div>
+    </ion-list>
+    <div ng-if="products.length==0">
+      <img ng-src="./img/searchNull.png" class="brandNullImg">
+      <p class="brandNullTxt">Sorry~暂无相关的信息</p>
+    </div>
+    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" style="height:auto;"></ion-infinite-scroll>
+  </ion-content>
+  <ion-footer-bar class="row" ng-if="canEdit">
+    <div class="select-all col">
+      <label class="checkbox">
+        <input type="checkbox" ng-click="toggleSelectAll()" ng-model="checkObj.isAllSelected"/>
+        <span>全选</span>
+      </label>
+    </div>
+    <button class="col-25 button button-positive" ng-click="removeAll()">删 除</button>
+  </ion-footer-bar>
+</ion-view>
+

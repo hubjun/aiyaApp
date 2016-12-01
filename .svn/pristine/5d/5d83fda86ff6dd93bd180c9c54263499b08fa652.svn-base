@@ -1,0 +1,42 @@
+aiyaController.controller('paySuccessController', [
+  '$scope',
+  '$ionicLoading',
+  '$stateParams',
+  'orderService',
+  'CommonUtil',
+  'productService',
+  function($scope,$ionicLoading,$stateParams,orderService,CommonUtil,productService){
+
+    console.log('sn' + $stateParams.sn);
+    var params = {
+      sn : $stateParams.sn
+    }
+
+    $scope.init = init;
+
+    $scope.$on('$ionicView.beforeEnter',function(){
+      $scope.init();
+    });
+    function init(){
+      orderService.info(params).then(function(data){
+        $scope.amount = data.amount;
+        $scope.consignee = data.consignee;
+        $scope.area= data.area;
+        $scope.address = data.address;
+        $scope.phone = data.phone;
+        $scope.sn = data.sn;
+        $scope.isMonthly = data.isMonthly;
+
+        $scope.viewTitle = data.isMonthly ? '下单成功' : '支付成功';
+      },function(err){
+        CommonUtil.tip(err);
+      });
+      /*猜你喜欢*/
+      var recommendParams = {count:2};
+      productService.getRecommendProductc(recommendParams).then(function(data){
+        $scope.productList = data.list;
+      },function(err){
+
+      });
+    }
+  }]);

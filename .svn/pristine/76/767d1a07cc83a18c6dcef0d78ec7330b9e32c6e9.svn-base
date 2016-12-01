@@ -1,0 +1,120 @@
+aiyaController.controller('orderListOk', [
+  '$scope',
+  '$rootScope',
+  '$ionicScrollDelegate',
+  'userAddressService',
+  '$stateParams',
+  'orderService',
+  '$ionicLoading',
+  '$state',
+  'CommonUtil',
+  function($scope,$rootScope,$ionicScrollDelegate,userAddressService,$stateParams,orderService,$ionicLoading,$state,CommonUtil){
+    /*是否有优惠*/
+    $scope.hasCoupon = false;
+    /*优惠码*/
+    $scope.coupon;
+    /*是否开具发票*/
+    $scope.isInvoice = false;
+    /*发票抬头*/
+    $scope.invoiceTitle;
+    /*备注*/
+    $scope.memo;
+
+    $scope.pushBill = {
+        checked: false
+    }
+
+  $scope.toggleBillChange = function(){
+    $scope.isInvoice = $scope.pushBill.checked;
+  }
+
+  $scope.scrollBottom = function(){
+    $ionicScrollDelegate.scrollBottom();
+  }
+    var product = $stateParams.productInfo;
+      orderService.directInfo(product).then(function(data){
+        console.log(data)
+        $scope.receiverInfo = data.receiverInfo;
+        $scope.products = data.products;
+        $scope.totalPrice = data.totalPrice;//应付总额
+        $scope.expressFee = _.gt(parseFloat(data.totalPrice),199) ? 0 : 12;
+        $scope.allPrice =_.add($scope.totalPrice,$scope.expressFee);
+        $scope.totalQuantity = data.totalQuantity;
+      },function(err){
+        console.log(err);
+      });
+
+    //优惠码确认
+    $scope.couponSure = function(coupon){
+      if(_.null)
+      var params = {
+        code:coupon,
+        directBuyIds:product.ids,
+        directQuantitys:product.quantitys
+      }
+      orderService.couponInfo(params).then(function(data){
+        $scope.hasCoupon = true;
+        $scope.couponPrice = data.couponPrice;
+        $scope.finalPrice = data.finalPrice;
+        /*应付金额*/
+        $scope.allPrice = $scope.allPrice - $scope.couponPrice;
+        console.log(data);
+      },function(err){
+        CommonUtil.tip(err);
+        console.log(err);
+      });
+    }
+
+    /*优惠码取消*/
+    $scope.couponCancel = function(){
+      $scope.hasCoupon = false;
+    }
+
+    /*订单提交*/
+    $scope.createOrder = function(){
+      productList = new Array();
+      var tempProduct = {
+        productId:'',
+        quantity:''
+      }
+      if(product != null && product !=''){
+        var ids = product.ids.split(',');
+        var quantitys = product.quantitys.toString().split(',');
+        for(var i = 0; i < ids.length; i++){
+          tempProduct.productId = ids[i];
+          tempProduct.quantity = quantitys[i];
+          productList.push(tempProduct);
+        }
+      }
+      var params = {
+        receiverId : $scope.receiverInfo.id,
+        memo: $scope.memo,
+        isInvoice: $scope.isInvoice,
+        couponCode: $scope.coupon,
+        invoiceTitle: $scope.invoiceTitle,
+        productList:productList
+      }
+      orderService.create(params).then(function(data){
+        console.log(data);
+        $state.go('orderPay',{sn:data.sn});
+      },function(err){
+        CommonUtil.tip(err);
+        console.log("订单提交:" + err);
+      });
+    }
+    //切换收货地址
+    $rootScope.$on('SELECT_ADDRESS', function (event, data) {
+        $scope.receiverInfo = data;
+    });
+
+    //选中的收货地址被删除
+    $rootScope.$on('SELECT_ADDRESS_DELETED', function (event,data) {
+      $scope.receiverInfo = data;
+
+    });
+    //选中的收货地址被修改
+    $rootScope.$on('SELECT_ADDRESS_CHANGED', function (event, data) {
+      $scope.receiverInfo = data;
+
+    });
+}]);

@@ -1,0 +1,38 @@
+aiyaController.controller('loginController', [
+  '$scope',
+  '$state',
+  '$ionicLoading',
+  'userService',
+  function($scope, $state, $ionicLoading, userService){
+    var tip = function (msg) {
+      $ionicLoading.show({
+        template: msg,
+        noBackdrop: true,
+        duration: 1500
+      });
+    };
+
+    $scope.login = function () {
+      var opt = {
+            username: $scope.user.name,
+            password: $scope.user.password,
+            usertype: 1
+          };
+
+      $ionicLoading.show({template: '<div>登录中<ion-spinner icon="dots" style="vertical-align: middle;display:inline-block;height: 28px;width: 28px;fill: #fff"></ion-spinner></div>'});
+      $scope.$on('$destroy', function () {
+        $ionicLoading.hide();
+      });
+      userService.login(opt)
+        .then(function () {
+          $ionicLoading.hide();
+          tip('登录成功！');
+          setTimeout(function () {
+            $scope.back();
+          }, 1000);
+        }, function (errorMsg) {
+          $ionicLoading.hide();
+          tip(errorMsg);
+        });
+    }
+  }]);

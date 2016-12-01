@@ -1,0 +1,89 @@
+.orderPay{
+  background: #F4F4F4;
+  .orderPay-tips{
+    background: #fde2b4;
+    span{
+      font-size: rem(24);
+      color: #f7521b;
+    }
+  }
+  .orderPay-list{
+    h2{
+      float: left;
+      color: #252525;
+      line-height: inherit;
+      font-size: rem(26);
+    }
+    span{
+      float: right;
+      font-size: rem(26)
+    }
+  }
+  .num{
+    span{
+      color: #484848;
+    }
+  }
+  .money{
+    span{
+      color: #FF5F0F;
+      font-size: 15px;
+    }
+  }
+  .delivery{
+    span{
+      color: #484848;
+    }
+  }
+  .pay-tips{
+    h1{
+      font-size: rem(30);
+      color: #252525;
+    }
+    span{
+      color: #484848;
+      font-size: rem(24);
+      white-space: normal;
+      b{
+        color: #FF5F0F;
+      }
+    }
+  }
+  .toggle-pay{
+    padding: 0.3rem 16px;
+    h1{
+      margin: 0;
+      color: #252525;
+      font-size: rem(30);
+    }
+  }
+  .radio-pay{
+    .alipay{}
+    .pay-way{
+      img{
+        float: left;
+        width: 3.2rem;
+        height: 1.7rem;
+      }
+      .right{
+        float: left;
+        padding: 0 0 0 0.8rem;
+        h3{
+          margin: 0;
+          font-size: rem(26);
+          color: #252525;
+        }
+        span{
+          display: inline-block;
+          font-size: rem(20);
+          color: #b1b1b1;
+        }
+      }
+    }
+  }
+  .orderPay-footer{
+    .button-bar{
+      padding: 0 5px;
+    }
+  }
+}

@@ -1,0 +1,162 @@
+<ion-view class="orderDetail" view-title="订单详情" hide-nav-bar="true" cache-view="false">
+  <!--header-->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">订单详情</div>
+    <div class="buttons buttons-right">
+      <span class="right-buttons">
+        <button class="button button-dark button-clear ion-ios-more icon-right" nav-button></button>
+      </span>
+    </div>
+  </div>
+
+  <ion-content ng-show="order" class="has-header">
+
+    <div class="pay-status">
+      <div class="left-con">
+        <h2>{{::order.orderStatusDesc}}</h2>
+        <div ng-if="order.paymentStatus == '0'">
+          <p>订单将在{{::order.rtime.d}}天{{::order.rtime.h}}小时后</p>
+          <p>自动取消</p>
+        </div>
+      </div>
+      <i class="payment"></i>
+      <!--<i class="delivered"></i>-->
+    </div>
+    <div class="igap"></div>
+
+    <!--<ion-list class="status-delivered">-->
+      <!--<ion-item class="item-icon-left item-icon-right delivered-mar">-->
+        <!--<i class="icon left-con ion-aiya payment-delivered">&#xe610;</i>-->
+        <!--<p>{{::order.logistic.desc}}</p>-->
+        <!--<span>{{::order.logistic.createDate}}</span>-->
+        <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
+      <!--</ion-item>-->
+    <!--</ion-list>-->
+
+    <div class="wait-contact">
+      <div class="row consignee">
+        <span class="col">收货人：{{::order.consignee}}</span>
+        <span class="col">电话：{{::order.phone}}</span>
+      </div>
+      <div class="row address">
+        <span class="col">{{::order.areaName}}{{::order.address}}</span>
+      </div>
+    </div>
+    <div class="igap"></div>
+
+    <ul class="list">
+      <li class="item purchaseProductItem" ng-repeat="product in order.productList" ng-show="show($index, order)">
+        <div class="productImg">
+          <img ng-src="{{imgUrl}}{{product.image}}" class=""/>
+        </div>
+        <div class="productDesc">
+          <h2 class="productDesc-title">{{::product.name}}</h2>
+          <p class="productDesc-spec"><span ng-if="product.specificationName">{{::product.specificationName}}：{{::product.specificationValuesName}}</span></p>
+          <p class="productDesc-price color-positive">
+            <span class="">￥{{::product.price|number:2}}</span>
+          </p>
+        </div>
+        <div class="productNum">×{{::product.quantity}}</div>
+      </li>
+    </ul>
+
+    <!--<ion-list>-->
+      <!--<ion-item>-->
+        <!--<div class="waitPay-list">-->
+          <!--<div class="left-img">-->
+            <!--<a href="#">-->
+              <!--<img src="./img/pro3.png" alt="">-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<div class="mid-detail">-->
+            <!--<span class="name">（宣宇）移动的活动的</span>-->
+            <!--<span class="parames">规格型号：49456489#</span>-->
+            <!--<span class="price">￥39.0</span>-->
+          <!--</div>-->
+          <!--&lt;!&ndash;<div class="right-count">&ndash;&gt;-->
+          <!--<span class="count">X99</span>-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</div>-->
+      <!--</ion-item>-->
+      <!--<ion-item>-->
+        <!--<div class="waitPay-list">-->
+          <!--<div class="left-img">-->
+            <!--<a href="#">-->
+              <!--<img src="./img/pro3.png" alt="">-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<div class="mid-detail">-->
+            <!--<span class="name">（宣宇）移动的活动的</span>-->
+            <!--<span class="parames">规格型号：49456489#</span>-->
+            <!--<span class="price">￥39.0</span>-->
+          <!--</div>-->
+          <!--&lt;!&ndash;<div class="right-count">&ndash;&gt;-->
+          <!--<span class="count">X99</span>-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</div>-->
+      <!--</ion-item>-->
+    <!--</ion-list>-->
+
+    <div class="moreOrders" ng-if = "order.productList.length>2">
+      <ul class="list">
+        <li class="item" ng-click="expand(order)" ng-bind = "orderDetailToggle">查看全部</li>
+      </ul>
+    </div>
+
+    <ion-list>
+      <ion-item class="payment-list">
+        <div class="pay">
+          <h2>运费</h2>
+          <span>￥{{::order.freight|number:2}}</span>
+        </div>
+      </ion-item>
+      <ion-item class="payment-list">
+        <div class="pay">
+          <h2>实付款（含运费）</h2>
+          <span>￥{{::order.amount|number:2}}</span>
+        </div>
+      </ion-item>
+    </ion-list>
+    <div class="igap"></div>
+
+    <ion-list>
+      <ion-item class="payment-info">
+        <div>
+          <div class="li">订单编号：{{::order.sn}}</div>
+          <div class="li">创建日期：{{::order.createDate}}</div>
+          <div class="li">配送方式：{{::order.shippingMethodName}}</div>
+          <div class="li">支付方式：{{::order.paymentMethodName}}</div>
+          <div class="li memo">留言：{{::order.memo}}</div>
+        </div>
+      </ion-item>
+    </ion-list>
+    <!--<div class="igap"></div>-->
+    <ion-list ng-if = "isInvoice">
+      <ion-item class="invoice">
+        <h2>发票信息</h2>
+        <div class="li invoiceTitle">发票抬头：{{invoiceTitle}}</div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar class="orderDetail-footer">
+    <div class="row">
+      <div class="col col-20 button-QQ">
+        <a class="QQ"></a>
+        <p class="QQTxt">客服</p>
+      </div>
+      <div class="col-80 button-bar">
+        <button class="button" ng-click="buyAgain(order.id)">再次购买</button>
+        <button class="button" ui-sref="orderDetail({sn: order.sn})">查看订单</button>
+        <button class="button" ng-if="order.shippingStatus == 1 || order.shippingStatus == 2" ui-sref="mylog({sn: order.sn})">我的物流</button>
+        <button class="button" ng-if="order.shippingStatus == 2" ng-click="confirmSingleOrder(order.sn,$index)">确认收货</button>
+        <button class="button" ng-if="order.orderStatus != 3 && order.orderStatus != 2 && order.paymentStatus == 0" ng-click="cancelSingleOrder(order.sn,$index)">取消订单</button>
+        <button class="button orderbuy" ng-if="order.orderStatus != 3 && order.orderStatus != 2 && order.paymentStatus == 0" ui-sref="orderPay({sn: order.sn})">立即付款</button>
+        <!--<button class="button" ng-if="order.shippingStatus == 0 && order.paymentStatus == 2">提醒发货</button>-->
+        <button class="button" ng-if="order.shippingStatus == 5  && order.paymentStatus == 2 || order.paymentStatus == 1">评价</button>
+      </div>
+    </div>
+  </ion-footer-bar>
+</ion-view>

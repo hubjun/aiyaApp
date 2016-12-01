@@ -1,0 +1,66 @@
+aiyaController.controller('rapidListController', [
+  '$scope',
+  'productService',
+  'userService',
+  function($scope,productService,userService){
+    var params = {
+      /*makeType	int	否	是否为国产品牌 0--国产 1--进口
+       brandIds	string	否	品牌ID集合,多个id用","分割
+       categoryIds	string	否	分类ID集合,多个id用","分割
+       keyword	string	否	商品搜索关键字
+       salesDesc	boolean	否	是否按销量降序
+       dateDesc	boolean	否	是否按新品降序
+       priceOrder	string	否	是否按价格排序 asc--升序 desc--降序
+       pageNumber	int	否	分页页码
+       pageSize	int	否	分页每页记录数*/
+      keyword:'',
+      pageNumber : 1,
+      pageSize : 20
+    }
+    $scope.productList = [];
+    var page = {};
+
+    var init = function(){
+      productService.getList(params).then(function(data){
+        if(params.pageNumber == 1){
+          $scope.productList = data.list;
+        }else{
+          $scope.productList = $scope.productList.concat(data.list);
+        }
+        page = data.page;
+      },function(err){
+        console.log(err);
+      });
+    }
+    init();
+    /*当前用户*/
+    userService.getInfo()
+      .then(function(data){
+        $scope.currentUser = data;
+      },function(err){
+        console.log(err);
+      });
+
+    /*加载更多*/
+    $scope.loadMore = function(){
+      if(page.hasNextPage){
+        params.pageNumber++;
+        init();
+      }
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    }
+
+    /*刷新*/
+    $scope.doRefresh = function(){
+      params.pageNumber = 1;
+      init();
+      $scope.$broadcast('scroll.refreshComplete');
+    }
+
+    /*搜索*/
+    $scope.search = function(keyword){
+      params.pageNumber = 1;
+      params.keyword = keyword;
+      init();
+    }
+}]);

@@ -1,0 +1,84 @@
+<ion-view class="orderPay" view-title="订单信息" hide-nav-bar="true">
+  <div class="bar bar-header bar-stable">
+    <a class="button button-dark ion-ios-arrow-back icon-left button-clear" ng-click="back()"></a>
+    <h1 class="title">订单信息</h1>
+    <!--<a class="button button-dark ion-ios-more icon-right button-clear"></a>-->
+  </div>
+  <script>
+    $(function(){
+      var ua = navigator.userAgent.toLowerCase();
+      if(ua.match(/MicroMessenger/i)=="micromessenger") {
+        alert("true");
+      } else {
+        alert("false");
+      }
+    })
+  </script>
+
+  <form id="alipaysubmit" ng-model="alipaysubmit" action="https://mapi.alipay.com/gateway.do?_input_charset=utf-8" method="POST">
+  </form>
+  <ion-content class="has-header">
+    <ion-list>
+      <ion-item class="orderPay-tips">
+          <span>您的订单已提交成功，正在等待您的付款。</span>
+      </ion-item>
+      <ion-item>
+          <div class="orderPay-list num">
+            <h2>订单编号</h2>
+            <span class="snClass">{{sn}}</span>
+          </div>
+      </ion-item>
+      <ion-item>
+        <div class="orderPay-list money">
+          <h2>应付金额</h2>
+          <span>{{amountPrice | currency : '￥'}}</span>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="orderPay-list delivery">
+          <h2>配送方式</h2>
+          <span>{{shippingMethodName}}</span>
+        </div>
+      </ion-item>
+    </ion-list>
+    <div class="gap"></div>
+
+    <ion-list>
+      <ion-item class="pay-tips">
+          <h1>温馨提示</h1>
+          <span>请在<b>2016-04-01 11:16</b>前完成支付，以免订单过期。</span>
+      </ion-item>
+    </ion-list>
+
+    <div class="toggle-pay">
+      <h1>选择支付方式</h1>
+    </div>
+    <ion-list class="radio-pay">
+      <ion-radio ng-model="$parent.payValue" ng-show="payShowAli">
+        <div class="alipay pay-way">
+            <img src="./img/alipay.png" alt="">
+            <div class="right">
+                <h3>支付宝客户端</h3>
+                <span>推荐安装支付宝用户使用</span>
+            </div>
+        </div>
+      </ion-radio>
+      <ion-radio ng-model="$parent.payValue" ng-show="payShowWx">
+        <div class="tenpay pay-way">
+            <img src="./img/weichat.png" alt="">
+            <div class="right">
+              <h3>微信客户端</h3>
+              <span>推荐安装微信用户使用</span>
+            </div>
+        </div>
+      </ion-radio>
+    </ion-list>
+
+  </ion-content>
+  <ion-footer-bar class="orderPay-footer">
+      <div class="button-bar">
+        <a class="button button-positive" ng-click="alipay(sn)" ng-show="payShowAli">立即支付</a>
+        <a class="button button-positive" ng-click="wxpay(sn)" ng-show="payShowWx">立即支付</a>
+      </div>
+  </ion-footer-bar>
+</ion-view>

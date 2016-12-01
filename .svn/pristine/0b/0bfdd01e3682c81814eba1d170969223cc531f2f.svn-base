@@ -1,0 +1,173 @@
+//
+//.brand .bar-header{
+//  height:88px;
+//}
+//.brand .bar-subheader {
+//  top: 88px;
+//  height: 48px;
+//  border-bottom:1px solid white;
+//}
+//.brand .bar-subheader a{
+//  height:64px;
+//}
+//.brand .bar-header .brandBtn{
+//  margin: 20px 5px;
+//}
+//.brand .bar-header input{
+//  border: 1px solid #BEBEBE;
+//  border-radius: 6px;
+//  padding-left: 12px;
+//  margin-top: 20px;
+//  width: 58%;
+//}
+//.brand .bar .button.button-clear{
+//  font-size:16px;
+//}
+.brand .brand-left-btn{
+  margin: 0 10px 0 0;
+}
+#sub_header_list .button.sub_button_select {
+  border-bottom: 2px solid #FF5F0F;
+  position: relative;
+  color:#FF5F0F;
+}
+.brand .bar-subheader .scroll-view.scroll-x{
+  overflow-x:hidden;
+}
+/*tab*/
+/*.tab-nav.tabs {
+    display: none;
+}
+/*首页块*/
+.brand .first-list{
+  //margin-top: 152px;
+  padding-left: 5px;
+}
+.brand .first-list .col{
+  height: 98px;
+  text-align: center;
+  padding-top: 12px;
+  padding: 4px;
+}
+.brand .first-list .col.light div{
+  text-align:left;
+}
+.brand .first-list .col .icon{
+  font-size:32px;
+}
+/*二级菜单*/
+.brand .bar .sub_header_list .button.button-clear{
+
+  border-bottom: 1px solid #eee;
+}
+.brand .sub_header_list .button{
+  width: 20%;
+  color:#666;
+}
+.brand .bar .sub_header_list .button.sub_button_select{
+  border-bottom:2px solid #387ef5;
+  position:relative;
+}
+.brand .col-33 {
+  float:left;
+  border:0 none;
+}
+.brand .itemDiv {
+  border: 1px solid #F8F8F8;
+  height: 88px;
+  background: white;
+  display:block;
+}
+.brand .itemDiv img{
+  width: auto;
+  height: auto;
+  margin: auto;
+  position: relative;
+  top: 11px;
+  left: 0px;
+  max-width: 100%;
+  max-height: 100%;
+}
+/*筛选*/
+ion-popover-view.screening.popover.none.ng-enter.active.ng-enter-active {
+  width: 88%;
+  height: 100%;
+}
+.screening ion-content.scroll-content.ionic-scroll{
+  padding: 20px 10px 10px;
+}
+.screening p {
+  font-size: 1.4em;
+  color: #000000;
+  padding: 8px 0;
+}
+.brandTypesWrapper {
+  padding-bottom: 10px;
+  border-bottom: 1px solid $gray;
+  &:last-child {
+    border-bottom-width: 0;
+  }
+  .brandMore {
+    min-width: 0;
+    min-height: 0;
+    line-height: 1.3;
+    font-size: $base-font-size;
+  }
+}
+.brandTypes {
+  display: block;
+  overflow: hidden;
+
+  .unselect {
+    position: relative;
+    &:after {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      bottom: -12px;
+      left: -12px;
+      content: '';
+    }
+  }
+}
+ion-item.brandType.item {
+  padding: rem(16) rem(10);
+  margin: 5px 10px 5px 0px;
+  float: left;
+  border-radius: 3px;
+  color: #6f6f6f;
+  font-size: rem(28);
+  background: #F4F4F4;
+  cursor: pointer;
+  border: 1px solid $stable;
+
+  &:last-child {
+    border-bottom-width: 1px;
+  }
+  &.active {
+    background-color: $positive;
+    color: #fff;
+    border-color: darken($positive, 0.3);
+  }
+}
+.screening.popover{
+  margin-top: -60px;
+}
+/*
+ion-footer-bar.brandFooter.bar.bar-footer {
+  height: 90px;
+  border-top: 1px solid #c1c0c0;
+  padding: 16px;
+}
+.brandFooter .buttons {
+  right: 20px;
+  position: absolute;
+}
+.brandFooter .selectFinish {
+  padding: 12px 50px;
+  border-radius: 5px;
+  background: #FF5F0F;
+  color: white;
+  font-size: 1.4em;
+}
+*/

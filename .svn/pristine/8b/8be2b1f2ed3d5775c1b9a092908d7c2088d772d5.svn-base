@@ -1,0 +1,224 @@
+.myOrders {
+  .tabs-top{
+      .tab-item-color-black{
+        color:#323232;
+      }
+  }
+  .tab-content {
+    position: absolute;
+    top: $bar-height + $tabs-height;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $stable;
+  }
+
+  //修改purchaseProductItem默认值 [./purchaseProductItem.scss]
+  .purchaseProductItem {
+    position: relative;
+    .productImg {
+     /* @include flex(0, 0, $productItemImg-width * 0.8);*/
+      width: 3.7rem;
+      height: 3.7rem;
+    }
+    .productDesc {;
+      .productDesc-spec {
+        font-size: 70%;
+        font-size:14px;
+      }
+      .productDesc-price {
+        color: $global-gray;
+      }
+    }
+    .productNums{
+      float:right;
+    }
+  }
+  //展开剩余商品栏
+  .productRemain{
+    background:#f6f5f5;
+    text-align:center;
+    font-size:14px;
+  }
+  //修改ionic item 默认padding
+  .item {
+    padding: $item-content-padding;
+  }
+  //ionic list divider [http://ionicframework.com/docs/components/#item-dividers]
+  .item-divider {
+    min-height: 0.5em;
+    border-width: 0;
+  }
+  //订单状态栏
+  .status-bar {
+    font-size: $base-font-size * 0.8;
+    color: $global-gray;
+    @include display-flex();
+    //订单日期
+    .orderDate {
+
+    }
+    //订单号码
+    .orderNum {
+      margin-left: 20px;
+      margin-right: auto;
+      text-overflow: ellipsis;
+    }
+    //订单状态
+    .orderStatus {
+      color: $positive;
+    }
+  }
+  //价格状态栏
+  .price-bar {
+    font-size: $base-font-size;
+    //单行浮动布局，加左padding
+    & > * {
+      float: right;
+      padding-left: 10px;
+    }
+  }
+
+  //订单操作条
+  .operator-bar {
+    @include display-flex();
+    @include justify-content(flex-end);
+    //button自动伸缩
+    & > * {
+      //@include flex(1);
+    }
+
+    //基于ionic button组件重新制定样式
+    .button {
+      min-height: 0;
+      min-width: 0;
+      line-height: 2.5;
+      padding: 0 rem(15);
+      margin: 0 rem(5);
+      color: $button-color;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      text-align: center;
+      font-size: $base-font-size;
+
+      &.activated {
+        color: lighten($button-color, 30%);
+      }
+    }
+    .orderbuy{
+      border-color:#FF874B;
+      color:#FF5F0F;
+    }
+  }
+}
+//评价
+.evalCon{
+  background:#F7F7F7;
+  .item{
+    padding:16px 12px;
+    font-size: 0.7rem;
+  }
+  .purchaseProductItem{
+    padding: 10px 12px;
+  }
+  .evalLookall{
+    text-align:center;
+  }
+  .startEval{
+    overflow: hidden;
+    background:#F7F7F7;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-size: 0.7rem;
+    .startEvalTit{
+      width: 26%;
+      padding: 10px 0;
+      color: #5F5F5F;
+      float: left;
+    }
+    #mystarselect{
+      width: 34%;
+      float: left;
+      overflow: hidden;
+      margin-top: 9px;
+      img{
+        width: 20%;
+        margin-right: -5px;
+      }
+    }
+    .scoreBorder{
+      width: 33%;
+      padding:0.4rem 0;
+      background: white;
+      position: relative;
+      float: left;
+      margin-left: 20px;
+      text-align: center;
+      color: #E85401;
+      border: 2px solid #E85401;
+      .scoreDesc{
+        width: 0.7rem;
+        height: 0.7rem;
+        background: url(../img/scoreborder.png) no-repeat left center;
+        position: absolute;
+        left: -0.7rem;
+      }
+    }
+  }
+  .comprehensive {
+    border: 0 none;
+    input{
+      white-space:normal;
+    }
+  }
+  .evalUploadImg{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0 none;
+    .uploadImgspan{
+      width: 4rem;
+      height: 4rem;
+      border: 1px solid #D5D5D5;
+      display: block;
+      background: #F0F0F4;
+      .addNull{
+        width: 3rem;
+        height: 3rem;
+        margin: 0.5rem auto;
+        display: block;
+      }
+    }
+  }
+}
+.evalFooter{
+  border-top: 1px solid #D3D3D3;
+  .anonymous{
+    vertical-align: middle;
+    margin-left: 5px;
+    margin-right: 10px;
+    .anonSelect{
+      top: 0.3rem;
+    }
+  }
+  .comment{
+    margin-left: auto;
+    margin-right: 10px;
+    width: 100px;
+  }
+}
+//没有商品列表的显示信息
+
+.orderNullImg{
+  width: 3.86rem;
+  height: 5.32rem;
+  display: block;
+  margin: auto;
+  margin-top: 2rem;
+}
+.orderNullTxt{
+  text-align: center;
+  font-size: 0.7rem;
+  color: #6C6C6C;
+  margin-top: 10px;
+  padding:0 10px;
+}

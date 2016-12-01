@@ -1,0 +1,52 @@
+<ion-view class="purchaseOrder" view-title="编辑" cache-view="false" hide-nav-bar="true">
+  <!--header-->
+  <div class="bar bar-header bar-stable">
+    <!--<button class="button back-button buttons" ng-click="back()">-->
+      <!--<i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>-->
+    <!--</button>-->
+    <div class="title">编辑</div>
+    <div class="buttons buttons-right">
+      <span class="right-buttons">
+        <!--<button class="button"><i class="icon ion-ios-search"></i></button>-->
+        <button class="button button-dark button-clear" ng-click="complete()">完成</button>
+      </span>
+    </div>
+  </div>
+
+  <ion-content class="has-header" scrollbar-y="false">
+    <div ng-if="networkError" ng-include="'templates/error/network.html'" ng-clik="init()"></div>
+    <ion-list class="purchaseProducts">
+      <ion-item ng-repeat="product in purchaseProducts" class="purchaseProduct">
+        <div class="purchaseProductItem">
+          <label class="checkbox">
+            <input type="checkbox" ng-click="toggleSelectOne(product)" ng-model="product.isSelected" ng-if="product.canClick"/>
+            <input ng-if="!product.canClick" style="visibility:hidden;"/>
+          </label>
+          <div class="productImg">
+            <img ng-src="{{product.image}}" class="" alt=""/>
+          </div>
+          <div class="productDesc">
+            <h2 class="productDesc-title">{{::product.name}}</h2>
+            <p class="productDesc-spec" ng-show="product.isHasSpecification">{{::product.specificationName}}：{{::product.specificationValuesName}}</p>
+            <p class="productDesc-spec" ng-show="!product.isHasSpecification"></p>
+            <p class="productDesc-price color-positive">
+              <span class="">￥{{::product.price}}</span>
+              <!--<span class="">￥{{::product.price}}</span>-->
+            </p>
+          </div>
+          <div ng-if="product.availableStock == 0" class="errMsg">库存不足</div>
+          <div ng-if="!product.isMarketable && !product.isBuyNotPutaway" class="errMsg">商品已下架</div>
+          <div ng-if="(product.isMarketable || product.isBuyNotPutaway) && product.availableStock>0" class="productNum color-striking"><number ng-model="product.quantity" item="product"></number></div>
+        </div>
+        <ion-option-button class="button-assertive" ng-click="singleDelete(product.id)">删除</ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar>
+    <div class="select-all">
+      <label class="checkbox"><input type="checkbox" ng-click="toggleSelectAll()" ng-model="isAllSelected"><span>全选</span></label>
+    </div>
+    <button class="button button-positive move-to-fav" ng-click="collectProduct()">移到收藏夹</button>
+    <button class="button button-assertive delete" ng-click="deleteProduct()">删除</button>
+  </ion-footer-bar>
+</ion-view>

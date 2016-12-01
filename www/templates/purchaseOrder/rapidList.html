@@ -1,0 +1,45 @@
+<ion-view class="rapid-list" view-title="快速采购">
+  <div class="bar bar-header bar-stable">
+    <a class="button button-dark ion-ios-arrow-back icon-left button-clear" ng-click="back()"></a>
+    <h1 class="title">快速采购</h1>
+    <div class="buttons">
+      <button class="button button-dark button-clear rapidSelect" product-category-filter ng-model="filter"  on-finish="finish()" filter="filter">筛选</button>
+      <button class="button icon-right ion-aiya button-large button-clear has-badge bar-header-right" ui-sref="purchaseOrderList">
+        &#xe60b;<i class="badge badge-aiyaku">{{purchaseCounts}}</i>
+      </button>
+    </div>
+  </div>
+  <!--无网络提示图-->
+  <div ng-if="errState == 500" ng-include="'templates/error/network.html'" ng-click="init()"></div>
+  <ion-content class="has-header" scrollbar-y="false" delegate-handle="rapidListHandle" on-scroll="onContentScroll()" ng-show="errState == 200">
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+    <ion-list>
+      <ion-item class="item-input-inset rapidSearch">
+        <label class="item-input-wrapper rapidLabel">
+          <i class="icon ion-android-search placeholder-icon"></i>
+          <input type="search" placeholder="搜索您想采购的商品" ng-model="keyword" ng-change="search(keyword)"/>
+        </label>
+      </ion-item>
+      <!--collection-repeat="item in items"-->
+      <ion-item class="item item-thumbnail-left orderListRepeat rapid-list-button-repair" ng-repeat="pro in productList" ui-sref="productInfo({id:pro.id})">
+        <img ng-src="{{pro.image}}"/>
+        <h2 class="rapidName">{{pro.name}}</h2>
+        <p class="rapidPrice">
+          <span class="rapidOld" ng-if="(pro.isSectionPrice == '' || !pro.isSectionPrice) && (pro.isYcInquiry == '' || !pro.isYcInquiry || currentUser.isAuthoriz)">{{pro.marketPrice | currency : '￥'}}</span><br/>
+          <span class="rapidNow" ng-if="(pro.isSectionPrice != '' && pro.isSectionPrice) && (pro.isYcInquiry == '' || !pro.isYcInquiry || currentUser.isAuthoriz)">{{pro.price2  | currency : '￥'}} - {{pro.price | number : 2}}</span>
+          <span class="rapidNow" ng-if="(pro.isSectionPrice == '' || !pro.isSectionPrice) && (pro.isYcInquiry == '' || !pro.isYcInquiry || currentUser.isAuthoriz)">￥<span class="rapidNowName">{{pro.price | number:2}}</span></span>
+          <button class="rapidBuy button button-positive" ng-if="!pro.isYcInquiry || currentUser.isAuthoriz"  product-specification-filter option-type="joinCart" product-id="{{pro.id}}">采购</button>
+          <button class="button button-positive" ng-if="pro.isYcInquiry && !currentUser.isAuthoriz">立即询价</button>
+        </p>
+      </ion-item>
+    </ion-list>
+
+    <div ng-if="!hasMore() && productList.length > 0" class="commonBottom">没有更多商品啦……</div>
+    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" icon="icon-svg-loading" ng-if="hasMore()"></ion-infinite-scroll>
+    <div ng-include="'templates/common/searchNull.html'" ng-if="productList == null || productList.length == 0"></div>
+  </ion-content>
+  <a class="scrollTop"  ng-click="scrollTop()" ng-if="showToTopImage">↑
+    <span>顶部</span>
+  </a>
+
+</ion-view>

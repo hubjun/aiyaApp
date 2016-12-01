@@ -1,0 +1,60 @@
+<ion-view view-title="用户注册" hide-nav-bar="true">
+  <!--header-->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">用户注册</div>
+  </div>
+  <ion-content class="has-header loginCon regCon">
+    <form ng-submit="submit()" novalidate form-validate>
+      <div class="padding emailDiv">
+        <input type="text"
+               class="emailInput"
+               ng-model="$parent.user.mobile"
+               placeholder="请输入你的手机号码"
+               required
+               error-msg="{required: '请输入你的手机号码！'}">
+        <input type="text"
+               class="emailInput infoCode"
+               ng-model="$parent.user.authCode"
+               placeholder="请输入短信验证码"
+               required
+               error-msg="{required: '请输入短信验证码！'}">
+        <label>
+          <button type="button" class="button button-block button-assertive codeBtn" ng-click="getAuthCode()">免费获取验证码</button>
+        </label>
+
+        <label>
+          <input type="{{pwoTypeHandle ? 'text' : 'password'}}"
+                 class="emailInput regEye1"
+                 ng-model="$parent.user.password1"
+                 placeholder="请输入密码"
+                 required
+                 password-consistency
+                 error-msg="{required: '请输入密码！', passwordConsistency: '密码不一致，请重新输入!'}">
+          <ion-toggle ng-model="pwoTypeHandle"></ion-toggle>
+        </label>
+
+        <label>
+          <input type="{{ pwcTypeHandle ? 'text' : 'password'}}"
+                 class="emailInput regEye2"
+                 ng-model="$parent.user.password2"
+                 placeholder="请再次输入密码"
+                 required
+                 password-consistency
+                 error-msg="{required: '请再次输入密码！'}">
+          <ion-toggle ng-model="pwcTypeHandle"></ion-toggle>
+        </label>
+
+      </div>
+      <div class="padding regAgree">
+        <input type="checkbox" ng-model="$parent.user.checked">
+        <div class="agreeTxt">同意<span class="userAgree" ui-sref="userAgree">《爱牙库用户注册协议》</span></div>
+      </div>
+      <div class="padding emailDiv">
+        <button ng-disabled="!user.checked" type="submit" class="button button-block button-positive button-next modifyPhone">注册</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

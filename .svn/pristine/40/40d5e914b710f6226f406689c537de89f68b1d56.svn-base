@@ -1,0 +1,226 @@
+angular.module('starter.services', ['ngResource'])
+  .factory('Auth',['$http','$rootScope','ENV', function($http, $rootScope,ENV){
+    /*判断是否登录*/
+    return {
+      isLoggedIn: function () {
+        $http.get(ENV.siteUrl +'/member/getCurrent').success(function (rs) {
+          if(rs.code === 1){
+              if(rs.data.isLogin){
+                  $rootScope.user.id = rs.data.id;
+                  $rootScope.user.username = rs.data.username;
+                  $rootScope.$emit("userIntercepted");
+                  return true;
+              }else{
+                 $rootScope.user = {};
+                 $rootScope.$emit("userIntercepted");
+                  return false;
+              }
+          }else{
+            console.log('用户登录错误:' +　rs.msg)
+          }
+        }).error(function(error){
+          console.log(error.msg)
+        });
+      }
+    }
+  }])
+  /*注意: 所有js注入采用下面这种便于后期压缩*/
+  .factory('brand',['$resource','ENV',function($resource,ENV){
+  /*  var brands = {
+      "code": 1,
+      "msg": "成功",
+      "data": {
+        "list": [
+          {
+            "id": 1,
+            "createDate": "2015-04-01 10:56:28",
+            "modifyDate": "2015-09-16 17:04:52",
+            "orders": 1,
+            "logo": "img/NSK.png",
+            "name": "柳 苑",
+            "type": 1,
+            "url": "",
+            "isShow": true,
+            "isHot": "",
+            "makeType": false,
+            "simpleName": "",
+            "introduction": ""
+          },
+          {
+            "id": 8,
+            "createDate": "2015-06-23 14:18:33",
+            "modifyDate": "2015-07-25 11:46:15",
+            "orders": 0,
+            "logo": "img/Ormco.png",
+            "name": "爱马斯",
+            "type": 0,
+            "url": "",
+            "isShow": "",
+            "isHot": "",
+            "makeType": false,
+            "simpleName": "",
+            "introduction": ""
+          },
+          {
+            "id": 9,
+            "createDate": "2015-06-26 14:32:43",
+            "modifyDate": "2015-09-16 10:11:26",
+            "orders": 0,
+            "logo": "img/Ormco.png",
+            "name": "D M G",
+            "type": 0,
+            "url": "",
+            "isShow": "",
+            "isHot": "",
+            "makeType": false,
+            "simpleName": "",
+            "introduction": ""
+          }
+        ]
+      }
+    };*/
+
+    return {
+      search: function(searchParam) {
+        /*return brands;*/
+        return $resource(ENV.siteUrl + 'brand/list',{keyword:searchParam.keyword, makeType:searchParam.makeType}).get();
+      }
+    }
+  }])
+
+  //首页
+  .factory('index',['$resource','ENV',function($resource,ENV){
+    return {
+        recommedproductlist: function() {
+        return $resource(ENV.siteUrl + 'index/recommedproductlist');
+      },
+      floorproductlist: function() {
+        //return $resource(ENV.siteUrl + 'index/floorproductlist');
+        return $resource(ENV.index.floorproductlist);
+      },
+
+      purchaseCount: function() {
+        return $resource(ENV.siteUrl + '/index/cart/cartquantity');
+      },
+      getrecommendproductc: function(){
+        //return $resource(ENV.siteUrl + '/index/getrecommendproductc');
+        return $resource(ENV.index.getrecommendproductc);
+      }
+    }
+  }])
+
+  //首页热门搜索
+  .factory('homeSearch', ['$resource','ENV', function($resource, ENV){
+      return {
+        homeHotKeyworld: function(){
+            return $resource(ENV.siteUrl + '/membersearchkey/fullsearchkeylist');
+        },
+
+        keyList: function(){
+          return $resource(ENV.siteUrl + '/product/search',{keyword:'@keyword',pageNumber: '@pageNumber',pageSize:'@pageSize'});
+        }
+
+      }
+  }])
+
+  .factory('favorite',['$http','$resource','ENV',function($http,$resource ,ENV){
+
+    var products = {data:{list:[{
+      id:0,
+      name:'You on your way?',
+      price:'0.0',
+      img:'img/t.jpg'
+    },{
+      id:1,
+      name:'Hey, it is me',
+      price:'0.0',
+      img:'img/t2.jpg'
+    },{
+      id:2,
+      name:'Adam Bradleyson',
+      price:'0.0',
+      img:'img/t3.jpg'
+    }]}};
+
+    return {
+      favoriteProductList: function(){
+        //return products;
+
+        return $http.get(ENV.siteUrl + 'favorite/list');
+      },
+      remove: function(id){
+        var config = {params: {id: '991'}};
+        return $http.post(ENV.siteUrl + 'favorite/delete', null, config)
+      },
+      removeAll : function(){
+        return $http.post(ENV.siteUrl + 'favorite/deleteAll', null, null)
+      }
+    }
+  }])
+
+  //首页本月推荐更多
+  .factory('moreMR', ['$resource','ENV', function($resource,ENV){
+      return {
+        recommendMoreList: function() {
+          return $resource(ENV.siteUrl + 'index/recommedproductlist').get();
+        }
+      }
+  }])
+
+  //商品分类
+  .factory('categoryList', ['$resource','ENV', function($resource,ENV){
+      return {
+          //一级大类
+          navCategory : function(){
+              return $resource(ENV.siteUrl + 'productcategory/parentlist');
+          },
+          //二级图片类
+          imgSecondCategory: function(){
+              return $resource(ENV.siteUrl + 'productcategory/navi/productlist');
+          },
+          //二级分类名称
+          secondCategoryName: function(){
+              return $resource(ENV.siteUrl + 'productcategory/childrenlist');
+          },
+          //三级分类商品列表
+          thirdCategoryList: function(){
+              return $resource(ENV.siteUrl + 'productcategory/productlist');
+          }
+      }
+  }])
+
+  //产品搜索筛选列表
+  .factory('filterProList',['$resource','ENV', function($resource,ENV){
+      return {
+          filterProList: function(){
+              return $resource(ENV.siteUrl + 'product/search/list',
+                {
+                    keyword: '@keyword',
+                    salesDesc: '@salesDesc',
+                    dateDesc: '@dateDesc',
+                    priceOrder: '@priceOrder',
+                    pageNumber: '@pageNumber',
+                    pageSize: '@pageSize'
+                });
+          }
+      }
+  }])
+
+  .factory('proCategory', ['$resource', 'ENV' ,function($resource ,ENV){
+    return {
+      allProductCategory: function(){
+        return $resource(ENV.siteurl + '/productcategory/navilist').get();
+      }
+    }
+  }])
+
+  .factory('notepad',['$resource','ENV',function($resource,ENV){
+        return $resource(ENV.siteurl + '/save');
+  }])
+
+  /*商品详情*/
+  .factory('productInfo',['$resource','ENV',function($resource,ENV){
+    //return $resource(ENV.siteUrl + '/product/info',{id:'@id'});
+      return $resource(ENV.product,{id:'@id'});
+      //return $resource(ENV.text.info)
+  }]);

@@ -1,0 +1,4 @@
+<div>
+  <img src="./img/searchNull.png" class="orderNullImg">
+  <p class="orderNullTxt">Sorry~暂无相关的信息</p>
+</div>

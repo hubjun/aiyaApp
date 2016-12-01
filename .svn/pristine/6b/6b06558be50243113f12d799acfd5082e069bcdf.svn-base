@@ -1,0 +1,24 @@
+<ion-view class="emailContent" view-title="牙科名称">
+  <div class="bar bar-header bar-stable">
+    <a class="button button-dark ion-ios-arrow-back icon-left button-clear" ng-click="back()"></a>
+    <h1 class="title">牙科名称</h1>
+    <a class="button button-dark ion-ios-more icon-right button-clear" nav-button></a>
+  </div>
+  <ion-content class="has-header" scrollbar-y="false">
+    <form name="dentistryNameForm" ng-submit="linkDentistryOk(dentistryNameForm)" novalidate>
+      <div class="padding emailDiv">
+        <input type="text"
+               name="dentistryName"
+               minlength="4"
+               maxlength="30"
+               required
+               ng-model="$parent.dentistryName"
+               placeholder="{{validate ? '请输入4-30个字符' : '请输入您的牙科名称'}}"
+               ng-class="{'true' : 'input-error'}[dentistryNameForm.$invalid && validate]"
+               focus-me="dentistryNameFocus"
+               class="emailInput">
+        <button class="button button-block button-positive button-next modifyPhone" type="submit">确 定</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

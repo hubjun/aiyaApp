@@ -1,0 +1,7 @@
+<div class="network-error" ng-style="{'display':firstTimeLoad?'none':'block'}">
+  <p class="list-no-records">
+        无法连接网络，请检查网络
+     <br/>
+    <span ng-bind="networkErrorMsg || '点击重新加载'"></span>
+  </p>
+</div>

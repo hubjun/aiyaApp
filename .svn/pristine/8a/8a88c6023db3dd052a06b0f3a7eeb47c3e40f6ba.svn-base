@@ -1,0 +1,44 @@
+<ion-view view-title="找回密码" hide-nav-bar="true">
+  <!--header-->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">找回密码</div>
+  </div>
+
+  <ion-content class="has-header loginCon">
+    <form novalidate form-validate ng-submit="submit()">
+      <div class="padding emailDiv">
+        <input type="text"
+               class="emailInput"
+               ng-model="$parent.mobile"
+               placeholder="请输入你的手机号码"
+               required
+               error-msg="{required: '请输入你的手机号码!'}">
+        <label>
+          <input type="text"
+                 class="emailInput infoCode"
+                 ng-model="$parent.authCode"
+                 placeholder="请输入短信验证码"
+                 required
+                 error-msg="{required: '请输入短信验证码!'}">
+        </label>
+        <label>
+          <button type="button" class="button button-block button-assertive codeBtn" ng-click="getAuthCode()">免费获取验证码</button>
+        </label>
+        <label class="item item-input" style="width: 100%;">
+          <input type="{{pwTypeHandle ? 'text' : 'password'}}"
+                 ng-model="$parent.password"
+                 placeholder="请输入新密码"
+                 required
+                 error-msg="{required: '请输入新密码!'}">
+          <ion-toggle ng-model="pwTypeHandle"></ion-toggle>
+        </label>
+      </div>
+      <div class="padding emailDiv">
+        <button type="submit" class="button button-block button-positive button-next modifyPhone">提交</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

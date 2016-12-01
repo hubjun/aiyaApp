@@ -1,0 +1,149 @@
+/**
+ * Created by 熊辉林 on 2016/5/23.
+ */
+aiyaController.controller('addressDetailController',[
+  '$scope',
+  function($scope){
+    $scope.$on('$ionicView.enter', function () {
+      $scope.$broadcast('address-detail');
+    });
+
+    $scope.submitAddressb = function () {
+      $scope.$broadcast('address-detail-submit');
+    }
+}]);
+
+
+aiyaController.controller('addressDetailFormController',[
+  '$scope',
+  '$rootScope',
+  '$stateParams',
+  'userAddressService',
+  'CommonUtil',
+  function($scope,$rootScope,$stateParams,userAddressService,CommonUtil){
+    //初始化开关：true的时候需要初始化。false时候不需要初始化
+    $scope.initFlag = true;
+    $scope.init = function () {
+
+      $scope.validate = false;
+      $scope.addressId = $stateParams.addressId;//获得传来的addressId，如果没有就是新建地址
+      $scope.isSelect = $stateParams.isSelect;//true，编辑选中的条目/false，编辑非选中条目
+      if ($scope.addressId) {
+        //如果id存在，则从网上获取地址信息//实际上是从上一个页面带过来的 数据
+        $scope.addressInfo = userAddressService.get($scope.addressId).then(function(data){
+          $scope.addressInfo.receiver = data.receiver.consignee;
+          $scope.addressInfo.mobile = data.receiver.phone;
+          $scope.addressInfo.addr = data.receiver.address;
+          $scope.addressInfo.areaName = data.receiver.areaName;
+          $scope.addressInfo.passportNo = data.receiver.zipCode;
+        },function(err){
+          CommonUtil.tip(err);
+        });
+      } else {
+        //如果id不存在，则为新增；
+        //保存地址参数
+        $scope.addressInfo = {
+          receiver: '',
+          mobile: '',
+          addr: '',
+          areaName:'',
+          passportNo: ''
+        };
+      }
+    };
+    $scope.$on('address-detail', function () {
+      if ($scope.initFlag) {
+        $scope.init();
+      } else {
+        $scope.initFlag = true;
+      }
+    });
+
+    $rootScope.$on('LOCATION', function (evt, data) {
+      $scope.addressInfo.areaName = data.full_name;
+/*      $scope.addressInfo.provinceText = data['LOCATION1'].text;
+      $scope.addressInfo.province = data['LOCATION1'].value;
+      $scope.addressInfo.cityText = data['LOCATION2'].text;
+      $scope.addressInfo.city = data['LOCATION2'].value;
+      $scope.addressInfo.countyText = data['LOCATION3'].text;
+      $scope.addressInfo.county = data['LOCATION3'].value;
+      if(data['LOCATION4']){
+        $scope.addressInfo.townText = data['LOCATION4'].text;
+        $scope.addressInfo.town = data['LOCATION4'].value;
+      }else{
+        $scope.addressInfo.townText = '';
+        $scope.addressInfo.town = '';
+      }*/
+    });
+
+ /*   $scope.submitAddress = function () {
+      if ($scope.submiting) {
+        return;
+      }
+      $scope.submiting = true;
+      $scope.validate = true;
+      if ($scope.addressDetailForm.$valid &&
+        ($scope.addressInfo.province!='' && $scope.addressInfo.city!='' && $scope.addressInfo.county!=null || $scope.addressInfo.town!='')) {
+        addressService.addOrUpdateAddress($scope.addressInfo)
+          .success(function (response, status, headers, config) {
+            //测试用业务逻辑
+            $scope.submiting = false;
+            if (response.code == 1) {
+              popupService.toastr('信息保存成功');
+              $timeout(function () {
+                if ($scope.isSelect) {
+                  $rootScope.$broadcast('SELECT_ADDRESS_CHANGED', $scope.addressInfo);//通知其他页面，当前选中地址被删除
+                  $scope.$ionicGoBack(-2);
+                } else {
+                  $scope.$ionicGoBack();
+                }
+              }, 1000);
+            } else if (response.code == -10) {
+              popupService.toastr('最多只能保存10个联系人');
+            } else {
+              popupService.toastr('信息保存失败');
+            }
+          })
+      } else if (!$scope.addressDetailForm.receiver.$valid) {
+        $scope.focusReceiver = true;
+        $scope.submiting = false;
+      } else if ($scope.addressDetailForm.mobile.$error.required) {
+        popupService.toastr('请填写正确的手机号');
+        $scope.focusMobile = true;
+        $scope.submiting = false;
+      } else if (!$scope.addressDetailForm.mobile.$valid) {
+        popupService.toastr('请填写正确的手机号');
+        $scope.focusMobile = true;
+        $scope.submiting = false;
+      } else if (!$scope.addressInfo.province || !$scope.addressInfo.city) {
+        popupService.toastr('请选择所在省市');
+        $scope.submiting = false;
+      } else if (!$scope.addressDetailForm.addr.$valid) {
+        if($scope.addressDetailForm.addr.$viewValue.length>5){
+          popupService.toastr('详细地址长度不能超过40个汉字');
+        }else{
+          popupService.toastr('详细地址长度不能少于5个字符');
+        }
+        $scope.focusAddr = true;
+        $scope.submiting = false;
+      }
+    };
+
+*/
+    $scope.$on('address-detail-submit', $scope.submitAddress);
+
+    //选择联系人(从手机选择联系人)
+    $scope.selectContact = function () {
+      $scope.initFlag = false;
+      navigator.contacts.pickContact(function (contact) {
+          $scope.$apply(function () {
+            $scope.addressInfo.receiver = !!contact.displayName ? contact.displayName : contact.name.formatted;
+            $scope.addressInfo.mobile = contact.phoneNumbers[0].value.replace(/-/g, '').replace(/ /g, "");
+
+          });
+        }, function (err) {
+          alert('读取联系人失败');
+        }
+      );
+    };
+}]);

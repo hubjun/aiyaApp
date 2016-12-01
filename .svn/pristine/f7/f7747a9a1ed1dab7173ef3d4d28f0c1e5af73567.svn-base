@@ -1,0 +1,55 @@
+.monthMR{
+  padding: 22px 17px;
+  .left-img{
+    display: inline-block;
+    img{
+      width: 100%;
+      height: 162px;
+      border: 1px solid #dedede;
+    }
+  }
+  .right-detail{
+    position: relative;
+    .name-stock{
+      .pro-name{
+        color: #252525;
+        font-size: 14px;
+      }
+      p.stock{
+        color: #7e7e7e;
+        margin: 0;
+        font-size:14px;
+        line-height: 28px;
+      }
+    }
+    .kind-price{
+      padding: 33px 0 0 0;
+      .fact-price{
+        display: block;
+        color: #808080;
+        font-size: 14px;
+        text-decoration: line-through;
+      }
+      .dis-price{
+        line-height: 26px;
+        color: #FF5F0F;
+        font-size: 15px;
+      }
+    }
+    .ask-price{
+      span{
+        color: #FF5F0F;
+        font-size: 15px;
+      }
+    }
+    .join-cart{
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      top: 121px;
+      right: 30px;
+      cursor: pointer;
+      background: url("../img/joinCart.jpg") no-repeat;
+    }
+  }
+}

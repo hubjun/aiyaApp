@@ -1,0 +1,65 @@
+<ion-view view-title="关于我们" class="aboutOurs" hide-tabs="true">
+  <div class="bar bar-header bar-stable">
+    <a class="button button-dark ion-ios-arrow-back icon-left button-clear" ng-click="back()"></a>
+    <h1 class="title">关于我们</h1>
+    <a class="button button-dark ion-ios-more icon-right button-clear" nav-button></a>
+  </div>
+  <ion-content class="has-header">
+    <div class="content">
+      <div class="tatle">
+        <h3>企业简介</h3>
+        <p>爱牙库（www.aiyaku.com)是深圳市牙邦科技股份有限公司旗下的B2B牙科耗材采购网上商城，成立于2015年4月，总部位于深圳南山区蛇口网谷。 公司借助自主研发的电子商务平台进行全品类的牙科耗材销售服务，除了做好牙科耗材线上和线下销售之外，还逐步整合行业上下游资源， 为全国牙科医院提供电子商务以及互联网领域的综合服务。目前，爱牙库已经和国内外100多个知名品牌厂家建立深度合作关系。</p>
+        <p>爱牙库遵循“质真价优、快速便捷”的经营宗旨，为口腔医疗机构提供有保证、性价比高、配送快捷的精准服务，充分满足牙科采购的个性化需求。爱牙库承诺：</p>
+      </div>
+      <div class="content_list text">
+        <span class="Ption"><b>正品保证	</b></span>
+        爱牙库所售商品，均为正品，三证齐全可提供正规发票。
+      </div>
+
+      <div class="content_list text">
+        <span class="Ption2"><b>价格更实惠</b></span>
+        爱牙库剔除中间环节，订单采购成本比线下渠道更优惠
+      </div>
+
+      <div class="content_list text">
+        <span class="Ption3"><b>7天无理由退货	</b></span>
+        爱牙库承诺收到货后7天内未开封无理由退货。
+      </div> <div class="content_list text">
+      <span class="Ption4"><b>专属客服	</b></span>
+      7*24小时客服团队，全天候贴心为客户解决问题。
+    </div>
+      <img src="./img/about/tu_baout.png" >
+      <div class="img_text"><p>爱牙库拥有200多名勇于拼博创新的团队成员，为您
+        提供业内最优秀的服务。</p></div>
+      <img src="./img/about/about_tu2.png">
+      <div class="img_text">2500平互联网开放式办公环境，选址蛇口网谷</div>
+      <div  class="tatle" style="padding-top:1em"><strong style="color:#000; ">投资者团队</strong><p>经过近一年的高速发展，爱牙库赢得众多专业投资机构的青睐，截至2015年底，已相继获得： 国富源投资，中路股份，东方富海，力合清源，东方融润，康成亨投资，前海瑞莱等机构和个人投资者吴宵光先生的投资。</p></div>
+      <img src="./img/about/about_tu3.png" style="width:100%">
+      <div class="img_personal"><img src="./img/about/about_tu4.png"><p>吴宵光先生，原腾讯集团高级执行副总
+        裁、腾讯电商控股公司CEO。之后以个
+        人天使投资人身份活跃于移动互联网，
+        电子商务，硬件等投资领域。2015年
+        吴宵光先生成立投资公司“微光（Wel
+        ight）”，取义于以微小之光助力创业
+        创新发展，包括人民币及美元基金，偏向VC和天使层投资，将重点关注传统产业互联网化和企业SAAS领域的初创企业。</p></div>
+      <div  class="tatle" style="padding-top:1em"><strong style="color:#000; ">企业文化</strong><p>“会生活的人，才更会工作！ ”爱牙库提倡劳逸结合的方式来提高工作效率，为全体员工提供舒适的办公环境， 轻松好玩的娱乐设施，更少不了每日零食，下午茶等美味“贡品”。</p></div>
+      <img src="./img/about/about_tu5.png">
+      <div class="img_text">头脑风爆，火花碰撞，小伙伴们轻松活跃的会议现场</div>
+      <img src="./img/about/about_tu6.png">
+      <div class="img_text">公司休闲区的台球、游戏机是美女帅哥的最爱</div>
+      <img src="./img/about/about_tu7.png">
+      <div class="img_text">坐久了？high起来！全身运动一下或者弹奏一首</div>
+      <img src="./img/about/about_tu8.png">
+      <div class="img_text">茶水间零食，下午茶每日免费供应，根本停不下来</div>
+      <div  class="tatle" style="padding-top:1em"><strong style="color:#000; ">仓库剪影</strong>
+        <p>爱牙库仓储中心位于深圳龙岗物流区，仓储面积达1800平，是爱牙库每日处理线上及线下订单及各种进出货的主要枢纽中心。 仓库合共储备5000多种口腔耗材及医疗器械产品，长期库存充足，满足全国牙科的采购需求。</p>
+      </div>
+      <img src="./img/about/about_tu9.png">
+      <div class="img_text">爱牙库仓储中心点地1800平，合共5000多种口腔产品，实现全国现货快速直发</div>
+      <img src="./img/about/about_tu10.png">
+      <div class="img_text">仓库人员年轻有活力，采用数字化仓库管理，准确高效</div>
+      <img src="./img/about/about_tu11.png">
+      <div class="img_text">爱牙库货源充足，对接物流与快递公司，每日高频进出货</div>
+    </div>
+  </ion-content>
+</ion-view>

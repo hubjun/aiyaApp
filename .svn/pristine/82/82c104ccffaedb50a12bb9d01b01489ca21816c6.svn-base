@@ -1,0 +1,112 @@
+<ion-view class="pro-filter-list" view-title="产品筛选列表">
+    <div class="bar bar-header item-input-inset bar-stable">
+      <button class="button back-button buttons" ng-click="back()">
+        <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+      </button>
+      <label class="item-input-wrapper">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="search" ng-model="keyValue" placeholder="输入要搜索的关键字">
+      </label>
+      <button class="button button-clear">
+        <!--brand-category-filter ng-model="productFilter.category"-->
+        <a class="button button-clear" product-category-filter ng-model="filter" filter="paging_parameter" on-finish="BtnFilterOk()">筛选</a>
+        <a class="button ion-more button-dark button-clear" nav-button></a>
+      </button>
+    </div>
+
+  <div class="aiya-subNav">
+      <!--<div class="filter-bar nav-all selected" ng-click="sortBy('all')" ng-class="{'all': 'selected'}[tabCur]">综合</div>-->
+      <div class="filter-bar nav-warp">
+        <ul>
+          <li ng-click="sortBy('sales')" ng-class="{'sales': 'selected'}[tabCur]">销量</li>
+          <li ng-click="sortBy('new')" ng-class="{'new': 'selected'}[tabCur]">新品</li>
+          <li ng-click="sortBy('pri')">
+            <a class = "toogleTabItemPri" ng-class="{'pri': 'selected'}[tabCur]">价格</a>
+            <div class = "toogleTabArrow">
+              <i class="icon ion-aiya toogleTabArrowUp" ng-class="{true: 'selected',false:''}[tabCur=='pri'&&arrows=='up']">&#xe620;</i>
+              <i class="icon ion-aiya toogleTabArrowDown" ng-class="{true: 'selected',false:''}[tabCur=='pri'&&arrows=='down']">&#xe61f;</i>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="list-align ion-aiya">
+          <i ng-class="{true: 'icon-fenlei1',false: 'icon-fenlei'}[toggleDisplay]" ng-click="toggleList()"></i>
+      </div>
+  </div>
+
+  <ion-content class="has-subheader" scrollbar-y="false">
+      <ion-refresher
+        pulling-text="下拉刷新哦！"
+        refreshing-text="刷新完毕"
+        on-refresh="doFilterFresh()">
+      </ion-refresher>
+
+      <!--单行显示列表 start-->
+      <div class="pro" ng-hide="isRowlistHide">
+        <div class="pro-warp" ng-repeat="items in obj_datalist" ng-if="obj_datalist.length>=1">
+          <div class="pro-body">
+            <div class="pro-body-des">
+                <a ng-href="#/product/info/{{items.id}}">
+                  <img ng-src="{{items.image}}" alt="{{items.fullName}}">
+                </a>
+                <div class="pro-body-des-text">
+                  <a ng-href="#/product/info/{{items.id}}">
+                    <span class="pro-name">{{items.name}}</span>
+                    <div ng-if="!(items.isYcInquiry && !isAuthoriz)">
+                      <span class="fact-price">原价：{{items.marketPrice | currency: '￥'}}</span>
+                      <span class="dis-price">{{items.price | currency: '￥'}}</span>
+                    </div>
+                  </a>
+                  <!--<div class="pro-body-des-con">-->
+                    <!--<span>{{item.haoping}}%好评</span>-->
+                    <!--<span>256人已购买</span>-->
+                  <!--</div>-->
+                  <span ng-if="items.isYcInquiry && !isAuthoriz" class="detail-enquiry" ui-sref="toothOpEnquiry">立即询价</span>
+                  <span class="join-cart" ng-if="!items.isYcInquiry || isAuthoriz" product-specification-filter product-id="{{items.id}}"></span>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--单行显示列表 end-->
+
+      <!--网格显示列表 start-->
+      <div class="column-list" ng-hide="isColumnHide">
+        <div class="col col-50 pro-row" ng-repeat="items in obj_datalist" ng-if="obj_datalist.length>=1">
+          <div class="list-con">
+            <div class="pro-item">
+              <div class="imgbox">
+                <a ng-href="#/product/info/{{items.id}}">
+                  <img ng-src="{{items.image}}" alt="{{items.fullName}}">
+                </a>
+              </div>
+            </div>
+            <div class="list-detail">
+              <p class="pro-name">{{items.name | characters:19 :false}}</p>
+              <div ng-if="!(items.isYcInquiry && !isAuthoriz) " class="kind-price">
+                <span class="fact-price">原价：{{items.marketPrice | currency: '￥'}}</span>
+                <span class="dis-price">{{items.price | currency: '￥'}}</span>
+                <span class="join-cart" ng-if="!items.isYcInquiry || isAuthoriz" product-specification-filter product-id="{{items.id}}"></span>
+              </div>
+              <div ng-if="items.isYcInquiry && !isAuthoriz" class="ycInquiry">
+                <span class="detail-enquiry" ui-sref="toothOpEnquiry">立即询价</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--网格显示列表 end-->
+
+    <div ng-if="noData">
+      <img ng-src="./img/findNot.jpg" class="findNot">
+      <p class="brandNullTxt">Sorry~暂无相关的信息</p>
+    </div>
+    <ion-infinite-scroll
+      ng-if="hasMore()"
+      on-infinite="loadMoreList()"
+      icon="icon-svg-loading"
+      immediate-check="false"
+      distance="2%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

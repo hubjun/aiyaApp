@@ -1,0 +1,53 @@
+<ion-view class="toothOp-enquiry" hide-nav-bar="true">
+
+  <div class="bar bar-header bar-stable">
+    <a class="icon ion-ios-arrow-back button button-dark button-clear" ng-click="back()"></a>
+    <h1 class="title">立即询价</h1>
+    <a class="icon ion-ios-more button button-dark button-clear" nav-button></a>
+  </div>
+
+  <ion-content class="has-header">
+    <form novalidate form-validate ng-submit="enquirySubmit()">
+      <div class="list list-inset pad-0">
+        <label class="item item-input">
+          <input type="text"
+                 placeholder="牙科名称"
+                 ng-model="$parent.enquiryList.toothName"
+                 required
+                 error-msg="{required: '请输入牙科名称'}">
+        </label>
+        <div class="form-gap"></div>
+        <label class="item item-input">
+          <input type="text"
+                 placeholder="姓名"
+                 ng-model="$parent.enquiryList.customerName"
+                 required
+                 error-msg="{required: '请输入您的姓名'}">
+        </label>
+        <div class="form-gap"></div>
+        <label class="item item-input">
+          <input type="text"
+                 placeholder="手机号码"
+                 ng-model="$parent.enquiryList.cellPhone"
+                 required
+                 error-msg="{required: '请输入您的手机号码'}">
+        </label>
+        <div class="form-gap"></div>
+        <label class="item item-input">
+          <input type="text"
+                 placeholder="固定号码"
+                 ng-model="$parent.enquiryList.phone">
+        </label>
+        <div class="tips">固定电话请加区号</div>
+      </div>
+      <div class="button-bar pad-h-10 bar-assertive">
+        <button type="submit" class="button button-positive">提交</button>
+      </div>
+    </form>
+
+    <!--<div class="button-bar bar-assertive">-->
+      <!--<a class="button">提交</a>-->
+    <!--</div>-->
+
+  </ion-content>
+</ion-view>

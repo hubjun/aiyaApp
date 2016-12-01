@@ -1,0 +1,60 @@
+<ion-view view-title="找货助手" hide-nav-bar="true" cache-view="false">
+  <!-- header-bar -->
+  <div class="bar bar-header bar-stable">
+    <h1 class="title">找货助手</h1>
+    <button class="button button-dark button-clear ion-ios-more icon-right" nav-button></button>
+  </div>
+
+  <ion-content class="has-header findAssistant_page">
+    <form name="findAssistantForm" novalidate="novalidate">
+     <div ng-repeat="product in productList" class="padding-top">
+       <div class="padding-left padding-right">
+         <img ngf-src="product.productImage" style="width:100px;height: 100px;">
+         <input type="file"  ngf-accept="'image/*'" class="hidedButton" ngf-select  ng-model="product.productImage">
+       </div>
+        <div class="list card">
+          <label class="item item-input">
+            <input type="text"
+                   name="productName"
+                   placeholder="{{validate? '请填写产品名称':'产品名称'}}"
+                   ng-model="product.productName"
+                   required
+                   ng-class="{'true':'input-error'}[!findAssistantForm.productName.$valid && validate]"
+                   focus-me="focusProductName"/>
+          </label>
+          <label class="item item-input">
+            <input type="text"
+                   name="forBrand"
+                   placeholder="{{validate? '请填写品牌':'品牌'}}"
+                   ng-model="product.forBrand"
+                   required
+                   ng-class="{'true':'input-error'}[!findAssistantForm.forBrand.$valid && validate]"
+                   focus-me="focusForBrand"/>
+          </label>
+          <label class="item item-input">
+            <input type="text"
+                   name="category"
+                   placeholder="{{validate? '请填写规格型号':'规格型号'}}"
+                   ng-model="product.category"
+                   required
+                   ng-class="{'true':'input-error'}[!findAssistantForm.category.$valid && validate]"
+                   focus-me="focusForBrand"/>
+          </label>
+          <label class="item item-input">
+            <input type="text" placeholder="数量" ng-model="product.purchaseNumber">
+          </label>
+        </div>
+    </div>
+    </form>
+      <div class="padding-left padding-right">
+      <img src="../www/img/cut.png" class="button button-clear icon-left ion-option" ng-click="cutProduct()" ng-show="productList.length > 1"/>
+      <img src="../www/img/add.png" class="button button-clear icon-left ion-option" ng-click="addProduct()"/>
+    </div>
+    <div class="padding">
+        <a class="button button-block button-positive button-next" ng-click="next()">下一步</a>
+    </div>
+  </ion-content>
+  <ion-footer-bar>
+    <div ng-include="'templates/tabs.html'"></div>
+  </ion-footer-bar>
+</ion-view>

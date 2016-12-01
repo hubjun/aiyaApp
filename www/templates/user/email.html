@@ -1,0 +1,23 @@
+<ion-view class="emailContent" view-title="Email">
+  <div class="bar bar-header bar-stable">
+    <a class="button button-dark ion-ios-arrow-back icon-left button-clear" ng-click="back()"></a>
+    <h1 class="title">Email</h1>
+    <a class="button button-dark ion-ios-more icon-right button-clear" nav-button></a>
+  </div>
+  <ion-content class="has-header" scrollbar-y="false">
+    <form name="emailForm" ng-submit="linkEmailOk(emailForm)" novalidate>
+      <div class="padding emailDiv">
+        <input type="text"
+               name="emailName"
+               ng-model="$parent.email"
+               pattern="[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?"
+               required
+               placeholder="{{validate ? 'Email不能是空' : '您的Email（如：123@aiya.com）'}}"
+               ng-class="{'true' : 'input-error'}[emailForm.$invalid && validate]"
+               focus-me="emailNameFocus"
+               class="emailInput">
+        <button class="button button-block button-positive" type="submit">确 定</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

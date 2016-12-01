@@ -1,0 +1,105 @@
+aiyaController.controller('productInfoCtrl',[
+  '$scope',
+  '$rootScope',
+  '$ionicSlideBoxDelegate',
+  '$stateParams',
+  'productService',
+  '$state',
+  'userService',
+  'favoriteService',
+  'CommonUtil',
+  '$ionicScrollDelegate',
+  '$timeout',
+  'ENV',
+  function($scope,$rootScope,$ionicSlideBoxDelegate,$stateParams,productService,$state,userService,favoriteService,CommonUtil,$ionicScrollDelegate,$timeout, ENV){
+  console.log('$stateParams id：'+$stateParams.id);
+    $scope.showToTopImage = false;
+  $scope.product = {
+    id:$stateParams.id
+  };
+
+  /*加载商品详情*/
+    productService.getInfo($scope.product.id).then(function(data){
+      $scope.productInfo = data.product.productInfo;//商品详情
+      _.assignIn($scope.productInfo,{logisticsImg:$scope.productInfo.isYcInquiry ? ENV.ycImg : ENV.consumableImg});
+      $scope.reviewCount = data.product.reviewCount;//评价个数
+      $scope.promotions =  data.product.promotions;//促销活动
+      $scope.seoDescription = data.product.seoDescription;//商品详情
+      $scope.specification = data.product.specification;//商品规格详细信息
+      $scope.productImages =data.product.productImages;//商品轮播图片
+      $scope.memberPrice = data.product.memberPrice;//会员价格
+      $scope.isAuthoriz = data.product.isAuthoriz;//是否有齿研社价格查看权限
+      $scope.isBuyNotPutaway = data.product.isBuyNotPutaway;//是否可以购买下架商品
+      $scope.totalAvailabeStock = data.product.totalAvailabeStock;//所有可用库存
+      if(!!$scope.productInfo.introduction){
+          $scope.productInfo.introduction = $scope.productInfo.introduction.replace(new RegExp('<img src="/upload',"gm"),'<img src="' + $rootScope.imgUrl + '/upload');
+      }
+    },function(err){
+      CommonUtil.tip(err);
+    }).finally(function(){{
+      $ionicSlideBoxDelegate.update();
+    }});
+
+  /*猜您喜欢*/
+    productService.getRecommendProductc().then(function(data){
+      $scope.getrecommendproductc = data.list;
+    },function(err){
+      CommonUtil.tip(err.msg);
+    });
+
+  //收藏
+  $scope.collectProduct = function(){
+    var product ={'id': $stateParams.id};
+    //收藏之前必须先登录
+    if (userService.isLogin()){
+      favoriteService.addProduct(product).then(function(){
+        $scope.productInfo.favoriteFlag = true;
+        CommonUtil.tip('收藏成功');
+      },function(err){
+        CommonUtil.tip(err);
+      });
+    } else {
+      $state.go('login');
+    }
+  };
+
+    productService.purchaseCount().then(function(data){
+      $scope.purchaseCounts = data.cartquantity;
+    },function(err){
+      CommonUtil.tip(err.msg);
+    });
+
+    //分享
+    // 分享modal
+    $scope.share = function ($event) {
+      shareFn();
+      console.log(111);
+      $event.stopPropagation();
+    };
+    function shareFn(scName) {
+      var scName = scName || '';
+      console.log($scope.data);
+      var title = $scope.data.prodInfo.brandName + ' ' + scName + '仅售' + $scope.data.selectSku.price + '元，赶紧来看看吧',
+        content = '仅售' + $scope.data.selectSku.price + '！' + $scope.data.prodInfo.name + '-中免商城 ',
+        pic = cdfg.getImgGetPrefix() + $scope.data.selectSpu.spuImgs[0] + '&op=s1_w200_h200_e1-c0_x0_y0_w200_h200',
+        url = cdfg.getWapPrefix() + 'product/' + $stateParams.type + '/' + $stateParams.id + '/detail';
+
+      if (window.umeng) {
+        window.umeng.share(title, content, pic, url);
+      }
+    }
+
+    /*列表滚动，判断是否显示返回顶部*/
+    $scope.onContentScroll = function() {
+      if (!$ionicScrollDelegate.$getByHandle('productInfoHandle')) {
+        return;
+      }
+      $timeout(function () {
+          var position = $ionicScrollDelegate.$getByHandle('productInfoHandle').getScrollPosition();//获取滚动位置
+          if (position) {
+            $scope.showToTopImage = position.top > $rootScope.deviceHeight / 3.0;//大于屏幕高度1/3时显示【返回顶部】
+          }
+        }, 1000//1秒后跳转回去
+      );
+    }
+}]);

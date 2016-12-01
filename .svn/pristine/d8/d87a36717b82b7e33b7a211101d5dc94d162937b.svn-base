@@ -1,0 +1,36 @@
+<ion-view class="home-page" hide-nav-bar="true" cache-view="false">
+  <ion-header-bar class="bar-aiyaku bar-assertive">
+    <button class="button icon-left ion-ios-arrow-back button-clear bar-header-left" ui-sref="home"></button>
+    <span class="item-input-wrapper">
+      <i class="icon ion-ios-search placeholder-icon"></i>
+      <input id="keyword" type="search" focus-me="searchFocus" ng-model="keyword" placeholder="搜索你要的产品">
+      <i class="icon ion-close-circled placeholder-icon" on-tap="clearSearch()" ng-if="keyword.length" style="vertical-align: middle;"></i>
+    </span>
+    <button class="button button-clear bar-header-right" ng-click="jumpSearch()" style="font-size: 16px;">搜索</button>
+  </ion-header-bar>
+
+  <ion-content scrollbar-y="false">
+    <ion-refresher
+      pulling-text="松手刷新哦..."
+      refreshing-text="刷新完成"
+      on-refresh="doHomeSearchRefresh()">
+    </ion-refresher>
+    <div class="search-tips" ng-show="!keyword">
+      <h2>热门搜索</h2>
+      <div class="item-list">
+        <ul class="list">
+          <li class="item" ng-repeat="w in homeHotKeyworld" ng-click="jumpHotSearch(w.keyword)">{{w.keyword}}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="search-list" ng-show="keyword">
+      <ul class="list">
+        <a ng-repeat="lts in dataList" ng-href="#/product/info/{{lts.id}}">
+          <li class="item">{{lts.fullName}}</li>
+        </a>
+        <!--<li class="item">固态</li>-->
+      </ul>
+    </div>
+  </ion-content>
+</ion-view>

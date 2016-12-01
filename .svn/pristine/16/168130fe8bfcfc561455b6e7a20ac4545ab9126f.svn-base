@@ -1,0 +1,67 @@
+<ion-view view-title="个人信息" hide-nav-bar="true" hide-tabs="true">
+  <!-- header-bar -->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear"></i>
+    </button>
+    <div class="title">个人信息</div>
+    <div class="buttons buttons-right">
+      <span class="right-buttons">
+        <button class="button button-dark button-clear ion-ios-more icon-right" nav-button></button>
+      </span>
+    </div>
+  </div>
+
+  <ion-content class="has-header">
+   <ion-list>
+     <ion-item class="item-icon-right">
+       <h2 class="headPortrait">
+         头像
+         <span class="right-tip item-note userImg">
+           <img ng-src="{{user.photo}}" alt="">
+         </span>
+       </h2>
+       <i class="icon ion-chevron-right icon-accessory"  ></i>
+     </ion-item>
+     <ion-item class="item-icon-right">
+       <h2>用户名
+         <span class="right-tip item-note">{{user.username}}</span>
+       </h2>
+       <i class="icon ion-chevron-right icon-accessory"  ></i>
+     </ion-item>
+     <ion-item class="item-icon-right" ng-click="linkGender()">
+       <h2>性别
+         <span class="right-tip item-note">{{user.genderDesc}}</span>
+       </h2>
+       <i class="icon ion-chevron-right icon-accessory"  ></i>
+     </ion-item>
+     <ion-item class="item-icon-right" ui-sref="editDentistryName">
+       <h2>牙科名称
+         <span class="right-tip item-note">{{user.name}}</span>
+       </h2>
+       <i class="icon ion-chevron-right icon-accessory"  ></i>
+     </ion-item>
+     <ion-item class="item-icon-right" href="#/modifyPhone">
+       <h2>手机
+         <span class="right-tip item-note">18617146941</span>
+       </h2>
+       <i class="icon ion-chevron-right icon-accessory"></i>
+     </ion-item>
+     <ion-item class="item-icon-right" href="#/phone">
+       <h2>电话</h2>
+       <i class="icon ion-chevron-right icon-accessory"></i>
+     </ion-item>
+     <ion-item class="item-icon-right" href="#/email">
+       <h2>E-mail
+         <span class="right-tip item-note">{{user.email}}</span>
+       </h2>
+       <i class="icon ion-chevron-right icon-accessory"  ></i>
+     </ion-item>
+     <ion-item class="item-button-right item-icon-right" ui-sref="tab.orderDel">
+       <h2>出生日期
+       <span class="right-tip item-note">{{user.birth}}</span></h2>
+       <i class="icon ion-chevron-right icon-accessory"></i>
+     </ion-item>
+   </ion-list>
+  </ion-content>
+</ion-view>

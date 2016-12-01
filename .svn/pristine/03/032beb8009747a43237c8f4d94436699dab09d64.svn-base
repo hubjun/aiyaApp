@@ -1,0 +1,295 @@
+aiyaController.controller('toothOpCtrl',[
+  '$scope',
+  '$rootScope',
+  '$ionicLoading',
+  '$ionicPopover',
+  '$location',
+  '$state',
+  '$ionicSlideBoxDelegate',
+  '$ionicScrollDelegate',
+  '$timeout',
+  'toothOplist',
+  'StringUtil',
+  'ENV',
+  'Util',
+  function($scope,$rootScope,$ionicLoading,$ionicPopover,$location,$state,$ionicSlideBoxDelegate,$ionicScrollDelegate,$timeout,toothOplist,StringUtil,ENV,Util){
+  $scope.tabNav={curNav:'toothOp'};
+  //$scope.toothIMG = null;
+  $scope.toothMoredata = true;
+  $scope.obj_toothlist = new Array();
+  // $scope.toothSlider = null;
+
+  $scope.$on('$ionicView.enter', function(){
+    data();
+     $ionicSlideBoxDelegate.update();
+    // $scope.myOrderChoose = false;
+  });
+  //若果获取返回的是error，则显示tis提示信息
+  var tip = function(msg){
+    $ionicLoading.show({
+    template: msg,
+    duration: 1500
+    });
+  };
+  var timeout,
+      page = {};
+
+  $scope.toothPageParame = {
+      keyword: '',
+      salesDesc: '',
+      pageNumber: 1,
+      pageSize: 6,
+      categoryIds: ''
+  };
+
+  $scope.toothDisplay = true;
+  $scope.isToothRowlistHide = true;
+  $scope.isToothRowColumnHide = false;
+
+  $scope.toothToggle = function(){
+    if($scope.isToothRowlistHide == true){
+      $scope.isToothRowlistHide = false;
+      $scope.isToothRowColumnHide = true;
+
+      $scope.toothDisplay = false;
+    }else{
+      $scope.isToothRowlistHide = true;
+      $scope.isToothRowColumnHide = false;
+
+      $scope.toothDisplay = true;
+    }
+  };
+
+  //图片广告列表，和获取商品信息列表不同
+  var opt = {
+    beginDate: '',
+    endDate: '',
+    positionId: 41
+  };
+    //去后台获取接口信息rs为返回的数据，errMsg是返回的错误信息，然后tip显示提示
+  toothOplist.getBannerlist(opt)
+  .then(function(rs){
+    _.each(rs.list,function(p){
+      p.path = StringUtil.isEmpty(p.path) ? ENV.defaultImg : Util.getFullImg(p.path);        //具体单个商品图片
+    });
+    $scope.toothSlider = rs.list;
+
+    $ionicSlideBoxDelegate.$getByHandle('image-viewer').currentIndex();
+
+    $rootScope.errState = 200;
+  },function(errMsg){
+    tip(errMsg);
+    $rootScope.errState = 500;
+  });
+
+  // toothOplist.toothIMGlist().get(null, function(rs){
+  //     if(rs.code === 1 ){
+  //         $scope.toothIMG = rs.data.list;
+  //     }else{
+  //         tip(rs.msg);
+  //     }
+  // });
+
+  //关键字搜索
+  $scope.$watch('keyValue', function (newVal, oldVal) {
+    //console.log('newVal:'+newVal + ',oldVal:'+oldVal);
+    if (timeout) {
+      $timeout.cancel(timeout);
+    }
+    $scope.toothPageParame.keyword = $scope.keyValue;
+    $scope.toothPageParame.pageNumber = 1;
+    timeout = $timeout(function () {
+      $ionicScrollDelegate.scrollTop();
+      data(true);
+    }, 500);
+  });
+
+  //询价提交
+  $scope.enquirySubmit = function(form){
+    // console.log(form);
+    console.log(form.phone);
+    $scope.validate = true;
+    if(form.$valid){
+      var submitOpt = {
+        contactName: $scope.enquiryList.customerName,
+        phone: $scope.enquiryList.phone,
+        hospitalName: $scope.enquiryList.toothName,
+        mobile: $scope.enquiryList.cellPhone
+      };
+      toothOplist.ycSave(submitOpt)
+        .then(function(){
+          // debugger
+          tip('提交成功，请等待客服为您提供详细报价');
+        },function(msg){
+          tip(msg);
+        });
+    }else if(!form.toothName.$valid){
+      form.focusToothName = true;
+    }else if(!form.customerName.$valid){
+      form.focusCustomerName = true;
+    }
+    // else if(form.customerName.$error.maxlength){
+    //   tip('姓名不能超过10个字符');
+    //   form.focusCustomerName = true;
+    // }
+    else if(!form.cellPhone.$valid){
+      tip('请填写正确的手机号码');
+      form.focusCellPhone = true;
+    }else if(!form.phone.$valid) {
+      tip('请输入正确的固定电话号码');
+      form.focusPhone = true;
+    }
+  };
+
+  var data = function(other){
+      toothOplist.toothList().get($scope.toothPageParame, function(rs){
+        if(rs.code === 1){
+          if(rs.data.list.length > 0){
+            //判断是否刷新
+            if(other){
+              $scope.obj_toothlist = rs.data.list;
+            }else{
+              //如果不是第一页，则将获取的数据加到obj_toothlist；
+             $scope.obj_toothlist = $scope.obj_toothlist.concat(rs.data.list);
+            }
+            _.each( $scope.obj_toothlist,function(p){
+              //具体单个商品图片
+              p.image = StringUtil.isEmpty(p.image) ? ENV.defaultImg : Util.getFullImg(p.image);
+            });
+            // 是否可查看义齿价格true or false
+            $scope.isAuthoriz = rs.data.isAuthoriz;
+          }else if(rs.data.list.length == '0' && rs.data.list.length == ''){
+            $scope.obj_toothlist.length = 0;
+          }else{
+            $scope.toothMoredata = false;
+            $scope.obj_toothlist = rs.data.list;
+          };
+          //记录页数
+          page = rs.data.page;
+          console.log(page);
+
+          $rootScope.errState = 200;
+          console.log($rootScope.errState);
+          }else{
+            //获取不到信息，提示
+            tip(rs.msg);
+            $rootScope.errState = 500;
+            //console.log($rootScope.errState);
+          }
+      })
+  };
+  $scope.data = data;
+
+  $scope.filterOk = function(){
+    // if($scope.toothPageParame.ycTooth !== null && $scope.toothPageParame.ycTooth.length > 0){
+    //   _.each($scope.toothPageParame.ycTooth, function(n,i){
+    //     if($scope.toothPageParame.ycTooth.length === i +1){
+    //       $scope.toothPageParame.categoryIds += ',' + n.id;
+    //     }else{
+    //       $scope.toothPageParame.categoryIds += ',' + n.id;
+    //     }
+    //   });
+    //   // var categoryIdsArray = new Array();
+    //   // var categoryIdsArray = $scope.toothPageParame.categoryIds;
+    //   // console.log(_.uniq(categoryIdsArray));
+    //   console.log($scope.toothPageParame.categoryIds);
+    // }else{
+    //   $scope.toothPageParame.categoryIds = '';
+    // }
+    $scope.toothPageParame.pageNumber = 1;
+    data(true);
+    $ionicScrollDelegate.scrollTop();
+  };
+
+//下拉刷新
+  $scope.doToothFresh = function(){
+      $scope.toothPageParame.pageNumber = 1;
+      data(true);
+      $scope.$broadcast("scroll.refreshComplete");
+  };
+
+  $scope.toothLoadMore = function(){
+    $scope.toothPageParame.pageNumber++;
+    if(page.hasNextPage && page.hasNextPage != '' && page.hasNextPage != 'undefined'){
+        data();
+    }
+    console.log(page.hasNextPage);
+    $scope.$broadcast("scroll.infiniteScrollComplete");
+    // $timeout(function(){
+    //   $ionicLoading.hide();
+    // },1500);
+  };
+
+  $scope.hasMore = function(){
+    return page.hasNextPage;
+  };
+
+  $scope.onToothOpContentScroll = function(){
+    //搜索条到一定位置固定在顶部
+    var position = $ionicScrollDelegate.$getByHandle('toothOpHandle').getScrollPosition();//获取滚动位置
+    var toogleTabDom = document.getElementsByClassName("toogle-bar-wrap")[0];
+    var toogleTabDom2 = document.getElementsByClassName("toogle-bar-wrap")[1];
+    var height = toogleTabDom2.offsetTop;
+    if(position.top > height){
+      toogleTabDom.style.display="block";
+      toogleTabDom2.style.display="none";
+    }else if(position.top < height){
+      toogleTabDom.style.display="none";
+      toogleTabDom2.style.display="block";
+    }
+    else{
+      toogleTabDom.style.display="block";
+      toogleTabDom2.style.display="none";
+    }
+    /*列表滚动，判断是否显示返回顶部*/
+    if (!$ionicScrollDelegate.$getByHandle('toothOpHandle')) {
+      return;
+    }
+    $timeout(function () {
+        var position = $ionicScrollDelegate.$getByHandle('toothOpHandle').getScrollPosition();//获取滚动位置
+        if (position) {
+          $scope.showToTopImage = position.top > $rootScope.deviceHeight / 3.0;//大于屏幕高度1/3时显示【返回顶部】
+        }
+      }, 1000//1秒后跳转回去
+    );
+  };
+
+  $scope.listBySale = function(){
+    $scope.opNav = 1;
+    $scope.toothPageParame.salesDesc = true;
+    $scope.toothPageParame.dateDesc = false;
+    $scope.toothPageParame.priceOrder = '';
+    $scope.toothPageParame.pageNumber = 1;
+    data(true);
+  };
+
+  $scope.listByDate = function(){
+    $scope.opNav = 2;
+    $scope.toothPageParame.dateDesc = true;
+    $scope.toothPageParame.salesDesc = false;
+    $scope.toothPageParame.priceOrder = '';
+    $scope.toothPageParame.pageNumber = 1;
+    data(true);
+  };
+
+  $scope.listByPrice = function(priceOrder){
+    $scope.opNav = 3;
+    $scope.toothPageParame.dateDesc = false;
+    $scope.toothPageParame.salesDesc = false;
+    $scope.toothPageParame.priceOrder = priceOrder;
+    $scope.toothPageParame.pageNumber = 1;
+    data(true);
+  };
+  //判断价格排序状态
+  $scope.clickStatus = 1;
+  $scope.priStatus =function(){
+    if($scope.clickStatus==1){
+      $scope.listByPrice("asc");
+      $scope.clickStatus = 2;
+    }else{
+      $scope.listByPrice("desc");
+      $scope.clickStatus = 1;
+    }
+  };
+
+}]);

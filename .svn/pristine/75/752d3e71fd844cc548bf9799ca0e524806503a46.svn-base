@@ -1,0 +1,668 @@
+'use strict';
+angular.module('starter.directives', [])
+
+  //返回顶部
+  .directive('aiyaScrollTop', function() {
+    return {
+      restrict: "E",
+      controller: function($scope) {
+        $scope.kg = false;
+      },
+      link: function($scope, element, attr) {
+        $(element).on("click", function() {
+          console.log($(element).scrollTop())
+          $("body").animate({
+            scrollTop: 0
+          }, 1000, function() {
+            $scope.$apply($scope.kg = false)
+          })
+          $scope.$apply($scope.kg = true)
+        })
+      }
+    }
+  })
+
+  /*页面预加载动画*/
+  .directive('aiyaLoading', function() {
+    return {
+      restrict: 'E',
+      /*E:元素 A:属性  C:样式类 M:注释*/
+      template: '<div><ion-spinner class="spinner-positive" icon="dots"></ion-spinner><div class="aiyaLoading">正在加载</div></div>',
+      replace: true
+    }
+  })
+
+  /*星星评分*/
+  .directive("mystarselect", function() {
+    return {
+      restrict: 'AE',
+      replace: true,
+      scope: {
+        level: '='
+      },
+      template: '<div id="mystarselect"></div>',
+      link: function(scope) {
+        function star5(starid) {
+          var src = "img/";
+          this.star_on_left = src + "star.png";
+          this.star_off_left = src + "starBack.png";
+          this.star_on_right = src + "star.png";
+          this.star_off_right = src + "starBack.png";
+          this.id = starid;
+          this.point = 0;
+
+          this.initial = starInitial;
+          this.redraw = starRedraw;
+          this.attach = starAttach;
+          this.deattach = starDeAttach;
+          this.doall = starDoall;
+        }
+
+        function starDoall(point) {
+          this.initial();
+          this.attach();
+          this.redraw(point);
+        }
+
+        function starInitial() {
+          var html = "<div style='float:left'>" +
+            "<img id='star" + this.id + "_1' point='1' src='" + this.star_off_right + "'>&nbsp;";
+          html += "<img id='star" + this.id + "_2' point='2' src='" + this.star_off_right + "'>&nbsp;";
+          html += "<img id='star" + this.id + "_3' point='3' src='" + this.star_off_right + "'>&nbsp;";
+          html += "<img id='star" + this.id + "_4' point='4' src='" + this.star_off_right + "'>&nbsp;";
+          html += "<img id='star" + this.id + "_5' point='5' src='" + this.star_off_right + "'>" + "</div>";
+          document.getElementById("mystarselect").innerHTML = html;
+        }
+
+        function starAttach() {
+          for (var i = 1; i < 6; i++) {
+            document.getElementById("star" + this.id + "_" + i).style.cursor = "pointer";
+            document.getElementById("star" + this.id + "_" + i).onmouseover = moveStarPoint;
+            document.getElementById("star" + this.id + "_" + i).onmouseout = outStarPoint;
+            document.getElementById("star" + this.id + "_" + i).starid = this.id;
+            document.getElementById("star" + this.id + "_" + i).onclick = setStarPoint;
+          }
+        }
+
+        function starDeAttach() {
+          for (var i = 1; i < 6; i++) {
+            document.getElementById("star" + this.id + "_" + i).style.cursor = "default";
+            document.getElementById("star" + this.id + "_" + i).onmouseover = null;
+            document.getElementById("star" + this.id + "_" + i).onmouseout = null;
+            document.getElementById("star" + this.id + "_" + i).onclick = null;
+          }
+        }
+
+        function starRedraw(point) {
+          for (var i = 1; i < 6; i++) {
+            if (i <= point)
+              if (parseInt(i / 2) * 2 == i)
+                document.getElementById("star" + this.id + "_" + i).src = this.star_on_right;
+              else
+                document.getElementById("star" + this.id + "_" + i).src = this.star_on_left;
+            else if (parseInt(i / 2) * 2 == i)
+              document.getElementById("star" + this.id + "_" + i).src = this.star_off_right;
+            else
+              document.getElementById("star" + this.id + "_" + i).src = this.star_off_left;
+          }
+        }
+
+        function moveStarPoint(evt) {
+          var pstar = evt ? evt.target : event.toElement;
+          var point = pstar.getAttribute("point");
+          var starobj = new star5(pstar.starid);
+          starobj.redraw(point);
+        }
+
+        function outStarPoint(evt) {
+          var pstar = evt ? evt.target : event.srcElement;
+          var starobj = new star5(pstar.starid);
+          starobj.redraw(0);
+        }
+
+        function setStarPoint(evt) {
+          var pstar = evt ? evt.target : event.srcElement;
+          var starobj = new star5(pstar.starid);
+          starobj.deattach();
+          var n = pstar.getAttribute("point");
+          console.log("选择的等级:" + n);
+          scope.level = n;
+          starobj.doall(n);
+        }
+
+        var star = new star5("point");
+        star.doall(5);
+      }
+    };
+  })
+
+  //页面隐藏tab
+  .directive('hideTabs', function($rootScope) {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attributes) {
+        scope.$on('$ionicView.beforeEnter', function() {
+          scope.$watch(attributes.hideTabs, function(value) {
+            $rootScope.hideTabs = value;
+          });
+        });
+
+        scope.$on('$ionicView.beforeLeave', function() {
+          scope.$watch(attributes.hideTabs, function() {
+            $rootScope.hideTabs = false;
+          });
+          scope.$watch('$destroy', function() {
+            $rootScope.hideTabs = false;
+          })
+        });
+      }
+    };
+  })
+
+  //表单数字控件
+  .directive("number", function() {
+    return {
+      restrict: 'E',
+      require: '?ngModel',
+      scope: {
+        min: '=',
+        max: '=',
+        onChange: '&'
+      },
+      template: '' +
+        '<div class="ctr-number">' +
+        '  <span class="button minus">－</span><span class="count"></span><span class="button plus">＋</span>' +
+        '</div>',
+      link: function(scope, element, attr, ngModel) {
+        var countEle = $(element).find('.count'),
+          minusEle = $(element).find('.minus'),
+          plusEle = $(element).find('.plus'),
+          min = parseInt(attr.min) || 1,
+          max = parseInt(attr.max) || undefined;
+        var count = parseInt(countEle.text());
+        if (isNaN(count)) {
+          count = 1;
+          countEle.html(count);
+        }
+        var minus = function() {
+          if (count - 1 < min) return;
+          --count;
+        }
+        var plus = function() {
+          if(max && count + 1 > max) return;
+          ++count;
+        };
+        minusEle.on('click', minus);
+        plusEle.on('click', plus);
+        if (!ngModel) return;
+
+        var setViewValue = function () {
+          ngModel.$setViewValue(count);
+          if (scope.onChange) {
+            scope.onChange();
+          }
+          countEle.html(count);
+        };
+        ngModel.$render = function() {
+          count = ngModel.$viewValue;
+          countEle.html(count);
+        };
+        minusEle.on('click', setViewValue);
+        plusEle.on('click', setViewValue);
+      }
+    }
+  })
+
+  //form表单验证
+  .directive('errorMsg', function () {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      link: function (scope, element, attrs, ngModel) {
+        ngModel.$errorMsg = scope.$eval(attrs.errorMsg);
+      }
+    };
+  })
+  .directive('formValidate', [
+    '$ionicLoading',
+    function ($ionicLoading) {
+      return {
+        restrict: 'A',
+        require: '^form',
+        compile: function (element, attrs) {
+          var submitHandle = attrs.ngSubmit;
+          var validateForm = function (form) {
+            var pass = true;
+            _.each(form.$error, function (modelCtrs, condition) {
+              _.each(modelCtrs, function (modelCtr) {
+                pass = false;
+                var errorMsg = modelCtr.$errorMsg ? modelCtr.$errorMsg[condition] : '';
+                if(errorMsg) {
+                  $ionicLoading.show({
+                    template: errorMsg,
+                    noBackdrop: true,
+                    duration: 2000
+                  });
+                }
+              });
+              return pass;
+            });
+            return pass;
+          };
+
+          attrs.ngSubmit = function (scope) {
+            if(validateForm(scope.$form)) {
+              submitHandle && scope.$eval(submitHandle);
+            }
+          };
+
+          return function (scope, ele, attr, form) {
+            scope.$form = form;
+          }
+        }
+      }
+    }
+  ])
+  //密码一致性校验
+  .directive('passwordConsistency', function () {
+    return {
+      restrict: 'A',
+      require: ['ngModel', '^?form'],
+      link: function (scope, element, attrs, ctrls) {
+        var modelCtrl = ctrls[0], formCtrl = ctrls[1] || modelCtrl.$$parentForm;
+        scope.$passwordConsistency || (scope.$passwordConsistency = []);
+        scope.$passwordConsistency.push(attrs.ngModel);
+        scope.$watch(attrs.ngModel, function () {
+          var initialValue, error;
+
+          var $errorMsg;
+          _.each(scope.$passwordConsistency, function (model) {
+            initialValue = initialValue ? initialValue : scope.$eval(model);
+            error = initialValue !== scope.$eval(model);
+            return !error;
+          });
+          if(error) {
+            if(!formCtrl.$error.passwordConsistency) {
+              formCtrl.$error.passwordConsistency = [{}];
+            }
+            $errorMsg = formCtrl.$error.passwordConsistency[0].$errorMsg;
+            if(!$errorMsg) {
+              formCtrl.$error.passwordConsistency[0].$errorMsg = {'passwordConsistency': modelCtrl.$errorMsg.passwordConsistency};
+            }
+          } else {
+            delete formCtrl.$error.passwordConsistency;
+          }
+        })
+      }
+    }
+  })
+
+  .directive('navButton', [
+    '$ionicPopover',
+    function ($ionicPopover) {
+      return {
+        restrict: 'A',
+        scope: {},
+        link: function (scope, element) {
+          var template = '  <ion-popover-view class="nav-menu">'+
+            '    <div class="nav-menu-nav" ng-click="navpop.hide()">'+
+            '      <ul class="list">'+
+            '        <li class="item ion-aiya" ui-sref="tab.home">'+
+            '          <i class="icon icon-left">&#xe608;</i>'+
+            '          <span>首页</span>'+
+            '        </li>'+
+            '        <li class="item ion-aiya" ui-sref="purchaseOrderList">'+
+            '          <i>&#xe60b;</i>'+
+            '          <span>采购单</span>'+
+            '        </li>'+
+            '        <li class="item ion-aiya" ui-sref="tab.user">'+
+            '          <i>&#xe607;</i>'+
+            '          <span>我</span>'+
+            '        </li>'+
+            '      </ul>'+
+            '    </div>'+
+            '  </ion-popover-view>';
+          scope.navpop = $ionicPopover.fromTemplate(template, {'scope': scope});
+          element.on('click', function () {
+            scope.navpop.show(element);
+          });
+        }
+      }
+    }
+  ])
+  .directive('brandCategoryFilter', [
+    '$ionicPopover',
+    'categoryService',
+    function ($ionicPopover, categoryService) {
+      return {
+        restrict: 'A',
+        require: 'ngModel',
+        scope: {
+          onFinish: '&'
+        },
+        controller: [
+          '$scope',
+          function (scope) {
+            var template = '  <ion-popover-view class="screening" style="top: 1px; left: 162px; margin-left: 0px; opacity: 1;">'+
+              '    <ion-content>'+
+              '      <p>分类</p>'+
+              '      <ion-list class="brandTypes">'+
+              '        <ion-item class="brandType" ng-class="{active: bcf.currentValue() === item}" ng-repeat="item in firstCategory" ng-click="bcf.select(item)">{{item.name}}</ion-item>'+
+              '      </ion-list>'+
+              '    </ion-content>'+
+              '    <ion-footer-bar class="brandFooter">'+
+              '      <div class="row pad-0">'+
+              '        <button class="col-25 col-offset-75 button button-positive" ng-click="exit()">完成</button>'+
+              '      </div>'+
+              '    </ion-footer-bar>'+
+              '  </ion-popover-view>';
+            this.filterpop = $ionicPopover.fromTemplate(template, {'scope': scope});
+            this.currentValue = function () {
+              return this.ngModel.$modelValue;
+            };
+            this.select = function (c) {
+              this.ngModel.$setViewValue(c);
+            };
+          }
+        ],
+        controllerAs: 'bcf',
+        link: function (scope, element, attrs, ngModel) {
+          scope.bcf.ngModel = ngModel;
+          scope.exit = function () {
+            scope.bcf.filterpop.hide();
+            scope.onFinish();
+          };
+          //init
+          categoryService.getFirstCategory().then(function (firstCategory) {
+            scope.firstCategory = firstCategory;
+          });
+          element.on('click', function () {
+            scope.bcf.filterpop.show(element);
+          });
+        }
+      }
+    }
+  ])
+  .directive('productCategoryFilter', [
+    '$ionicPopover',
+    'categoryService',
+    function ($ionicPopover, categoryService) {
+      return {
+        restrict: 'A',
+        require: 'ngModel',
+        scope: {
+          onFinish: '&'
+        },
+        controller: [
+          '$scope',
+          function (scope) {
+            // ng-if="bcf.category.first === undefined || bcf.category.first === item.id"
+            var template = '  <ion-popover-view class="screening" style="top: 1px; left: 162px; margin-left: 0px; opacity: 1;">'+
+              '    <ion-content>'+
+              '      <div ng-if="selectedArray.length" class="brandTypesWrapper">'+
+              '        <span>您已选择: </span>'+
+              '        <ion-list class="brandTypes">'+
+              '          <ion-item class="brandType active" ng-repeat="item in selectedArray">{{item.name}} ' +
+              '           <i ng-click="unselect(item)" class="ion-ios-close-empty unselect"></i>' +
+              '          </ion-item>'+
+              '        </ion-list>'+
+              '      </div>'+
+              '      <div class="brandTypesWrapper">'+
+              '        <p>分类</p>'+
+              '        <ion-list class="brandTypes">'+
+              '          <ion-item class="brandType" ng-class="{active: bcf.category.first === item}" ng-repeat="item in firstCategory" ng-click="selectFirst(item)">{{item.name}}</ion-item>'+
+              '        </ion-list>'+
+              '      </div>'+
+              '      <div ng-if="bcf.category.first !== undefined" class="brandTypesWrapper">'+
+              '        <p>二级分类</p>'+
+              '        <ion-list class="brandTypes">'+
+              '          <ion-item class="brandType" ng-class="{active: bcf.category.second === item}" ng-repeat="item in secondCategory" ng-click="selectSecond(item)">{{item.name}}</ion-item>'+
+              '        </ion-list>'+
+              '      </div>'+
+              '      <div class="brandTypesWrapper">'+
+              '        <p>产地</p>'+
+              '        <ion-list class="brandTypes">'+
+              '          <ion-item class="brandType" ng-class="{active: bcf.category.area === item}" ng-repeat="item in areas" ng-click="selectArea(item)">{{item.name}}</ion-item>'+
+              '        </ion-list>'+
+              '      </div>'+
+              '      <div class="brandTypesWrapper">'+
+              '        <p>品牌<button class="float-right button button-dark button-clear brandMore" ng-click="displayMoreBrands()">更多</button></p>'+
+              '        <ion-list class="brandTypes">'+
+              '          <ion-item class="brandType" ng-class="{active: contains(bcf.category.brands, item)}" ng-repeat="item in brands" ng-click="selectBrand(item)">{{item.name}}</ion-item>'+
+              '        </ion-list>'+
+              '      </div>'+
+              '    </ion-content>'+
+              '    <ion-footer-bar class="brandFooter">'+
+              '      <div class="row pad-0">'+
+              '        <button class="col-25 col-offset-75 button button-positive" ng-click="exit()">完成</button>'+
+              '      </div>'+
+              '    </ion-footer-bar>'+
+              '  </ion-popover-view>';
+            this.filterpop = $ionicPopover.fromTemplate(template, {'scope': scope});
+          }
+        ],
+        controllerAs: 'bcf',
+        link: function (scope, element, attrs, ngModel) {
+          //init
+          categoryService.getProductCategory({isShowAllBrand: false}).then(function (data) {
+            scope.firstCategory = data.categoryList;
+            scope.areas = data.makeTypes;
+            scope.brands = data.brandList;
+          });
+          element.on('click', function () {
+            scope.bcf.filterpop.show(element);
+          });
+
+          var select = function (item) {
+            var idx;
+            if(item.multi) {
+              scope.selectedArray.push(item);
+            } else {
+              idx = _.findIndex(scope.selectedArray, {type: item.type});
+              idx === -1 ? scope.selectedArray.push(item) : scope.selectedArray.splice(idx, 1, item);
+            }
+          };
+          var unselect = scope.unselect = function (item) {
+            _.pull(scope.selectedArray, item);
+            var selection = scope.bcf.category[item.type];
+            _.isArray(selection) ? _.pull(selection, item) : scope.bcf.category[item.type] = null;
+          };
+          scope.bcf.ngModel = ngModel;
+          ngModel.$modelValue || ngModel.$setViewValue({});
+          scope.bcf.category = ngModel.$modelValue;
+          scope.selectedArray = [];
+          scope.selectFirst = function (item) {
+            select(_.assignIn(item, {multi: false, type: 'first'}));
+            scope.bcf.category.first = item;
+            categoryService.getProductCategory({id: item.id, isShowAllBrand: false}).then(function (data) {
+              scope.secondCategory = data.categoryList;
+              scope.areas = data.makeTypes;
+              scope.brands = data.brandList;
+            });
+          };
+          scope.selectSecond = function (item) {
+            select(_.assignIn(item, {multi: false, type: 'second'}));
+            scope.bcf.category.second = item;
+            categoryService.getProductCategory({id: item.id, isShowAllBrand: false}).then(function (data) {
+              scope.areas = data.makeTypes;
+              scope.brands = data.brandList;
+            });
+          };
+          scope.selectArea = function (item) {
+            select(_.assignIn(item, {multi: false, type: 'area'}));
+            scope.bcf.category.area = item;
+          };
+          scope.selectBrand = function (item) {
+            var brands = scope.bcf.category.brands ? scope.bcf.category.brands : scope.bcf.category.brands = [];
+            if(scope.contains(brands, item)) {
+              unselect(item);
+            } else {
+              select(_.assignIn(item, {multi: true, type: 'brands'}));
+              brands.push(item);
+            }
+          };
+          scope.contains = function (list, value) {
+            list = list || [];
+            return _.indexOf(list, value) !== -1;
+          };
+          scope.displayMoreBrands = function () {
+            var item = scope.bcf.category.second || scope.bcf.category.first;
+            categoryService.getProductCategory({id: item ? item.id : '', isShowAllBrand: true}).then(function (data) {
+              scope.brands = data.brandList;
+            });
+          };
+          scope.exit = function () {
+            scope.bcf.filterpop.hide();
+            scope.onFinish();
+          };
+        }
+      }
+    }
+  ])
+  /*加入购物车and立即购买*/
+  .directive('productSpecificationFilter',[
+    '$ionicPopup',
+    '$state',
+    'purchaseOrderService',
+    '$ionicLoading',
+    'productService',
+    'orderService',
+    'userService',
+    'CommonUtil',
+    'ENV',
+    function($ionicPopup,$state,purchaseOrderService,$ionicLoading,productService,orderService,userService,CommonUtil,ENV){
+    return{
+      restrict:'A',
+      controller: [
+        '$scope',
+        function (scope) {
+          scope.Popup = function(){
+            return  $ionicPopup.show({
+              templateUrl: 'templates/categoryList/specificationModal.html',
+              cssClass:'specificationPopup',
+              scope: scope
+            });
+          }
+        }
+      ],
+      scope:{optionType:"@optionType",productId:"@productId"},/*子controller跟父controller通信*/
+      controllerAs: 'psf',
+      link: function (scope, element, attrs) {
+        var popup;
+        scope.imgUrl = ENV.imgUrl;
+        scope.product = {
+          id:scope.productId,
+          quantity:1,
+          specification:'',
+          tempSpecification:''
+        };
+        element.on('click', function () {
+          /*加载商品详情*/
+          productService.getInfo(scope.product.id).then(function(data){
+            scope.productInfo = data.product.productInfo;//商品详情
+            scope.specification = data.product.specification;//商品规格详细信息
+            scope.product.specification = scope.specification.spvId;
+            scope.product.tempSpecification = scope.specification.spvId;
+          },function(err){
+            console.log(err);
+          });
+          popup = scope.Popup();
+        });
+
+        scope.addQuantity = function(){
+          scope.product.quantity ++;
+        }
+
+        scope.cutQuantity = function(){
+          scope.product.quantity --;
+          if(scope.product.quantity < 1 ){
+            scope.product.quantity = 1;
+            return;
+          }
+        }
+        /*立即购买*/
+        scope.buyNow = function(){
+          if(!hasSpec()){
+            return;
+          } else {
+            directBuyPrecheck().then(function(data){
+              var product = {
+                ids:scope.product.id,
+                quantitys:scope.product.quantity
+              }
+              popup.close();
+              $state.go('orderOk',{productInfo:product});
+            },function(err){
+              CommonUtil.tip(err);
+            });
+          }
+
+        }
+        /*加入采购单*/
+        scope.joinCart = function(){
+          if(!isLogin() || !hasSpec()){
+            return;
+          }else{
+            directBuyPrecheck().then(function(){
+              var params = {
+                id : scope.product.id,
+                quantity : scope.product.quantity
+              }
+              purchaseOrderService.addProduct(params).then(function(){
+                  popup.close();
+                  CommonUtil.tip('成功加入到采购单');
+              },function(err){
+                CommonUtil.tip(err);
+              });
+            },function(err){
+              CommonUtil.tip(err);
+            });
+          }
+
+        }
+        /*确定按钮*/
+        scope.goOrderProcess = function(){
+          if('buyNow'== scope.optionType){
+              scope.buyNow();
+          }else{
+              scope.joinCart();
+           }
+        }
+        //取消规格
+        scope.cancelSpec = function(specId){
+          if(specId == scope.product.tempSpecification){
+            scope.product.specification  = '';
+            scope.product.tempSpecification = '';
+          }else{
+            scope.product.tempSpecification= specId;
+          }
+        }
+        /*判断是否有选中规格*/
+        var hasSpec = function(){
+          if(scope.specification.specificationValues == null || scope.specification.specificationValues == '' || (scope.product.specification != '' && scope.product.specification != null)){
+            return true;
+          } else {
+            CommonUtil.tip('请选择商品属性');
+            return false;
+          }
+        }
+        var directBuyPrecheck = function(){
+          var params = {
+            id : scope.product.id,
+            directQuantity : scope.product.quantity
+          }
+          return orderService.directBuyPrecheck(params);
+        }
+        var isLogin = function(){
+          if(userService.isLogin()){
+            return true;
+          }else{
+            $state.go('login');
+          }
+        }
+       scope.closeSpecificationModal = function(){
+         popup.close();
+      }
+      }
+    }
+  }]);

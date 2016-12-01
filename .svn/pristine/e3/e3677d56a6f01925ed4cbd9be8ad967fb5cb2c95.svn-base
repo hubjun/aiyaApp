@@ -1,0 +1,55 @@
+<ion-view class="purchaseOrder" view-title="编辑" cache-view="false" hide-nav-bar="true">
+  <!--header-->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">编辑</div>
+    <div class="buttons buttons-right">
+      <span class="right-buttons">
+        <!--<button class="button"><i class="icon ion-ios-search"></i></button>-->
+        <!--<button class="button button-dark button-clear" ng-click="">完成</button>-->
+      </span>
+    </div>
+  </div>
+
+  <ion-content class="has-header">
+    <ion-list class="purchaseProducts">
+      <ion-item ng-repeat="product in purchaseProducts" class="purchaseProduct">
+        <div class="purchaseProductItem">
+          <label class="checkbox">
+            <input type="checkbox" ng-click="toggleSelectOne(product)" ng-model="product.isSelected">
+          </label>
+          <div class="productImg">
+            <img ng-src="{{imgUrl}}{{product.image}}" class="" alt=""/>
+          </div>
+          <div class="productDesc">
+            <h2 class="productDesc-title">{{::product.name}}</h2>
+            <p class="productDesc-spec" ng-show="product.isHasSpecification">{{::product.specificationName}}：{{::product.specificationValuesName}}</p>
+            <p class="productDesc-spec" ng-show="!product.isHasSpecification"></p>
+            <p class="productDesc-price color-positive">
+              <span class="">￥{{::product.price}}</span>
+              <!--<span class="">￥{{::product.price}}</span>-->
+            </p>
+          </div>
+          <div ng-if="product.isMarketable||product.isBuyNotPutaway" class="productNum color-striking"><number on-change="changeNumber(product)" ng-model="product.quantity" max="product.availableStock"></number></div>
+        </div>
+        <ion-option-button class="button-assertive" ng-click="share(item)">删除</ion-option-button>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll
+      ng-if="hasMore"
+      on-infinite="loadMore()"
+      immediate-check="false"
+      distance="3%">
+    </ion-infinite-scroll>
+  </ion-content>
+  <ion-footer-bar>
+    <div class="select-all">
+      <label class="checkbox"><input type="checkbox" ng-click="toggleSelectAll()" ng-model="isAllSelected"></label>
+      <span>全选</span>
+    </div>
+    <button class="button button-positive move-to-fav" ng-click="collectProduct()">移到收藏夹</button>
+    <button class="button button-assertive delete" ng-click="deleteProduct()">删除</button>
+  </ion-footer-bar>
+</ion-view>

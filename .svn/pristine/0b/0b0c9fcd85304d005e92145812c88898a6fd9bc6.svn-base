@@ -1,0 +1,136 @@
+//登入
+.loginCon{
+  background:#F6F6F6;
+}
+.loginList{
+  padding-top:16px;
+}
+.loginList .input-label{
+  width: 26%;
+}
+.loginCon .emailDiv{
+  margin-top:-5px;
+}
+.button-assertive.button-next.modifyPhone.loginBtn {
+  margin-top: -10px;
+}
+//密码开关
+.loginList{
+  .item-input{
+    .toggle{
+      position: absolute;
+      top: 10px;
+      right: 16px;
+      z-index: 3;
+    }
+  }
+}
+.loginLink{
+  margin-top:18px;
+  padding: 0px 4px;
+}
+.loginResg{
+  float:left;
+  color: #FF5F0F;
+}
+.loginForgot{
+  float:right;
+  color:#474747;
+}
+.otherWays{
+  margin-top: 60px;
+}
+.otherLine{
+  margin-top: 30px;
+  border-top: 1px solid #CECECE;
+}
+.otherTxt{
+  width:120px;
+  margin: -22px auto;
+  background: #F6F6F6;
+  color: #474747;
+  text-align: center;
+}
+.qqDiv,.webChatDiv{
+  width:50%;
+  height:auto;
+  float:left;
+  margin-top: 40px;
+}
+.qqDiv a,.webChatDiv a{
+  width:2.7rem;
+  height:2rem;
+  margin: auto;
+  display:block;
+}
+.webChatDiv{
+  float:right;
+}
+.qqDiv img,.webChatDiv img{
+  width:100%;
+  height:100%;
+}
+//注册
+.loginCon{
+  .emailInput{
+    margin-top:12px;
+  }
+  .infoCode{
+    width: 50%;
+    float: left;
+  }
+  .codeBtn,#codeBtn{
+    width: 46%;
+    float: right;
+    margin-top: -47px;
+    background: white;
+    border: 1px solid #C8C7CC;
+    color: #474747;
+  }
+}
+.eye{
+  float: right;
+  margin-top: -49px;
+}
+.regAgree input{
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-top: 1px;
+}
+.regAgree .agreeTxt{
+  text-indent: 8px;
+  color: #474747;
+}
+.regAgree .userAgree{
+  color:#00B4FF;
+  margin-left: 10px;
+}
+//注册密码开关
+.regCon .aiya-item-toggle{
+  position:relative;;
+  .toggle{
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    z-index: 3;
+  }
+}
+.resetPwd{
+  .toggle{
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    z-index: 3
+  }
+}
+//用户协议
+.agreeTotal{
+  .agreePTxt{
+    color:#555555;
+    padding: 16px;
+  }
+  .agreePTxt2{
+    margin-top:30px;
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "code": 1,
+  "msg": "成功",
+  "data":{
+    "list":[
+      {
+        "id":1,
+        "consignee":"dd",
+        "phone":"1366665560022",
+        "address":"广东省深圳市南山区桂庙村口",
+        "isDefault":false
+      },
+      {
+        "id":2,
+        "consignee":"神乐",
+        "phone":"1366665560022",
+        "address":"广东省深圳市南山区南山街道南山街道南山街道",
+        "isDefault":true
+      },
+      {
+        "id":3,
+        "consignee":"小哥",
+        "phone":"1366665560022",
+        "address":"广东省深圳市南山区桂庙村口122222235",
+        "isDefault":false
+      }
+    ]
+  }
+}

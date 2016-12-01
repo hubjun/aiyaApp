@@ -1,0 +1,27 @@
+function doUpload() {
+  var formData = new FormData($( "#uploadForm" )[0]);
+  $.ajax({
+    url: 'http://192.168.3.167:8001/member/uploadPhoto' ,
+    type: 'POST',
+    data: formData,
+    async: false,
+    cache: false,
+    contentType: false,
+    processData: false,
+    success: function (returndata) {
+      //location.href  = tabsUrl+"index.html#/userInfo";
+      refresh();
+    },
+    error: function (returndata) {
+      alert("error");
+    }
+  });
+}
+function refresh(){
+  window.location.reload();//刷新当前页面.
+
+  //或者下方刷新方法
+  //parent.location.reload()刷新父亲对象（用于框架）--需在iframe框架内使用
+  // opener.location.reload()刷新父窗口对象（用于单开窗口
+  //top.location.reload()刷新最顶端对象（用于多开窗口）
+}

@@ -1,0 +1,64 @@
+aiyaController.controller('modifyPwdController', [
+  '$scope',
+  '$state',
+  '$ionicLoading',
+  'CommonUtil',
+  'userService',
+  function($scope,$state,$ionicLoading,CommonUtil,userService){
+    $scope.modifyPwdSubmit = function(resetPwdForm){
+      $scope.validate = true;
+      var oldPwd='';
+      var password = '';
+      if(resetPwdForm.$valid){
+        _.each(_.split($scope.oldPwd, ' '),function(data,index){
+          oldPwd += data;
+        });
+        _.each(_.split($scope.newOkPwd, ' '),function(data,index){
+          password += data;
+        });
+
+        var opt = {
+          oldPwd:oldPwd,
+          password:password
+        };
+        var newPwd = $scope.newPwd,
+            pwdOk = $scope.newOkPwd;
+        if(newPwd != pwdOk){
+          CommonUtil.tip('密码确认和新密码不一致');
+        }else {
+          userService.modifyPwd(opt)
+            .then(function(){
+              CommonUtil.tip('密码修改成功');
+              setTimeout(function(){
+                $state.go('setting');
+              }, 1500);
+            }, function(error){
+              CommonUtil.tip(error);
+            })
+        }
+      }else if(resetPwdForm.oldPwd.$error.required){
+        // CommonUtil.tip('请输入您的当前密码');
+        resetPwdForm.oldPwdFocus = true;
+      }else if(resetPwdForm.newPwd.$error.required){
+        // CommonUtil.tip('请输入您的当前密码');
+        resetPwdForm.newPwdFocus = true;
+      }else if(resetPwdForm.newPwd.$error.maxlength){
+        CommonUtil.tip('新密码不能超过18个字符哦');
+        resetPwdForm.newPwdFocus = true;
+      }else if(resetPwdForm.newPwd.$error.minlength){
+        CommonUtil.tip('新密码最少6个字符哦');
+        resetPwdForm.newPwdFocus = true;
+      }else if(resetPwdForm.newOkPwd.$error.required){
+        // CommonUtil.tip('请输入您的当前密码');
+        resetPwdForm.newOkPwdFocus = true;
+      }else if(resetPwdForm.newOkPwd.$error.maxlength){
+        CommonUtil.tip('密码确认不能超过18个字符哦');
+        resetPwdForm.newOkPwdFocus = true;
+      }else if(resetPwdForm.newOkPwd.$error.minlength){
+        CommonUtil.tip('密码确认最少6个字符哦');
+        resetPwdForm.newOkPwdFocus = true;
+      }
+    }
+
+  }
+]);

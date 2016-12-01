@@ -1,0 +1,157 @@
+aiyaController.controller('productCategoryController', [
+  '$scope',
+  '$ionicLoading',
+  '$state',
+  '$ionicSlideBoxDelegate',
+  'categoryService',
+  'StringUtil',
+  'ENV',
+  'Util',
+  function($scope, $ionicLoading, $state, $ionicSlideBoxDelegate, categoryService, StringUtil,ENV,Util){
+
+    //页面激活时
+    $scope.$on('$ionicView.enter', function(){
+      getNavCategory();
+    });
+    $scope.secondID = null;
+    $scope.allCategory = null;
+    $scope.obj_imgList = null;
+    //二级图片分组
+    $scope.obj_imgSliders = null;
+    $scope.is_categoryAll = true;
+    //一级分类name,id
+    $scope.firstNavName = null;
+    $scope.firstNavId = null;
+    $scope.obj_thirdList = new Array();
+
+    $scope.allCategory_paging = {
+      pageNumber: 1,
+      pageSize: ''
+    };
+
+    //全部商品
+    $scope.allCategory_paging.pageNumber = 1;
+    $scope.allCategory_paging.pageSize = 20;
+    categoryService.getAllHotCategory($scope.allCategory_paging)
+      .then(function(rs){
+        $scope.allCategory = rs;
+        _.each(rs,function(p){
+          p.image = StringUtil.isEmpty(p.image) ? ENV.defaultImg : Util.getFullImg(p.image);        //具体单个商品图片
+        })
+      },function(errormsg){
+        $ionicLoading.show({
+          template: errormsg,
+          duration: 1500
+        });
+      })
+
+    //一级分类菜单列表
+    function getNavCategory(){
+      categoryService.navCategory().get('null', function(rs){
+        if(rs.code ===1){
+          $scope.obj_navCategory = rs.data.list;
+          if(rs.data.list.length > 0){
+            $scope.getSecondCategory(rs.data.list[0].id);
+          }
+        }else{
+          $ionicLoading.show({
+            template: rs.msg
+          });
+        }
+      })
+      //$scope.categoryService = categoryService.navCategory();
+    };
+
+    //二级类别列表
+    $scope.getSecondCategory = function(typeNum){
+      console.log('一级id,'+typeNum);
+      categoryService.imgSecondCategory().get({id: typeNum}, function(rs){
+        if(rs.code === 1){
+          $scope.obj_imgList = rs.data.list;
+          $scope.obj_imgSliders = _.chunk($scope.obj_imgList, 2);
+          _.each( $scope.obj_imgSliders,function(p){
+            _.each(p,function(img){
+              img.image = StringUtil.isEmpty(img.image) ? ENV.defaultImg : Util.getFullImg(img.image);        //具体单个商品图片
+            })
+          })
+          //var sliders = JSON.stringify($scope.obj_imgSliders);
+          //console.log($scope.obj_imgSliders);
+        }else{
+          $ionicLoading.show({
+            template: rs.msg,
+            duration: 1500
+          });
+        }
+      })
+      $scope.$watchCollection('obj_imgList ', function () {
+        $ionicSlideBoxDelegate.update();
+      })
+
+      categoryService.secondCategoryName().get({id: typeNum}, function(rs){
+        if(rs.code === 1){
+          $scope.obj_sencondCategoryName = rs.data.list;
+          //debugger
+          for(var i = 0;i < rs.data.list.length;i++){
+            getThirdCategory(i,rs.data.list[i].id);
+          }
+        }else{
+          $ionicLoading.show({
+            template: rs.msg,
+            duration: 1500
+          });
+        }
+      })
+
+      //console.log('二级id,'+$scope.secondID);
+    };
+
+    var getThirdCategory = function(index,id){
+      categoryService.thirdCategoryList().get({id:id}, function(rs){
+        if(rs.code === 1){
+          //debugger
+          $scope.obj_thirdList[index] = rs.data.list;
+        }else{
+          $ionicLoading.show({
+            template: rs.msg,
+            duration: 1500
+          });
+        }
+      });
+    };
+
+    $scope.selectTab = function(e,id,name){
+      console.log('e.target.id'+e.target.id);
+      e.target.className = 'li button button-clear category-select';
+      $(e.target).siblings().removeClass().addClass('li button button-clear tab-onblur');
+      if(e.target.id != undefined && e.target.id != 'undefined' && e.target.id == 'category-all'){
+        $scope.is_categoryAll = true;
+      }
+      // else if(e.target.id == ''){
+      //   $scope.is_categoryAll = true;
+      // }
+      else {
+        $scope.is_categoryAll = false;
+        $scope.getSecondCategory(id);
+
+        $scope.firstNavId = id;
+        $scope.firstNavName = name;
+      }
+    };
+
+    $scope.jumpCategoryById = function(navId, navName){
+      if(StringUtil.isNotEmpty(navName) && navName.indexOf('义齿') !== -1){
+        $state.go('toothOp');
+      }else{
+        $state.go('filterList',{fristCategoryId:navId});
+      }
+    };
+
+    $scope.jumpChildrenCategory = function(childrenId){
+      $state.go('filterList', {childrenlistId: childrenId});
+    };
+    //搜索跳转
+    $scope.jumpSearchPage = function(){
+      $state.go('homeSearch');
+    };
+
+  }]);

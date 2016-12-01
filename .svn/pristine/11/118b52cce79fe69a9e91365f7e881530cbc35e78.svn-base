@@ -1,0 +1,95 @@
+<ion-view class="myaiyaku"  view-title="我的爱牙库" hide-nav-bar="true" cache-view="false">
+  <!-- header-bar -->
+  <div class="bar bar-header bar-stable">
+    <h1 class="title">我的爱牙库</h1>
+   <!-- <button class="button button-dark button-clear ion-ios-more icon-right" nav-button></button>-->
+  </div>
+
+  <ion-content class="has-header" scrollbar-y="false">
+    <div class="user-info" ui-sref="userInfo">
+      <div class="user-avatar">
+        <img src="img/myaiyaku/tou_icon.png">
+      </div>
+      <div class="user-name">
+        <div class="name">{{user.username}}</div>
+        <div ng-if="user.isVip" class="vip"></div>
+      </div>
+    </div>
+
+    <ion-list>
+      <ion-item class="wait-item">
+        <div class="row">
+          <div class="col" ui-sref="myOrders({tab: 1})">
+            <i class="ion-aiya icon-font-size">&#xe60e;</i>
+            <div class="name">待付款</div>
+          </div>
+          <div class="col" ui-sref="myOrders({tab: 2})">
+            <i class="ion-aiya icon-font-size">&#xe610;</i>
+            <div class="name">待发货</div>
+          </div>
+          <div class="col" ui-sref="myOrders({tab: 3})">
+            <i class="ion-aiya icon-font-size">&#xe610;</i>
+            <div class="name">待收货</div>
+          </div>
+          <div class="col" ui-sref="myOrders({tab: 4})">
+            <i class="ion-aiya icon-font-size">&#xe611;</i>
+            <div class="name">待评价</div>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item class="item-icon-left  item-icon-right" ui-sref="myOrders">
+        <i class="icon orders left-icon"></i>
+        <h2>全部订单
+          <span class="right-tip item-note look-all-order">查看全部订单</span>
+        </h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+
+    <div class="gap"></div>
+
+    <ion-list>
+      <ion-item class="item-icon-left item-button-right item-icon-right" ui-sref="purchaseOrderList">
+        <i class="icon left-icon purchase"></i>
+        <h2>我的采购</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+
+      <ion-item class="item-icon-left item-button-right  item-icon-right" ui-sref="favorite">
+        <i class="icon left-icon collect"></i>
+        <h2>商品收藏</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+
+     <!-- <ion-item class="item-icon-left item-button-right  item-icon-right">
+        <i class="icon left-icon message"></i>
+        <h2>我的消息</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>-->
+
+      <ion-item class="item-icon-left item-button-right  item-icon-right" ui-sref="setting">
+        <i class="icon left-icon settings"></i>
+        <h2>设置</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+
+    <div class="gap"></div>
+
+    <ion-list ng-if="logisticsList != null && logisticsList != ''">
+      <ion-item>
+        <h2>我的物流</h2>
+      </ion-item>
+      <ion-item class="item-thumbnail-left item-button-right  item-icon-right" ng-repeat="logistics in logisticsList"  ui-sref="mylog({sn:logistics.sn})">
+        <img ng-src="{{logistics.thumbnail}}">
+        <p class="logSn">订单号:{{logistics.sn}}</p>
+        <p class="logDesc">{{logistics.desc}}</p>
+        <p ng-if="logistics.createDate" class="logDate">{{logistics.createDate}}</p>
+        <button class="button userLogBtn" ng-click="confirmSingleOrder(logistics.sn, $event)">确认收货</button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar>
+    <div ng-include="'templates/tabs.html'"></div>
+  </ion-footer-bar>
+</ion-view>

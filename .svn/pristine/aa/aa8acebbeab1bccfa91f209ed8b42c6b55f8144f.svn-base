@@ -1,0 +1,48 @@
+.callTxt{
+  float:left;
+  .callSpanTxt{
+    width: 100%;
+    float: left;
+    line-height: 1rem;
+  }
+  .callTxt1{
+    color:#252525;
+    font-size:14px;
+    font-weight:bold;
+  }
+  .callTxt2{
+    color:#FF5F0F;
+    font-size:20px;
+  }
+}
+.right-tip.item-note.callSpanImg{
+  line-height:0rem;
+  .callImg{
+    height:2rem;
+  }
+}
+.linkConBox{
+  padding: 10px 20px;
+  line-height: 26px;
+  font-size:16px;
+  overflow: hidden;
+  .linkTit{
+    color:#252525;
+    margin:0px;
+    font-weight:bold;
+  }
+  .linkp{
+    color:#FF5F0F;
+    margin:0px;
+  }
+  .linkCon{
+    width:100%;
+    height:auto;
+    float:left;
+    color:#757575;
+  }
+  .linkMap{
+    width: 100%;
+    float: left;
+  }
+}

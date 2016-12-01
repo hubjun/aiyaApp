@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>微信支付</title>
+    <script src="../lib/jquery/jquery.min.js"></script>
+    <script src="../js/pay.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+  $(function(){
+    var httpUrl = "http://192.168.1.53:7000/";
+    var code = getQueryString("code");
+    var sn = getQueryString("state");
+    //根据订单编号查询订单信息
+    $.ajax({
+//      url:"http://192.168.3.189:8001/order/payInfo",
+      url:httpUrl+"order/payInfo",
+      method:"post",
+      data:{sn:sn,token:getCookie("AIYATOKEN")},
+      success:function(result){
+        if(result.code == 1){
+          var data =
+          {
+            code:code,
+            sn:sn,
+            price:result.data.payInfo.wxamountPrice,
+            body:"body"
+          };
+          $.ajax({
+//            url:"http://192.168.3.228:80/order/unifiedorder",
+//            url:"http://192.168.3.189:8001/order/unifiedorder",
+            url:httpUrl+"order/unifiedorder",
+            method:"get",
+            data:data,
+            success:function(result){
+              alert(JSON.stringify(result));
+              if(result.code == 1){
+                WeixinJSBridge.invoke(
+                  'getBrandWCPayRequest', {
+                    "appId" : result.data.appId,     //公众号名称，由商户传入
+                    "timeStamp": result.data.timeStamp,         //时间戳，自1970年以来的秒数
+                    "nonceStr" : result.data.nonceStr, //随机串
+                    "package" : result.data.package,
+                    "signType" : result.data.signType,         //微信签名方式:
+                    "paySign" : result.data.sign    //微信签名
+                  },
+
+                  function(res){
+                    //alert(res.err_msg);
+                    if (res.err_msg == "get_brand_wcpay_request:ok") {
+                      var returnData = {
+                        sn:data.sn,
+                        price:data.price,
+                        token:getCookie("AIYATOKEN")
+                      };
+                      alert(JSON.stringify(returnData));
+                      $.ajax({
+//                        url:"http://192.168.3.189:8001/order/wxreturn_url",
+                        url:httpUrl+"order/wxreturn_url",
+                        method:"get",
+                        data:returnData,
+                        success:function(resultData){
+                          if(result.code == 1){
+//                            location.href  = tabsUrl+"index.html#/paySuccess/"+resultData.data.sn;
+                            location.href  = "http://testm.51aiyaku.com/index.html#/paySuccess/"+resultData.data.sn;
+                          }
+                        },
+                        error:function(){
+                          alert("error2");
+                        }
+                      });
+                    }
+                    if (res.err_msg == "get_brand_wcpay_request:cancel") {
+                      alert("交易取消");
+                    }
+                    if (res.err_msg == "get_brand_wcpay_request:fail") {
+                      alert("支付失败");
+                    }
+                  }
+                );
+              }
+            },
+            error:function(){
+              alert("error1");
+            }
+          });
+
+        }
+      },
+      error:function(){
+        alert("error")
+      }
+    });
+  })
+  function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+  }
+  function getCookie(name)
+  {
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+    if(arr=document.cookie.match(reg))
+      return unescape(arr[2]);
+    else
+      return null;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+aiyaController.controller('registerController', [
+  '$scope',
+  '$state',
+  'userService',
+  'authCodeService',
+  '$ionicLoading',
+  'StringUtil',
+  '$interval',
+  'CommonUtil',
+  function($scope, $state, userService, authCodeService, $ionicLoading,StringUtil,$interval,CommonUtil){
+    var user = {
+      'mobile':'',
+      'authCode':'',
+      'password1':'',
+      'password2':''
+    };
+    $scope.user = user;
+    var reg=/^(?:13\d|15\d|18\d)\d{5}(\d{3}|\*{3})$/;
+    //验证码倒计时
+    $scope.paracont = "免费获取验证码";
+    $scope.paraclass = "but_null";
+    $scope.paraevent = true;
+    var second = 60,
+      timePromise = undefined;
+
+    $scope.submit = function () {
+      var isPass = true;
+      var msg = '';
+      if(StringUtil.isEmpty($scope.user.mobile)){
+        msg = '请输入你的手机号码！';
+        isPass = false;
+      }else if(!reg.test($scope.user.mobile)){
+        msg = '请输入有效的手机号码！';
+        isPass = false;
+      }else if(StringUtil.isEmpty($scope.user.authCode)){
+        msg = '请输入短信验证码！';
+        isPass = false;
+      }else if(StringUtil.isEmpty($scope.user.password1)){
+        msg = '请输入密码！';
+        isPass = false;
+      }else if(StringUtil.isEmpty($scope.user.password2)){
+        msg = '请再次输入密码！';
+        isPass = false;
+      }else if($scope.user.password2!=$scope.user.password1){
+        msg = '密码不统一！';
+        isPass = false;
+      }
+      if(isPass) {
+        var opt = {
+           username: $scope.user.mobile,
+           password: $scope.user.password1,
+           captchacode: $scope.user.authCode
+         };
+         userService.register(opt)
+         .then(function () {
+             CommonUtil.tip('注册成功!即将返回登录页面');
+           setTimeout(function () {
+            $scope.back();
+         }, 1000);
+         }, function (errorMsg) {
+             CommonUtil.tip(errorMsg);
+         });
+      }else {
+        CommonUtil.tip(msg);
+      }
+    };
+    $scope.getAuthCode = function () {
+      var mobile = $scope.user.mobile;
+      if(mobile) {
+        if(reg.test(mobile)){
+          authCodeService.get(mobile, 1)
+          .then(function () {
+            timePromise = $interval(function(){
+              if(second<=0){
+                $interval.cancel(timePromise);
+                timePromise = undefined;
+
+                second = 60;
+                $scope.paracont = "重发验证码";
+                $scope.paraclass = "but_null";
+                $scope.paraevent = true;
+              }else{
+                $scope.paracont = second + "秒后可重发";
+                $scope.paraclass = "not but_null";
+                second--;
+
+              }
+            },1000,100);
+           }, function (errorMsg) {
+              CommonUtil.tip(errorMsg);
+           });
+        }else{
+          CommonUtil.tip('请输入有效的手机号码！');
+        }
+      } else {
+        CommonUtil.tip('请输入手机号码！');
+      }
+    };
+  }]);

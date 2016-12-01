@@ -1,0 +1,69 @@
+
+aiyaController.controller('HomeSearchCtrl', [
+  '$scope',
+  '$timeout',
+  '$state',
+  'homeSearch',
+  function($scope, $timeout ,$state, homeSearch){
+
+  var timeout;
+  $scope.keyword = '';
+  //$scope.homeHotKeyworld = homeSearch.homeHotKeyworld();
+  init();
+
+  $scope.$watch('keyword', function(newVal,oldVal){
+    //console.log('newVal'+ newVal + '  oldVal:'+oldVal);
+    if($scope.keyword){
+      if(timeout){
+        $timeout.cancel(timeout);
+      }
+      //alert('no timeout');
+      timeout = $timeout(function(){
+        homeSearch.keyList().get({keyword:$scope.keyword, pageNumber:1, pageSize:10}, function(rs){
+          if(rs.code == 1){
+            $scope.dataList = rs.data.list;
+          }else{
+            $ionicLoading.show({
+              template: rs.msg,
+              duration: 1500
+            });
+          }
+        });
+      }, 300);
+    }
+  });
+
+  $scope.jumpSearch = function(){
+    console.log('关键字：'+$scope.keyword);
+    $state.go('filterList', {keyword:$scope.keyword});
+  };
+
+  $scope.jumpHotSearch = function(key){
+    console.log('热门关键字：'+ key);
+    $state.go('filterList', {keyword:key});
+  };
+
+  //搜索框内容清除
+  $scope.clearSearch = function(){
+    $scope.keyword = '';
+  }
+
+  $scope.doHomeSearchRefresh = function(){
+    init();
+    $scope.$broadcast('scroll.refreshComplete');
+  };
+
+  function init(){
+    homeSearch.homeHotKeyworld().get(null, function(rs){
+      if(rs.code === 1){
+        $scope.homeHotKeyworld = rs.data.list;
+      }else{
+        $ionicLoading.show({
+          template: rs.msg,
+          duration: 1500
+        });
+      }
+    });
+  };
+
+}]);

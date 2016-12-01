@@ -1,0 +1,64 @@
+<ion-view class="pay-success" hide-nav-bar="true">
+  <div class="bar bar-header bar-stable">
+    <h1 class="title">{{viewTitle}}</h1>
+  </div>
+
+  <ion-content class="has-header" scrollbar-y="false">
+    <div class="pay-title">
+    </div>
+    <div class="pay-info">
+      <h1 ng-if="!isMonthly">付款成功，您的包裹正在出库中</h1>
+      <div ng-if="isMonthly">
+        <h1 class="monthVipTxt1">你是爱牙库的VIP月结客户</h1>
+        <h1 class="monthVipTxt2">该笔月结订单已生成！</h1>
+      </div>
+      <div class="details">
+        <div class="row consignee">
+          <span class="col payName">{{consignee}}</span>
+          <span class="col payPhone">{{phone}}</span>
+        </div>
+        <div class="row">
+          <span class="col addre">{{areaName}}{{address}}</span>
+        </div>
+      </div>
+      <div class="btn-con">
+        <div class="pay-money" ng-if="!isMonthly">实付款：<span>{{amount | currency:'￥'}}</span></div>
+        <div class="pay-money" ng-if="isMonthly">订单总额：<span>{{amount | currency:'￥'}}</span></div>
+        <div class="btns">
+          <a class="button btn-order orderBuy" ng-if="isMonthly" ui-sref="orderPay({sn: sn})">立即支付</a>
+          <a class="button btn-order order-detail" ui-sref="orderDetail({sn: sn})">订单详情</a>
+          <a class="button btn-order" ui-sref="home">返回首页</a>
+        </div>
+      </div>
+    </div>
+    <div class="gap"></div>
+    <div class="important">
+      <h2>重要提示：</h2>
+      <p>爱牙库不会以系统维护、订单异常等为理由联系您，请勿泄露您的银行卡号，手机验证码，以免造成财产损失。</p>
+    </div>
+
+    <!--猜您喜欢-->
+    <div class="maylike">
+      <span class="border"></span>
+      <span class="text">猜您喜欢</span>
+      <span class="border"></span>
+    </div>
+    <ion-item class="no-border like-item">
+      <div class="col col-50 pro-list"  ng-repeat="product in productList | limitTo: 4" ui-sref="productInfo({id:product.id})">
+        <div class="list-con">
+          <div class="pro-item">
+            <img ng-src="{{product.image}}" alt="">
+          </div>
+          <div class="list-detail">
+            <p class="pro-name">{{product.fullName}}</p>
+            <div class="list-price">
+              <span class="dis-pri">{{product.price | currency:'￥'}}</span>
+              <span class="fact-pri">{{product.marketPrice | currency:'￥'}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-item>
+
+  </ion-content>
+</ion-view>

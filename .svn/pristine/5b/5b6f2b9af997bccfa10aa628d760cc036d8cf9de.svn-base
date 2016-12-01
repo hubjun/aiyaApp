@@ -1,0 +1,132 @@
+aiyaController.controller('myOrdersController', [
+  '$scope',
+  '$stateParams',
+  '$timeout',
+  'CommonUtil',
+  'orderService',
+  '$state',
+  function ($scope, $stateParams, $timeout, CommonUtil, orderService,$state) {
+    var states = [
+      {type: 'all', tabIndex: 0, pageNumber: 1, pageSize: 3, hasMore: true, orders: [], loadPending: false, initated: false},
+      {type: 'wPay', tabIndex: 1, pageNumber: 1, pageSize: 3, hasMore: true, orders: [], loadPending: false, initated: false},
+      {type: 'wDeliver', tabIndex: 2, pageNumber: 1, pageSize: 3, hasMore: true, orders: [], loadPending: false, initated: false},
+      {type: 'wComfirm', tabIndex: 3, pageNumber: 1, pageSize: 3, hasMore: true, orders: [], loadPending: false, initated: false},
+      {type: 'wComment', tabIndex: 4, pageNumber: 1, pageSize: 3, hasMore: true, orders: [], loadPending: false, initated: false}
+    ];
+    var currentState = states[$stateParams.tab];
+
+    $scope.currentTab = currentState.tabIndex;
+
+    $scope.getState = function (type) {
+      return typeof type === 'string' ? _.find(states, {'type': type}) : _.find(states, {'tabIndex': type});
+    };
+
+    $scope.switchState = function (index) {
+      currentState = states[index];
+      $scope.currentTab = currentState.tabIndex;
+      $scope.currentType = currentState.type;
+      if(!currentState.orders.length) {
+        loadMore(currentState);
+      }
+    };
+    //折叠展示商品
+    $scope.show = function ($index, order) {
+      return order.expanded || $index < 2;
+    };
+    $scope.showHandle = function (order) {
+      return !order.expanded && order.productList.length > 2;
+    };
+    $scope.expand = function (order) {
+      order.expanded = true;
+    };
+    $scope.loadMore = loadMore;
+
+    //init
+    loadMore(currentState);
+
+    function loadMore (state) {
+      if(state.loadPending) return;
+      state.loadPending = true;
+      loadOrders(state)
+        .then(function (resp) {
+          state.initated = state.initated ? state.initated : !state.initated;
+          if(!resp.length) {
+            state.hasMore = false;
+          } else {
+            state.pageNumber++;
+          }
+        })
+        .finally(function () {
+          state.loadPending = false;
+          state.scope.$broadcast('scroll.infiniteScrollComplete');
+        });
+    };
+
+    $scope.cancelSingleOrder = function(sn){
+      //console.log(sn);
+      orderService.cancelOrder(sn)
+        .then(function(){
+          CommonUtil.tip('取消成功');
+          console.log($scope.currentType);
+        },function(){
+          CommonUtil.tip('取消订单失败');
+        })
+    };
+
+    $scope.confirmSingleOrder = function(sn){
+      orderService.confirmOrder(sn)
+        .then(function(){
+          CommonUtil.tip('确认成功');
+        }, function(){
+          CommonUtil.tip('确认失败');
+        });
+    };
+
+    /*再次购买*/
+    $scope.buyAgain = function(id){
+      var params = {
+        id:id
+      }
+      orderService.buyAgain(params).then(function(){
+        $state.go('purchaseOrderList');
+      },function(err){
+        CommonUtil.tip(err);
+      });
+    }
+
+    function loadOrders(state) {
+      var pn = state.pageNumber,
+          ps = state.pageSize,
+          ti = state.tabIndex;
+      return orderService.getList(pn, ps, {'type': ti})
+        .then(function (resp) {
+          var _orders = state.orders;
+          _.each(resp, function (order) {
+            _orders.push(order);
+          });
+          return resp;
+        });
+    }
+  }
+])
+.controller('myOrderAllController', ["$scope", function ($scope) {
+  $scope.state = $scope.getState('all');
+  $scope.state.scope = $scope;
+}])
+.controller('myOrderWpayController', ["$scope", function ($scope) {
+  $scope.state = $scope.getState('wPay');
+  $scope.state.scope = $scope;
+  //$scope.gopay
+}])
+.controller('myOrderWdeliverController', ["$scope", function ($scope) {
+  $scope.state = $scope.getState('wDeliver');
+  $scope.state.scope = $scope;
+}])
+.controller('myOrderWcomfirmController', ["$scope", function ($scope) {
+  $scope.state = $scope.getState('wComfirm');
+  $scope.state.scope = $scope;
+}])
+.controller('myOrderWcommentController', ["$scope", function ($scope) {
+  $scope.state = $scope.getState('wComment');
+  $scope.state.scope = $scope;
+}]);

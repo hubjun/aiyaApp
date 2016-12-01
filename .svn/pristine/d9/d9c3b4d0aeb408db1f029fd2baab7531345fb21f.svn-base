@@ -1,0 +1,59 @@
+<ion-view hide-nav-bar="true" class="address">
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">收货地址管理</div>
+    <div class="buttons buttons-right">
+      <span class="right-buttons">
+        <button class="button button-dark button-clear ion-ios-more icon-right" nav-button></button>
+      </span>
+    </div>
+  </div>
+  <ion-content scrollbar-y="false" class="addr-background has-header">
+    <ion-list>
+      <!--联网数据-->
+      <div ng-repeat="addr in addressList" class="addr-item" ng-if="addressList.length>=1">
+        <ion-item class="addr-itempr">
+          <!--<div class="cdfg-fl addr-default" ng-if="addr.isDefault==1">默认</div>-->
+          <label class="checkbox addr-check cdfg-fl" ng-if="selectedAddress">
+            <input type="radio" ng-model="selectedAddress" value="{{addr.id}}" ng-change="selectAddressData(addr)">
+          </label>
+          <div class="addr-content" ng-click="selectAddressData(addr)">
+            <p>
+              <span class="receiver">{{addr.consignee}}</span>
+              <span class="mobile">{{addr.phone}}</span>
+            </p>
+            <p class="address">{{addr.areaName}}{{addr.address}}</p>
+          </div>
+
+          <div class="addressEditBtn">
+            <label class="checkbox defaultBtn">
+              <input ng-if="addr.isDefault!=1" type="checkbox" class="ng-pristine ng-untouched ng-valid" ng-click="setDefaultAddress(addr.id)">
+              <input ng-if="addr.isDefault==1" type="checkbox" class="ng-pristine ng-untouched ng-valid" checked="checked" ng-click="setDefaultAddress(addr.id)">
+              设为默认地址
+            </label>
+            <button class="button" ng-click="deleteAddressInfo(addr.id)">删除</button>
+            <button class="button editBtn" ng-click="editAddress(addr)">编辑</button>
+          </div>
+
+         <!-- <ion-option-button class="button button-positive" ng-click="setDefaultAddress(addr.id)">
+            设置默认
+          </ion-option-button>
+          <ion-option-button class="button button-positive" ng-click="deleteAddressInfo(addr.id)">
+            删除
+          </ion-option-button>-->
+        </ion-item>
+      </div>
+      <div class="addr-item margin-top adressNull" ng-if="addressList.length==0">
+        <p class="addressNulltip1">您还没有收货地址</p>
+        <p class="addressNulltip2">请添加新地址</p>
+      </div>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar>
+      <div class="button-bar">
+        <button class="button button-positive" ui-sref="addressDetail">新增收货地址</button>
+      </div>
+  </ion-footer-bar>
+</ion-view>

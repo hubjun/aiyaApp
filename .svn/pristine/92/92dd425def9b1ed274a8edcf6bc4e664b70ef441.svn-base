@@ -1,0 +1,72 @@
+aiyaController.controller('resetPwdController', [
+  '$scope',
+  '$state',
+  '$ionicLoading',
+  'userService',
+  'StringUtil',
+  'authCodeService',
+  function($scope, $state, $ionicLoading, userService,StringUtil, authCodeService) {
+    var userList = [{
+      'mobile': '',
+      'authCode': '',
+      'password':''
+    }];
+    $scope.userList = userList;
+    var tip = function (msg) {
+      $ionicLoading.show({
+        template: msg,
+        noBackdrop: true,
+        duration: 1500
+      });
+    };
+    $scope.getAuthCode = function () {
+      var mobile = $scope.userList[0].mobile
+      if (mobile) {
+        authCodeService.get(mobile, 2)
+          .then(function () {
+            tip('验证码已发送');
+          }, function (errorMsg) {
+            tip(errorMsg);
+          })
+      } else {
+        tip('请输入手机号码');
+      }
+    };
+    $scope.submit = function () {
+      var isPass = true;
+      var msg = '';
+      for (var i = 0; i < $scope.userList.length; i++) {
+        var item = $scope.userList[i];
+        if (StringUtil.isEmpty(item.mobile)) {
+          msg = '请输入您的手机号码';
+          isPass = false;
+          break;
+        }
+        if (StringUtil.isEmpty(item.authCode)) {
+          msg = '请输入短信验证码';
+          isPass = false;
+          break;
+        }
+        if(StringUtil.isEmpty(item.password)){
+          msg = '请输入新密码';
+          isPass = false;
+          break;
+        }
+      }
+      if (isPass) {
+        var opt = {
+          username: item.mobile,
+          password: item.password,
+          captchacode: item.authCode
+        };
+        userService.resetPwd(opt)
+          .then(function () {
+            tip('密码重置成功，即将返回');
+          }, function (errorMsg) {
+            tip(errorMsg);
+          })
+      } else {
+        $ionicLoading.show({template: msg, noBackdrop: true, duration: 2000});
+      }
+    };
+  }]);

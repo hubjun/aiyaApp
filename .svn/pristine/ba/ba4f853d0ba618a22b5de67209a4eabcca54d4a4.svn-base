@@ -1,0 +1,74 @@
+<ul class="list">
+  <div ng-repeat="order in state.orders">
+    <li class="item item-divider"></li>
+    <li class="item status-bar">
+      <span class="orderDate">{{::order.createDateStr}}</span>
+      <span class="orderNum">订单号: {{::order.sn}}</span>
+      <span class="orderStatus" ng-switch="currentType">
+        <span ng-switch-when="wPay">{{order.paymentStatusDesc}}</span>
+        <span ng-switch-when="wDeliver">{{order.shippingStatusDesc}}</span>
+        <span ng-switch-when="wComfirm">{{order.shippingStatusDesc}}</span>
+        <!--<span ng-switch-when="wComment">{{order}}</span>-->
+        <span ng-switch-default>{{order.paymentStatusDesc}}</span>
+      </span>
+    </li>
+    <li class="item purchaseProductItem" ng-repeat="product in order.productList" ng-show="show($index, order)">
+      <div class="productImg">
+        <img ng-src="product.image" class=""/>
+      </div>
+      <div class="productDesc">
+        <h2 class="productDesc-title">{{::product.name}}</h2>
+        <p class="productDesc-spec">{{::product.specificationName}}：{{::product.specificationValue}}</p>
+        <p class="productDesc-price color-positive">
+          <span class="">￥{{::product.price| number:2}}</span>
+        </p>
+      </div>
+      <div class="productNum">×{{::product.quantity}}</div>
+    </li>
+    <li class="item" ng-show="showHandle(order)" ng-click="expand(order)">展开剩余{{::order.productList.length - 2}}种商品</li>
+    <li class="item price-bar">
+      <span>实付¥{{::order.totalPrice| number:2}}</span><span>运费¥{{::order.freight| number:2}}</span><span>共{{::order.productNumber}}件商品</span>
+    </li>
+    <!--orderStatusMap: {-->
+    <!--0: '未确认',-->
+    <!--1: '已确认',-->
+    <!--2: '已完成',-->
+    <!--3: '已取消',-->
+    <!--4: '待月结',-->
+    <!--5: '货到付款'-->
+    <!--},-->
+    <!--paymentStatusMap: {-->
+    <!--0:'未支付',-->
+    <!--1:'部分支付',-->
+    <!--2:'已支付',-->
+    <!--3:'部分退款',-->
+    <!--4:'已退款'-->
+    <!--},-->
+    <!--//已发货显示待收货-->
+    <!--shippingStatusMap: {-->
+    <!--0:'未发货',-->
+    <!--1:'部分发货',-->
+    <!--2:'待收货',-->
+    <!--3:'部分退货',-->
+    <!--4:'已退货',-->
+    <!--5:'用户收货',-->
+    <!--6:'已收货'-->
+    <!--},-->
+    <li class="item operator-bar">
+      <button class="button" ng-click="buyAgain(order.id)">再次购买</button>
+      <button class="button" ui-sref="orderDetail({sn: order.sn})">查看订单</button>
+      <button class="button" ng-if="order.shippingStatus == 1 || order.shippingStatus == 2" ui-sref="mylog({sn: order.sn})">我的物流</button>
+      <button class="button" ng-if="order.shippingStatus == 2" ng-click="confirmSingleOrder(order.sn)">确认收货</button>
+      <button class="button" ng-if="order.orderStatus != 3 && order.orderStatus != 2 && order.paymentStatus == 0" ui-sref="orderPay({sn: order.sn})">立即付款</button>
+      <button class="button" ng-if="order.orderStatus != 3 && order.orderStatus != 2 && order.paymentStatus == 0" ng-click="cancelSingleOrder(order.sn)">取消订单</button>
+      <!--<button class="button" ng-if="order.shippingStatus == 0 && order.paymentStatus == 2">提醒发货</button>-->
+      <button class="button" ng-if="order.shippingStatus == 5  && order.paymentStatus == 2 || order.paymentStatus == 1">评价</button>
+    </li>
+  </div>
+  <ion-infinite-scroll
+    ng-if="state.hasMore"
+    on-infinite="loadMore(state)"
+    immediate-check="false"
+    distance="3%">
+  </ion-infinite-scroll>
+</ul>

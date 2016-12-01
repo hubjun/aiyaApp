@@ -1,0 +1,131 @@
+.specificationPopup{
+  .popup{
+    width:100%;
+    min-height: 60%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    .popup-body{
+      .pane{
+        overflow: visible;
+      }
+    }
+    .speci-header{
+      height:4rem;
+      img{
+        position:absolute;
+        width:4rem;
+        height:4rem;
+        left: 16px;
+        top: -12px;
+        background: #fff;
+        padding:2px;
+        border-radius: 5px;
+        border:1px solid #ddd;
+      }
+      div{
+        margin-left:5rem;
+        padding-top: 0.55rem;
+        p{
+          margin:0 0 5px;
+        }
+        .price{
+          color:#ff5f0f;
+          font-weight: bold;
+
+        }
+        .stock{
+          color:#252525;
+        }
+      }
+      .closeButton{
+        position:absolute;
+        right: 16px;
+        top: 16px;
+        font-size: 28px;
+        color:#6f6f6f;
+      }
+    }
+    ion-content{
+      top:4rem;
+      bottom: 56px;
+    }
+    .title{
+      font-weight: 600;
+      line-height: 30px;
+      color:#252525;
+    }
+    .spec-box{
+      label{
+        float:left;
+      }
+      .spec-content{
+        background: #fff;
+        border: 1px solid #a3a3a3;
+        color:#484848;
+        padding:8px 4px;
+        margin: 10px 8px 0 0;
+      }
+      .spec-noSelect{
+        color:#D3D3D3;
+        border:1px solid #D3D3D3;
+      }
+      input{
+        position: absolute;
+        left: -999px;
+      }
+      input:checked~{
+        .spec-content{
+          background: #ff5f05;
+          color:#fff;
+          border-color:#f06d14;
+        }
+      }
+    }
+    .numberBox{
+      float:right;
+      height: 30px;
+      border: 1px solid #a3a3a3;
+      input{
+        width: 42px;
+        border:none;
+        text-align: center;
+      }
+      .operaButton{
+        display: inline-block;
+        padding: 2px 4px 6px;
+        font-size: 19px;
+        color: #717070;
+        background: #DDDDDD;
+      }
+    }
+
+    .speci-footer{
+      padding:0;
+      .button-bar>.button, .bar .buttons>.button {
+        line-height: 44px;
+      }
+      .button-bar>.button:first-child {
+        border-radius:0;
+      }
+      .button-bar>.button:last-child {
+        border-radius: 0;
+      }
+      .button-bar{
+        padding: 0;
+        .button-buyNow{
+          border-color: transparent;
+          background-color: #e42112;
+          color: #fff;
+        }
+        .button-join{
+          border-color: transparent;
+          background-color: #ff5f0f;
+          color: #fff;
+        }
+      }
+    }
+
+  }
+}

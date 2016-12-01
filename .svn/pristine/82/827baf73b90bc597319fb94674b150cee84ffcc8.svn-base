@@ -1,0 +1,38 @@
+<ion-view view-title="找货助手" hide-nav-bar="true">
+  <!-- header-bar -->
+  <div class="bar bar-header bar-stable">
+    <h1 class="title">找货助手</h1>
+    <button class="button button-dark button-clear ion-ios-more icon-right" nav-button></button>
+  </div>
+
+  <ion-content class="has-header findAssistant_page">
+    <div ng-repeat="product in productList" class="padding-top">
+       <div class="padding-left padding-right">
+         <img  ng-if="product.productImage == ''" ng-src="../www/img/assistant_default.jpg" style="width:100px;height: 100px;">
+         <img  ng-if="product.productImage != ''" ng-src="{{product.productImage}}" style="width:100px;height: 100px;">
+         <span ng-click="takePhoto($index)" class="icon-left icon-uploading">上传图片</span>
+       </div>
+        <div class="list card">
+          <label class="item item-input">
+            <input type="text" placeholder="产品名称" ng-model="product.productName">
+          </label>
+          <label class="item item-input">
+            <input type="text" placeholder="品牌" ng-model="product.forBrand">
+          </label>
+          <label class="item item-input">
+            <input type="text" placeholder="规格型号" ng-model="product.category">
+          </label>
+          <label class="item item-input">
+            <input type="text" placeholder="数量" ng-model="product.purchaseNumber">
+          </label>
+        </div>
+    </div>
+    <div class="padding-left padding-right">
+      <img src="../www/img/cut.png" class="button button-clear icon-left ion-option" ng-click="cutProduct()" ng-show="productList.length > 1"/>
+      <img src="../www/img/add.png" class="button button-clear icon-left ion-option" ng-click="addProduct()"/>
+    </div>
+    <div class="padding">
+        <a class="button button-block button-positive button-next" ng-click="next()">下一步</a>
+    </div>
+  </ion-content>
+</ion-view>

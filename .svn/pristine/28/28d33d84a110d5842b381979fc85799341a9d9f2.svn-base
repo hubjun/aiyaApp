@@ -1,0 +1,180 @@
+.order-ok{
+  background: #F4F4F4;
+  .order-tips{
+    white-space: normal;
+    background: #fde2b4;
+    span{
+      color: #a86325;
+      font-size: rem(24);
+    }
+  }
+  .address{
+    background: #fff;
+    //padding: 10px 12px;
+    .contact{
+      padding-left: 0;
+      padding-right: 0;
+      span{
+        font-size: rem(28);
+        color: #484848;
+        font-weight: bold;
+      }
+      .col{
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+    p{
+      font-size: rem(22);
+      color: #484848;
+      margin: 0;
+      white-space: normal;
+    }
+  }
+  .noAddress{
+    font-size: rem(28);
+
+  }
+  .product-list{
+    position: relative;
+    //padding: 13px 12px;
+    background: #fff;
+    .left-img{
+      //display: inline-block;
+      float: left;
+      img{
+        width: rem(158);
+        height: rem(158);
+      }
+    }
+    .mid-detail{
+      //display: inline-block;
+      float: left;
+      //padding: 0 0 0 16px;
+      font-size: 16px;
+      white-space: normal;
+      span{
+        display: block;
+        line-height: 23px;
+        font-size: rem(24);
+      }
+      .name{
+        color: #252525;
+        margin: 0 0.9rem 0 0.3rem;
+      }
+      .parames{
+        color: #808080;
+        font-size: rem(20);
+      }
+      .price{
+        padding: 0 0 0 0.2rem;
+        color: #FF5F0F;
+      }
+    }
+    .count{
+      position: absolute;
+      top: 6px;
+      right: -0.36rem;
+      font-size: 16px;
+      color: #252525;
+    }
+  }
+  .item-input-wrapper{
+    .leaveMsg{
+      width: 300px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+  .column-item{
+    h2{
+      float: left;
+      margin: 0;
+      line-height: inherit;
+      font-size: rem(26);
+      color: #484848;
+    }
+    span{
+      float: right;
+      font-size: rem(25);
+      color: #FF5F0F;
+    }
+  }
+  .total{
+    b{
+      color: #252525;
+    }
+  }
+  .discount{
+    h2{
+      line-height: 32px;
+    }
+    button{
+      top: 0;
+      right: 0;
+      font-size: 14px;
+    }
+    .couponBtn{
+      border: 1px solid #FBFBFB;
+    }
+  }
+  .bill{
+    margin-bottom: 11px;
+    border-bottom: 0;
+    //ul li{
+    //  border-bottom: 0;
+    //}
+    .toggle-span{
+      span{
+        color: #484848;
+        font-size: rem(24);
+      }
+    }
+  }
+  #sada{
+    /*margin-bottom: 20px;*/
+    margin-top: -13px;
+    border-top:0;
+    margin-bottom: 12px;
+  }
+  .list-total{
+    span.col-total{
+      float: right;
+      padding: 0 19px 0 0;
+      line-height: 32px;
+      text-align: right;
+    }
+      b{
+        color: #252525;
+      }
+  }
+  .orderOkfooter{
+    padding: 7px 12px 15px;
+    height: auto;
+  }
+}
+
+.aiya-popover-shipping{
+  .description{
+    font-size:14px;
+    color:#C3C3C3;
+  }
+  .radio-fl{
+    float:right;
+  }
+}
+.title.matterTit{
+  color: #2C2C2C;
+  font-size: 0.8rem;
+}
+.orderMatter{
+  color: #656565;
+  font-size: 0.6rem;
+  padding: 5px 20px;
+}
+.button-bar{
+  .matterAgree{
+    margin: 6px 8px;
+  }
+}

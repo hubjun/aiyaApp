@@ -1,0 +1,17 @@
+angular.module('starter.services')
+  .factory('logisticService', [
+    'ENV',
+    'httpRequest',
+    function(ENV, httpRequest) {
+      var getOneConfig = ENV.logistic.get;
+      return {
+        get: function(sn) {
+          return httpRequest({
+            method: getOneConfig.method,
+            url: getOneConfig.url,
+            params: {'sn': sn}
+          });
+        }
+      }
+    }
+  ]);

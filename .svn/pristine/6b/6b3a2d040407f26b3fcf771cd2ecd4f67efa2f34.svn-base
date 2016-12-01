@@ -1,0 +1,123 @@
+<ion-view class="home-page" hide-nav-bar="true">
+    <div class="bar-aiyaku bar bar-header item-input-inset bar-assertive">
+      <button class="button icon-left ion-aiya button-clear bar-header-left" ui-sref="mainCategory">&#xe605;</button>
+      <label class="item-input-wrapper">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="search" ng-focus="jumpSearchPage()" placeholder="搜索你要的产品">
+      </label>
+      <button class="button icon-right ion-aiya button-large button-clear has-badge bar-header-right" ui-sref="purchaseOrderList">
+        &#xe60b;<i class="badge badge-aiyaku">{{purchaseCounts.cartquantity}}</i>
+      </button>
+    </div>
+
+    <ion-content class="has-header">
+      <ion-refresher
+        pulling-text="松手刷新哦..."
+        refreshing-text="刷新完成"
+        on-refresh="doHomeRresh()">
+      </ion-refresher>
+      <!--幻灯广告 start-->
+      <div class="home-slide">
+          <ion-slide-box does-continue="true" slide-interva="2000" show-pager="true" auto-play="true">
+            <ion-slide ng-repeat="ad in adList">
+              <!--<a ng-href="/product/info/{{ad.id}}">-->
+                <img ng-src="{{imgUrl}}{{ad.path}}" alt="{{ad.title}}">
+              <!--</a>-->
+            </ion-slide>
+            <!--<ion-slide>-->
+              <!--<img src="img/s-3.jpg" ng-click="toProductInfo(recommedproduct.id)">-->
+            <!--</ion-slide>-->
+          </ion-slide-box>
+      </div>
+      <!--幻灯广告 end-->
+      <div class="first-recommend">
+          <!--本月推荐 start-->
+          <div class="head-recommend">
+            <div class="row">
+              <div class="col col-50 title-recom">
+                <h2>本月推荐</h2>
+              </div>
+              <div class="col col-50 recom-more">
+                <span ui-sref="filterList">查看更多 ></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col pad-h-0" ng-repeat="recommedproduct in recommedproductlist | limitTo: 3 " ng-click="toProductInfo(recommedproduct.id)">
+              <div class="recomm-list">
+                <div class="recommend-item">
+                  <div class="imgbox">
+                    <a ng-href="#/product/info/{{recommedproduct.id}}">
+                      <img ng-src="{{imgUrl}}{{recommedproduct.image}}" alt="{{recommedproduct.name}}">
+                    </a>
+                  </div>
+                </div>
+                <div class="pro-detail">
+                  <p class="pro-name">{{recommedproduct.name | characters:13: false}}</p>
+                  <div class="pro-price">
+                    <span class="discount-pri">{{recommedproduct.price | currency:'￥'}}</span>
+                    <span class="fact-pri">{{recommedproduct.marketPrice | currency:'￥'}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--本月推荐 end-->
+
+        <!--首页楼层 start-->
+        <div ng-repeat="floor in floorproductlist">
+        <div class="floor-head" >
+          <div class="row row-line">
+            <div class="col img-icon" ng-class="setFloorHeadStyle(floor.floor)" >
+              <span></span>
+              <h3>{{floor.productCategoryName}}</h3>
+            </div>
+            <div class="col col-center fl-more">
+              <span ui-sref="filterList">查看更多&nbsp;></span>
+            </div>
+          </div>
+        </div>
+        <div class="floor-ad">
+          <div class="row">
+            <div class="col-71 fl-slide">
+                <ion-slide-box does-continue="true" show-pager="true" auto-play="true">
+                  <ion-slide ng-repeat ="adPosition in floor.adPositionList" >
+                    <div>
+                     <img ng-src="{{imgUrl}}{{adPosition.path}}">
+                    </div>
+                  </ion-slide>
+                </ion-slide-box>
+            </div>
+            <div class="col-28 col-offset-1 ad-con">
+              <div class="fl-img" ng-repeat="brand in floor.brandList | limitTo:2">
+                <img ng-src="{{imgUrl}}{{imgUrl}}" alt="">
+              </div>
+            </div>
+          </div>
+
+            <div class="col col-50 pro-list" ng-repeat="product in floor.productList | limitTo:4" ng-click="toProductInfo(product.id)">
+              <div class="list-con">
+                <div class="pro-item">
+                  <div class="imgbox">
+                    <a ng-href="#/product/info/{{product.id}}">
+                      <img ng-src="{{imgUrl}}{{product.image}}" alt="">
+                    </a>
+                  </div>
+                </div>
+                <div class="list-detail">
+                  <p class="pro-name">{{product.name}}</p>
+                  <div class="list-price">
+                    <span class="dis-pri">{{product.cost | currency:'￥'}}</span>
+                    <span class="fact-pri">{{product.marketPrice | currency:'￥'}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+          </div>
+        <!--首页楼层 end-->
+    </ion-content>
+    <a class="helpButton ion-aiya" ng-click="linkHelp()">&#xe617;</a>
+    <a class="scrollTop"  ng-click="scrollTop()"></a>
+</ion-view>

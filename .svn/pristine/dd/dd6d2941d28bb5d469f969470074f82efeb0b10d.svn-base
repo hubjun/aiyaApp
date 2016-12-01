@@ -1,0 +1,33 @@
+<ion-view view-title="本月推荐" hide-nav-bar="true" hide-tabs="true">
+
+  <ion-header-bar align-title="center" class="bar-stable">
+    <a class="button ion-ios-arrow-back icon-left button-dark button-clear" ng-click="back()"></a>
+    <h1 class="title">本月推荐</h1>
+    <a class="button button-dark button-clear ion-ios-more icon-right"></a>
+  </ion-header-bar>
+
+  <ion-content>
+      <ion-refresher pulling-text="松手更新..." on-refresh="doRefresher()"></ion-refresher>
+      <div class="row monthMR" ng-repeat="moreMRList in recommendMoreList.data.list ">
+          <div class="col-40 left-img">
+              <a href="#">
+                <img ng-src="{{moreMRList.image}}{{moreMRList.name}}"  alt="{{moreMRList.name}}">
+              </a>
+          </div>
+          <div class="col-60 col-offset-6 right-detail">
+              <div class="name-stock">
+                <div class="pro-name">{{moreMRList.name}}</div>
+                <p class="stock">{{moreMRList.stack}}</p>
+              </div>
+              <div class="kind-price">
+                <span class="fact-price">{{moreMRList.marketPrice | currency : '￥'}}</span>
+                <span class="dis-price">{{moreMRList.price | currency : '￥'}}</span>
+              </div>
+              <div class="ask-price">
+                <span>立即询价</span>
+              </div>
+              <span class="join-cart" ng-click="joinCart()"></span>
+          </div>
+      </div>
+  </ion-content>
+</ion-view>

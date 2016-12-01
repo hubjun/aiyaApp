@@ -1,0 +1,156 @@
+/*采用这种注入编译后期js压缩*/
+aiyaController.controller('HomeCtrl',[
+  '$rootScope',
+  '$scope',
+  '$state',
+  'index',
+  'ENV',
+  'CommonUtil',
+  '$location',
+  '$ionicActionSheet',
+  '$window',
+  '$ionicSlideBoxDelegate',
+  function($rootScope,$scope,$state,index,ENV,CommonUtil,$location,$ionicActionSheet,$window,$ionicSlideBoxDelegate){
+  //页面激活时
+  $scope.$on('$ionicView.enter', function(){
+    //console.log('view.enter');
+    $ionicSlideBoxDelegate.update();
+  });
+  var loadData = function(){
+    index.recommedproductlist().get(null,function(rs){
+      if(rs.code == 1){
+        $scope.recommedproductlist = rs.data.list;
+      } else {
+        CommonUtil.tip(rs.msg);
+      }
+    }, function(err){
+      CommonUtil.tip(err);
+    });
+
+    index.floorproductlist().get(null,function(rs){
+      if(rs.code == 1){
+        $scope.floorproductlist = rs.data.list;
+      } else {
+        CommonUtil.tip(rs.msg);
+      }
+    },function(err){
+      CommonUtil.tip('网络错误');
+    });
+  }
+  loadData();
+
+  $rootScope.imgUrl = ENV.imgUrl;
+
+  //轮播图
+  var adlistOpt = {
+    beginDate: '',
+    endDate: '',
+    positionId: 3
+  };
+  $scope.adList = null;
+  index.getAdlist(adlistOpt)
+    .then(function(ads){
+      $scope.adList = ads.list;
+    },function(errMsg){
+      CommonUtil.tip(errMsg);
+    });
+
+  //$scope.purchaseCounts = index.purchaseCount();
+  index.purchaseCount().get(function(rs){
+    if(rs.code === 1 ){
+        $scope.purchaseCounts = rs.data;
+    }
+  });
+
+  $scope.setFloorHeadStyle = function(floor){
+    var floorStyle = '';
+    switch (floor){
+      case '1F':
+        floorStyle = 'head1';
+        break;
+      case '2F':
+        floorStyle = 'head2';
+        break;
+      case '3F':
+        floorStyle = 'head3';
+        break;
+      case '4F':
+        floorStyle = 'head4';
+        break;
+      case '5F':
+        floorStyle = 'head5';
+        break;
+      case '6F':
+        floorStyle = 'head6';
+        break;
+      case '7F':
+        floorStyle = 'head7';
+        break;
+      case '8':
+        floorStyle = 'head8';
+        break;
+      default :
+        floorStyle = 'head1';
+    }
+    return floorStyle;
+  }
+
+  $scope.doHomeRresh = function(){
+    loadData();
+    $scope.$broadcast("scroll.refreshComplete");
+  };
+
+  //banner广告跳转
+  $rootScope.toProductInfo = function(id){
+    $location.path('/product/info/' + id);
+  };
+
+  //搜索跳转
+  $scope.jumpSearchPage = function(){
+    $state.go('homeSearch');
+  };
+
+  /*监听路由判断网路状态*/
+  $rootScope.$on('$stateChangeStart',function(event){
+    if (navigator.connection) {
+      var networdType = navigator.connection.type;
+      if (networdType.toUpperCase().indexOf('NONE') > -1 || networdType.toUpperCase().indexOf('UNKNOWN') > -1) {
+        event.preventdefault();
+        var oldUrl = $location.url();
+        $location.url('/network');
+        $location.replace();
+      }
+    }
+  });
+
+  $scope.linkHelp = function(){
+    $ionicActionSheet.show({
+      buttons: [
+        { text: '拨打耗材客服电话' },
+        { text: '拨打义齿加工客服电话' },
+        { text: '耗材在线咨询' },
+        { text: '义齿加工在线咨询' }
+      ],
+      titleText: '服务电话<br/>周一至周六09:00-18:00(法定节假日除外)',
+      cancelText: '取消',
+      cancel: function() {
+        // add cancel code..
+      },
+      buttonClicked: function(index) {
+        switch(index){
+          case 0:
+              $window.location.href="tel://"+ENV.consumableTel;
+              break;
+          case 1:
+              $window.location.href="tel://"+ENV.toothTel;
+              break;
+          case 2:
+              break;
+          case 3:
+              break;
+        }
+        return true;
+      }
+    });
+  }
+}]);

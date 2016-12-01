@@ -1,0 +1,372 @@
+angular.module('starter.route', ['ionic'])
+  .config([
+    '$stateProvider',
+    '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
+      //默认路由
+      $urlRouterProvider.otherwise('/tab/home');
+
+      $stateProvider
+        .state('tab', {
+          url: "/tab",
+          abstract: true,
+          templateUrl: "templates/tabs.html"
+        })
+
+        //首页
+        .state('tab.home', {
+          url: '/home',
+          views: {
+            'tab-home': {
+              templateUrl: 'templates/home/home.html',
+              controller: 'HomeCtrl'
+            }
+          }
+        })
+
+        //品牌索引
+        .state('tab.brand', {
+          url: '/brand',
+          views: {
+            'tab-brand': {
+              templateUrl: 'templates/brand/brand.html',
+              controller: 'brandController'
+            }
+          },
+          resolve: {
+            return: function() {
+
+            }
+          }
+        })
+
+        //齿研社
+        .state('tab.toothOp', {
+          url: '/toothOp',
+          views: {
+            'tab-toothOp': {
+              templateUrl: 'templates/toothOp/index.html',
+              controller: 'toothOpCtrl'
+            }
+          }
+        })
+
+        //齿研社-立即询价
+        .state('tab.toothOpEnquiry', {
+          url: 'toothEnquiry',
+          views: {
+            'tab-toothOp': {
+              templateUrl: "templates/toothOp/enquiry.html",
+              controller: 'toothOpCtrl'
+            }
+          }
+        })
+
+        //找货助手
+        .state('tab.findAssistant', {
+          url: '/findAssistant',
+          views: {
+            'tab-findAssistant': {
+              templateUrl: 'templates/findAssistant/index.html',
+              controller: 'FindAssistant'
+            }
+          }
+        })
+
+        //我的爱牙库
+        .state('tab.user', {
+          url: "/user",
+          views: {
+            'tab-user': {
+              templateUrl: "templates/user/user.html",
+              controller: 'userController'
+            }
+          }
+        })
+        //本月推荐更多
+        .state('tab.moreMR', {
+          url: "/moreMR",
+          views: {
+            'tab-home': {
+              templateUrl: "templates/categoryList/moreMR.html",
+              controller: 'moreMRCtrl'
+            }
+          }
+        })
+
+        //首页热门搜索
+        .state('homeSearch', {
+          url: '/search',
+          templateUrl: 'templates/home/homeSearch.html',
+          controller: 'HomeSearchCtrl'
+        })
+
+        //产品分类
+        .state('mainCategory', {
+          url: "/mainCategory",
+          templateUrl: "templates/categoryList/productCategory.html",
+          controller: 'productCategoryController'
+        })
+
+        //产品筛选,高级搜索列表
+        .state('filterList', {
+          params: {fristCategoryId:null,keyword:null,brandId:null},
+          url: '/productList',
+          templateUrl: 'templates/categoryList/filterProductList.html',
+          controller: 'filterListCtrl'
+        })
+        //
+        .state('tab.assistantConfirm', {
+          url: '/assistant/confirm',
+          views: {
+            'tab-findAssistant': {
+              templateUrl: 'templates/findAssistant/confirm.html',
+              controller: 'assistantConfirm'
+            }
+          }
+        })
+
+        .state('productInfo', {
+          url: '/product/info/:id',
+          templateUrl: 'templates/categoryList/productInfo.html',
+          controller: 'productInfoCtrl'
+        })
+
+        //支付成功
+        .state('paySuccess', {
+          url: '/paySuccess/:sn',
+          params:{sn:null},
+          templateUrl: 'templates/order/paySuccess.html',
+          controller: 'paySuccessController'
+        })
+
+        .state('tab.favorite', {
+          url: '/favorite',
+          views: {
+            'tab-user': {
+              templateUrl: 'templates/favorite/index.html',
+              controller: 'favoriteController'
+              /*     data:{
+               hasAuth: true
+               }*/
+            }
+          }
+        })
+
+        .state('tab.setting', {
+          url: '/setting',
+          views: {
+            'tab-user': {
+              templateUrl: 'templates/user/setting.html',
+              controller: 'userController'
+            }
+          }
+        })
+
+        //我的采购单
+        .state('purchaseOrderList', {
+          url: '/purchaseOrderList',
+          templateUrl: 'templates/purchaseOrder/purchaseOrderList.html',
+          controller: 'purchaseOrderController'
+        })
+
+        .state('purchaseOrderEdit', {
+          url: '/purchaseOrderEdit',
+          templateUrl: 'templates/purchaseOrder/purchaseOrderEdit.html',
+          controller: 'purchaseOrderController'
+        })
+
+        //我的订单
+        .state('tab.myOrders', {
+          url: '/myOrders',
+          views: {
+            'tab-user': {
+              controller: 'myOrdersController',
+              templateUrl: 'templates/user/myOrders.html'
+            }
+          },
+          params: {
+            tab: 0
+          }
+        })
+
+        //订单详情
+        .state('orderDetail', {
+          url: '/myOrders',
+          params:{sn:null},
+          templateUrl: 'templates/order/orderDetail.html',
+          controller: 'orderDetailController'
+        })
+
+        //订单确认
+        .state('orderOk', {
+          params:{"productInfo":null},
+          url: 'orderOk',
+          templateUrl: 'templates/order/orderOk.html',
+          controller: 'orderListOk'
+        })
+
+        //订单结算
+        .state('orderPay', {
+          url: '/orderPay',
+          params:{sn:null},
+          templateUrl: 'templates/order/orderPay.html',
+          controller: 'orderListPay'
+        })
+
+
+
+        //我的物流
+        .state('mylog', {
+          url: '/mylog/{sn}',
+          templateUrl: 'templates/logistics/mylog.html',
+          controller: 'mylogController'
+        })
+
+        //快速采购
+        .state('tab.rapidList', {
+          url: '/rapidList',
+          views: {
+            'tab-user': {
+              templateUrl: 'templates/purchaseOrder/rapidList.html',
+              controller: 'rapidListController'
+            }
+          }
+        })
+
+        .state('tab.address', {
+          url: '/address:addrId',
+          views: {
+            'tab-user': {
+              templateUrl: 'templates/adress/address.html',
+              controller: 'addressController'
+            }
+          }
+        })
+
+        //个人信息
+        .state('tab.userInfo', {
+          url: '/userInfo',
+          views: {
+            'tab-user': {
+              templateUrl: 'templates/user/userInfo.html',
+              controller: 'userController'
+            }
+          }
+        })
+
+        //修改Email地址
+        .state('email', {
+          url: '/email',
+          templateUrl: 'templates/user/email.html',
+          controller: ''
+        })
+
+        //修改电话
+        .state('phone', {
+          url: '/phone',
+          templateUrl: 'templates/user/phone.html',
+          controller: ''
+        })
+
+        //修改手机
+        .state('modifyPhone', {
+          url: '/modifyPhone',
+          templateUrl: 'templates/user/modifyPhone.html',
+          controller: ''
+        })
+        //牙科名称
+        .state('editDentistryName', {
+          url: '/editDentistryName',
+          templateUrl: 'templates/user/editDentistryName.html',
+          controller: 'userController'
+        })
+
+        //设置-收货地址
+        .state('tab.addressDetail', {
+          url: '/addressDetail/:addressId/:isSelect',
+          views: {
+            'tab-user': {
+              templateUrl: 'templates/adress/addressDetail.html',
+              controller: 'addressDetailController'
+            }
+          }
+        })
+
+        //关于我们
+        .state('tab.aboutOur', {
+          url: '/aboutOur',
+          views: {
+            'tab-user': {
+              templateUrl: 'templates/user/about.html',
+              controller: ''
+            }
+          }
+        })
+        //联系我们
+        .state('tab.linkUs', {
+          url: '/linkUs',
+          views: {
+            'tab-user': {
+              templateUrl: 'templates/user/linkUs.html',
+              controller: ''
+            }
+          }
+        })
+        //修改密码
+        .state('tab.modifyPwd', {
+          url: '/modifyPwd',
+          views: {
+            'tab-user': {
+              templateUrl: 'templates/user/modifyPwd.html',
+              controller: 'modifyPwdController'
+            }
+          }
+        })
+
+        //登录
+        .state('login', {
+          url: '/login',
+          templateUrl: 'templates/user/login.html',
+          controller: 'loginController'
+        })
+
+        //注册
+        .state('register', {
+          url: '/register',
+          templateUrl: 'templates/user/register.html',
+          controller: 'registerController'
+        })
+        //用户协议
+        .state('userAgree', {
+          url: '/userAgree',
+          templateUrl: 'templates/user/userAgree.html',
+          controller: ''
+        })
+        //找回密码
+        .state('resetPwd', {
+          url: '/resetPwd',
+          templateUrl: 'templates/user/resetPwd.html',
+          controller: 'resetPwdController'
+        })
+
+        //404
+        .state('network', {
+          url: '/network',
+          templateUrl: 'templates/error/network.html',
+          controller: 'networkCtrl'
+        })
+        //订单评价
+        .state('tab.evaluation',{
+          url:'/evaluation',
+          views:{
+            'tab-user':{
+              templateUrl: 'templates/user/evaluation.html',
+              controller: ''
+            }
+          }
+        });
+
+
+    }
+  ]);

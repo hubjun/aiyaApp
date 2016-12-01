@@ -1,0 +1,118 @@
+aiyaController.controller('FindAssistant',[
+  '$scope',
+  '$location',
+  '$ionicLoading',
+  'StringUtil',
+  '$cordovaCamera',
+  '$ionicActionSheet',
+  function($scope,$location,$ionicLoading,StringUtil,$cordovaCamera,$ionicActionSheet){
+  $scope.$on('$ionicView.enter',function(){
+    //判断是否登录
+  });
+  var productList = [{
+    'productImage':'',
+    'productName':'',
+    'forBrand':'',
+    'category':'',
+    'purchaseNumber':''
+  }];
+  $scope.name = ''; //联系人姓名
+  $scope.phone = '';//联系人电话
+  $scope.hospitalName = ''//联系人医院地址
+  $scope.productList = productList;
+  /*新增*/
+  $scope.addProduct = function(){
+    var item =  {
+      'productImage':'',
+      'productName':'',
+      'forBrand':'',
+      'category':'',
+      'purchaseNumber':''
+    };
+    $scope.productList.push(item);
+  }
+  $scope.cutProduct = function(){
+    if($scope.productList.length > 1){
+      $scope.productList.splice($scope.productList.length-1,1);
+    }
+  }
+  $scope.next = function(){
+    var isPass = true;
+    var msg = '';
+    for(var i = 0; i< $scope.productList.length; i++){
+       var item = $scope.productList[i];
+       if(StringUtil.isEmpty(item.productName)){
+          msg = '请输入产品名称';
+          isPass = false;
+          break;
+       }
+      if(StringUtil.isEmpty(item.forBrand)){
+        msg = '请输入品牌名称'
+        isPass = false;
+        break;
+      }
+      if(StringUtil.isEmpty(item.category)){
+        msg = '请输入规格'
+        isPass = false;
+        break;
+      }
+      if(StringUtil.isEmpty(item.purchaseNumber)){
+        msg = '请输入数量'
+        isPass = false;
+        break;
+      }
+    }
+    if(isPass) {
+      $location.path('/assistant/confirm');
+    } else {
+      $ionicLoading.show({template:msg,noBackdrop:true,duration:2000});
+    }
+  }
+  $scope.takePhoto = function(index){
+    var options = {};
+    var optionWindow =  $ionicActionSheet.show({
+      buttons: [
+        {text:'拍照'},
+        {text:'从相册选择'}
+      ],
+      titleText:'选择照片',
+      cancelText:'取消',
+      cancel: function(){
+
+      },
+      buttonClicked: function(order) {
+        optionWindow();//再次触发隐藏
+        if(order == 0){
+            options = {
+              destinationType: Camera.DestinationType.FILE_URI,
+              sourceType: Camera.PictureSourceType.CAMERA       //图片来源  0|1 : 相机  2:图册
+            }
+        }else if(order == 1){
+          options = {
+            quality: 100,     //图片质量 0-100
+            allowEdit: false,                                        //在选择之前允许修改截图
+            maximumImagesCount: 1,
+            mediaType:0,   //可选媒体类型：圖片=0，只允许选择图片將返回指定DestinationType的参数。 視頻格式=1，允许选择视频，最终返回 FILE_URI。ALLMEDIA= 2，允许所有媒体类型的选择。
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM
+          }
+        }
+        $cordovaCamera.getPicture(options).then(function(imageURI) {
+           $scope.productList[index].productImage = imageURI;
+        }, function(err) {
+        });
+      }
+    });
+  }
+
+  $scope.confirmPulish = function(){
+    var resposebody = {name: $scope.name,hospitalName: $scope.hospitalName,phone:$scope.phone,productList:$scope.productList};
+    notepad.save(resposebody,function(rs){
+      if(rs.code == 1){
+        $ionicLoading.show({template:'发布成功,我们会在一小时内给您报价',noBackdrop:true,duration:2000});
+      }
+    });
+  };
+
+
+}]);

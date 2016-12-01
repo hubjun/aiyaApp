@@ -1,0 +1,96 @@
+aiyaController.controller('userController',[
+  '$scope',
+  '$state',
+  '$timeout',
+  '$ionicLoading',
+  '$ionicActionSheet',
+  'userService',
+  function($scope, $state, $timeout, $ionicLoading, $ionicActionSheet, userService){
+    var userInfoPromise;
+    var tip = function (msg) {
+      $ionicLoading.show({
+        template: msg,
+        noBackdrop: true,
+        duration: 1500
+      });
+    };
+
+    $scope.$on('$destroy', function () {
+      if(userInfoPromise.abort) {
+        userInfoPromise.abort();
+      }
+      $ionicLoading.hide();
+    });
+
+    $ionicLoading.show();
+    userInfoPromise = userService.getInfo();
+
+    userInfoPromise.then(function (user) {
+      $scope.user = user;
+      $scope.userID = user.id;
+      $ionicLoading.hide();
+    }, function () {
+      $ionicLoading.hide();
+      $state.go('login');
+    });
+
+    //个人信息性别编辑
+    $scope.linkGender = function(){
+      $ionicActionSheet.show({
+        buttons: [
+          {text: '男'},
+          {text: '女'}
+        ],
+        titleText: '',
+        cancelText: '取消',
+        buttonClicked: function(index){
+          switch(index){
+            case 0:
+              userService.update({id: $scope.userID ,gender: 0})
+                .then(function(){
+                  tip('更新成功！');
+                },function(errormsg){
+                  tip(errormsg);
+                })
+              //console.log('男');
+              break;
+            case 1:
+              userService.update({id: $scope.userID ,gender: 1})
+                .then(function(){
+                  tip('更新成功！');
+                },function(errormsg){
+                  tip(errormsg);
+                })
+              //console.log('女');
+              break;
+          }
+          return true;
+        }
+      });
+    }
+    //个人信息牙科名称编辑
+    $scope.linkDentistryOk = function(){
+      var opt = {
+        name: $scope.dentistryName
+      }
+      userService.update(opt)
+        .then(function(){
+          tip('更新成功！');
+        },function(errMsg){
+          tip(errMsg);
+        })
+    }
+
+    //登出
+    $scope.logout = function(){
+      userService.logout()
+        .then(function(){
+          tip('成功退出！');
+          setTimeout(function(){
+            $scope.back();
+          },1000);
+        },function(errMsg){
+          tip(errMsg);
+        });
+    }
+}]);

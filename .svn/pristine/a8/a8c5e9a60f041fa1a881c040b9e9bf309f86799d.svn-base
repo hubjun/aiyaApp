@@ -1,0 +1,94 @@
+//物流状态
+.orderItemStated,.logSubsidiary,.subList ion-item.item{
+  background: #FCFCFC;
+}
+.orderItemStated h2,.orderItemStated p{
+  margin-bottom:9px;
+}
+.mylog .stated,.logSubTit{
+  color:#252525;
+}
+.mylog .sign,.subFirstList p{
+  color:#FF5F0F;
+}
+//物流明细
+.logSubsidiary{
+  margin:15px 0px;
+  padding:0 8px;
+  border:1px solid #D3D3D3;
+  border-left:0 none;
+  border-right:0 none;
+}
+.logSubTit {
+  padding: 8px 0px;
+  border-bottom: 1px solid #CCCCCC;
+}
+.subList .list {
+  margin-top:-10px;
+}
+.subList ion-item.item {
+  border: 0 none;
+}
+.subFirstList .stateInfo {
+  border-top: 0 none;
+}
+.stateLine {
+  width: 10px;
+  min-height: 64px;
+  height: 100%;
+  margin-top: -17px;
+  margin-bottom: -109px;
+  border-left: 1px solid #E4E4E4;
+  float: left;
+}
+.LastYuan{
+  width: 30px;
+  height: 30px;
+  background: #FCFCFC;
+  position: absolute;
+  top: 0;
+  left: 1px;
+}
+.insetYuan{
+  width: 20px;
+  height: 20px;
+  margin: 8px auto;
+  border-radius: 10px;
+  background: #FDC98B;
+  padding-top: 3px;
+}
+.insetYuan span{
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+  display: block;
+  background: #FF5F0F;
+  margin: auto;
+}
+.stateyuan {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background: #E4E4E4;
+  position: absolute;
+  top: 37%;
+  left: 12px;
+}
+.stateInfo {
+  width: 100%;
+  float: right;
+  padding: 10px;
+  margin-top: -16px;
+  margin-bottom: -17px;
+  margin-right: -15px;
+  border-top: 1px solid #D2D2D6;
+}
+//看了又看
+.logLook{
+  width:100%;
+  height:auto;
+}
+.logLookTit{
+  text-align:center;
+  color:#878787;
+}

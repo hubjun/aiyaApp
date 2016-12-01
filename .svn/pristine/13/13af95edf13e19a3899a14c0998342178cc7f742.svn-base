@@ -1,0 +1,87 @@
+<ion-view class="product-category" hide-nav-bar="true" view-title="商品分类" cache-view="false">
+
+  <div class="bar bar-header item-input-inset bar-stable">
+    <button class="button icon-left ion-ios-arrow-back button-clear mar-right-10" ui-sref="home"></button>
+    <label class="item-input-wrapper">
+      <i class="icon ion-android-search placeholder-icon"></i>
+      <input type="search" ng-focus="jumpSearchPage()" placeholder="输入要搜索的关键字">
+    </label>
+    <button class="button button-clear">
+      <a class="button ion-ios-more icon-right button-dark button-clear" nav-button></a>
+    </button>
+  </div>
+
+  <!--<div ng-if="!obj_thirdList.data.length" class="aiya-loading">-->
+  <!--<ion-spinner class="spinner-positive" icon="dots"><span class="aiyaLoading">正在加载...</span></ion-spinner>-->
+  <!--</div>-->
+  <ion-content class="has-header scroll-content" scroll="false" scrollbar-y="false">
+    <div class="mian-category row">
+      <!--左侧-->
+      <div class="nav-menu col-33">
+        <ul class="ul">
+          <li ng-click="selectTab($event)" id="category-all" class="category-select li button button-clear">全部分类</li>
+          <li class = "tab-onblur li button button-clear" ng-repeat="nav in obj_navCategory"
+              ng-click="selectTab($event,nav.id,nav.name)" >{{::nav.name}}</li>
+        </ul>
+      </div>
+      <!--其他类-->
+      <div ng-if="!is_categoryAll" class="right-detail col-67">
+        <div class="pro-scroll">
+          <div class="imgpro" ng-if='obj_imgList.length > 0'>
+            <ion-slide-box does-continue="true" show-pager="true">
+              <ion-slide ng-repeat="item in obj_imgSliders">
+                <div class="prolist row">
+                  <div class="col col-list" ng-repeat="itemChildren in item">
+                    <a ng-href="#/product/info/{{itemChildren.id}}">
+                      <img ng-src="{{itemChildren.image}}" alt="{{itemChildren.name}}">
+                    </a>
+                    <div class="details">
+                      <p class="name">{{itemChildren.name | characters :5 :false}}</p>
+                      <span ng-if="!itemChildren.isYcInquiry || isAuthoriz" class="money">{{itemChildren.price | currency:'￥'}}</span>
+                      <span ng-if="itemChildren.isYcInquiry && !isAuthoriz" ui-sref="toothOpEnquiry" class="money">立即询价</span>
+                    </div>
+                  </div>
+                </div>
+              </ion-slide>
+            </ion-slide-box>
+          </div>
+          <div class="btn btn-mar-15">
+            <button class="button button-block button-positive" ng-click="jumpCategoryById(firstNavId, firstNavName)">
+              {{firstNavName}}&nbsp;&nbsp;<i class="icon ion-ios-arrow-forward"></i>
+            </button>
+          </div>
+          <div class="sencond-category" ng-repeat="item in obj_sencondCategoryName">
+            <h2 ng-click="jumpChildrenCategory(item.id)">{{item.name}}</h2>
+            <div ng-repeat="t in obj_thirdList[$index]">
+              <a ng-href="#/product/info/{{t.id}}">
+                <span class="products">{{t.fullName | characters :23: false}}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--全部分类-->
+      <div ng-if="is_categoryAll" class="right-detail col-67">
+        <div class="pro-scroll pro-all">
+          <div class="btn-mar-15">
+            <button class="button button-block button-positive" ui-sref="filterList">全部商品 &nbsp;&nbsp;<i class="icon ion-ios-arrow-forward"></i></button>
+          </div>
+          <h3>热门商品</h3>
+          <div class="row-all">
+            <div class="col col-50 pro-column" ng-repeat="allList in allCategory | limitTo: 16">
+              <div class="imgbox">
+                <a ng-href="#/product/info/{{allList.id}}">
+                  <img ng-src="{{allList.image}}" alt="{{allList.fullName}}">
+                </a>
+              </div>
+              <div class="detail">
+                <p class="name">{{allList.name | characters: 5 :false}}</p>
+                <p class="price">{{allList.price | currency:'￥'}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

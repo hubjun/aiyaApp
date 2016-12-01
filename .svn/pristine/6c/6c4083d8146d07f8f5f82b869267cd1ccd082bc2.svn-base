@@ -1,0 +1,52 @@
+<ion-view view-title="爱牙库账户登录" hide-nav-bar="true" cache-view="false">
+  <!--header-->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">爱牙库账户登录</div>
+  </div>
+  <ion-content class="has-header loginCon">
+    <form ng-submit="login()">
+      <div class="list loginList" ng-repeat="user in userList">
+        <label class="item item-input">
+          <span class="input-label">账户</span>
+          <input type="text"
+                 placeholder="用户名/手机号"
+                 ng-model="user.name">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">密码</span>
+          <input id="loginPwd"
+                 type="{{pwTypeHandle ? 'text' : 'password'}}"
+                 ng-model="user.password"
+                 placeholder="请输入您的密码">
+          <!--   <button class="button icon-right ion-aiya button-clear">&#xe612;</button>-->
+          <label class="toggle">
+            <input type="checkbox" ng-model="pwTypeHandle">
+            <a class="track">
+              <div class="handle"></div>
+            </a>
+          </label>
+        </label>
+      </div>
+      <div class="padding emailDiv">
+        <button type="submit" class="button button-block button-positive button-next modifyPhone loginBtn">登录</button>
+        <p class="text-center loginLink">
+          <a class="loginResg" ui-sref="register">免费注册</a>
+          <a class="loginForgot" ui-sref="resetPwd">找回密码</a>
+        </p>
+      </div>
+      <!--<div class="otherWays">
+        <hr class="otherLine">
+        <div class="otherTxt">其它登录方式</div>
+        <div class="qqDiv">
+          <a><img ng-src="./img/QQ01.png"></a>
+        </div>
+        <div class="webChatDiv">
+          <a><img ng-src="./img/weichat01.png"></a>
+        </div>
+      </div>-->
+    </form>
+  </ion-content>
+</ion-view>

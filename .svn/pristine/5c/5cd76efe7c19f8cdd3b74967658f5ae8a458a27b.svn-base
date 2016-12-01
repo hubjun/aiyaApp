@@ -1,0 +1,41 @@
+<ion-view view-title="修改密码" class="modifyPwd">
+  <div class="bar bar-header bar-stable">
+    <a class="button button-dark ion-ios-arrow-back icon-left button-clear" ng-click="back()"></a>
+    <h1 class="title">修改密码</h1>
+    <a class="button button-dark ion-ios-more icon-right button-clear" nav-button></a>
+  </div>
+  <ion-content class="has-header">
+    <form novalidate form-validate ng-submit="modifyPwdSubmit()">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input placeholder="输入您原有密码"
+                 ng-model="$parent.oldPwd"
+                 required
+                 error-msg="{required: '请输入您的原有密码！'}"
+                 type="text">
+        </label>
+        <div class="form-gap"></div>
+        <label class="item item-input">
+          <input placeholder="输入新的密码"
+                 ng-model="$parent.newPwd"
+                 required
+                 error-msg="{required: '请输入您的新密码！'}"
+                 type="password">
+        </label>
+        <div class="form-gap"></div>
+        <label class="item item-input">
+          <input placeholder="确认新的密码"
+                 ng-model="$parent.newOkPwd"
+                 required
+                 error-msg="{required: '请确认您的新密码！'}"
+                 type="password">
+        </label>
+      </div>
+      <div class="form-gap"></div>
+
+      <div class="button-bar padding">
+        <button class="button button-positive" type="submit">确 定</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

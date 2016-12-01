@@ -1,0 +1,150 @@
+<ion-view view-title="商品详情" hide-nav-bar="true" class="product-info" cache-view="false">
+    <ion-header-bar class="product-header">
+    </ion-header-bar>
+    <div class="header-back header-button" ng-click="back()">
+      <a class="button ion-ios-arrow-back icon-left  button-clear"></a>
+    </div>
+    <div class="header-order header-button">
+      <a class="button icon-right ion-ios-list-outline button-clear has-badge bar-header-right ion-purchase" ui-sref="purchaseOrderList">
+        <i class="badge">{{purchaseCounts}}</i>
+      </a>
+    </div>
+    <div class="header-more header-button">
+      <a class="button  button-clear ion-ios-more icon-right" nav-button></a>
+    </div>
+    <ion-content>
+      <div class="product-slide">
+        <ion-slide-box does-continue="true" show-pager="true" auto-play="true">
+          <ion-slide ng-repeat="images in productImages">
+            <img ng-src="{{imgUrl}}{{images.medium}}">
+          </ion-slide>
+        </ion-slide-box>
+      </div>
+
+      <ion-item class="basic-info no-border">
+        <h2 class="name">{{productInfo.name}}</h2>
+        <div ng-show="(!productInfo.isYcInquiry) || (productInfo.isYcInquiry && isAuthoriz)">
+         <h2><span class="price">{{productInfo.price | currency:'￥'}}</span> <i class="tag" ng-if="productInfo.limitNo != '' && productInfo.limitNo != null">每人限购{{productInfo.limitNo}}{{productInfo.unit}}</i></h2>
+          <p class="cost">原价:{{productInfo.marketPrice | currency:'￥'}}</p>
+          <p class="" ng-if="memberPrice">会员价:{{memberPrice | currency:'￥'}}</p>
+          <!--有区间价-->
+          <div class="row" ng-if="productInfo.isSectionPrice">
+            <div class="col-33">
+                <span>1-{{productInfo.quantity1 - 1}}件</span>
+            </div>
+            <div class="col-33">
+                <span>{{productInfo.quantity1}}-{{productInfo.quantity2 - 1}}件</span>
+            </div>
+            <div class="col-33">
+                <span>{{productInfo.quantity2}}件以上</span>
+            </div>
+          </div>
+          <div class="row" ng-if="productInfo.isSectionPrice">
+            <div class="col-33">
+              <h2><span class="price">{{productInfo.cost | currency:'￥'}}</span></h2>
+            </div>
+            <div class="col-33">
+              <h2><span class="price">{{productInfo.price1 | currency:'￥'}}</span></h2>
+            </div>
+            <div class="col-33">
+              <h2><span class="price">{{productInfo.price2 | currency:'￥'}}</span></h2>
+            </div>
+          </div>
+        </div>
+        <div ng-show="productInfo.isYcInquiry && !isAuthoriz">
+            <a ui-sref="tab.toothOpEnquiry">立即询价</a>
+        </div>
+        <div class="row">
+          <div class="col-33">
+            <i class="evaluate">{{reviewCount}}个评价</i>
+          </div>
+          <div class="col-33">
+            <i class="stock" ng-if="!productInfo.isYcInquiry || isAuthoriz">库存{{productInfo.availableStock}}{{productInfo.unit}}</i>
+          </div>
+        </div>
+      </ion-item>
+
+      <!--收藏分享-->
+      <ion-item class="promotion no-border">
+        <span ng-click="collectProduct()"><i class="ion-aiya icon-shoucang ion-collect"></i>收藏</span>
+        <span><i class="ion-aiya icon-fenxiang"></i>分享</span>
+      </ion-item>
+
+      <!--优惠活动-->
+      <ion-item class="sale" ng-if="promotions.length > 0">
+        <span>活动</span>
+        <p ng-repeat="promotion in promotions"><i class="icon  ion-hook"></i><span>{{promotion.title}}</span></p>
+      </ion-item>
+      <div class="gap"></div>
+
+      <!--规格型号-->
+      <div ng-if="productInfo.isYcInquiry && !isAuthoriz" class="item item-icon-right no-border">
+          <h2>具体规格型号选择详见设计单</h2>
+      </div>
+      <div ng-if="!productInfo.isYcInquiry || isAuthoriz" class="item item-icon-right no-border" product-specification-filter  product-id="{{product.id}}">
+        <h2>选择规格型号</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </div>
+      <div class="gap"></div>
+
+      <!--评分-->
+      <ion-item class="item-icon-right no-border">
+        <span>
+          <i class="ion-aiya icon-shoucang1 icon-like"></i>
+          <i class="ion-aiya icon-shoucang1 icon-like"></i>
+          <i class="ion-aiya icon-shoucang1 icon-like"></i>
+          <i class="ion-aiya icon-shoucang1 icon-like"></i>
+          <i class="ion-aiya icon-shoucang1 icon-boring"></i>
+        </span>
+        <span class="item-note" ng-if="reviewCount > 999">999+条评论</span>
+        <span class="item-note" ng-if="reviewCount < 999">{{reviewCount}}条评论</span>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+      <div class="gap"></div>
+      <!--商品详情-->
+      <ion-item class="no-border product-detail">
+        <p>商品详情</p>
+        <div ng-bind-html="productInfo.introduction"></div>
+      </ion-item>
+
+      <!--猜您喜欢-->
+      <div class="maylike">
+        <span class="border"></span>
+        <span class="text">猜您喜欢</span>
+        <span class="border"></span>
+      </div>
+      <ion-item class="no-border like-item">
+        <div class="col col-50 pro-list"  ng-repeat="recommendItem in getrecommendproductc | limitTo: 4" ng-click="toProductInfo(recommendItem.id)">
+          <div class="list-con">
+            <div class="pro-item">
+              <img ng-src="{{imgUrl}}{{recommendItem.image}}" alt="">
+            </div>
+            <div class="list-detail">
+              <p class="pro-name">{{recommendItem.name}}</p>
+              <div class="list-price">
+                <span class="dis-pri">{{recommendItem.price | currency:'￥'}}</span>
+                <span class="fact-pri">{{recommendItem.marketPrice | currency:'￥'}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+
+  </ion-content>
+
+
+  <ion-footer-bar class="product-footer">
+    <div class="row">
+      <div class="col col-20 button-QQ">
+        <a class="QQ"></a>
+      </div>
+      <div class="col-80 button-bar">
+        <a ng-if="!productInfo.isYcInquiry || isAuthoriz" class="button button-buyNow" product-specification-filter option-type="buyNow" product-id="{{product.id}}" >立即购买</a>
+        <a ng-if="productInfo.isYcInquiry && !isAuthoriz" class="button button-noBuy" product-id="{{product.id}}" >立即购买</a>
+        <a ng-if="!productInfo.isYcInquiry || isAuthoriz" class="button button-join" product-specification-filter  option-type="joinCart" product-id="{{product.id}}">加入采购单</a>
+        <a ng-if="productInfo.isYcInquiry && !isAuthoriz" class="button button-noBuy" product-id="{{product.id}}">加入采购单</a>
+      </div>
+    </div>
+  </ion-footer-bar>
+  <a class="scrollTop" ng-click="scrollTop()"></a>
+</ion-view>

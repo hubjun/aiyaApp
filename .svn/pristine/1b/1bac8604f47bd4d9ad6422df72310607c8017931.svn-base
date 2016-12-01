@@ -1,0 +1,97 @@
+@import "variables";
+
+@function rem($px, $base-size: 640px) {
+  @if unitless($px) {
+    @return rem($px + 0px);
+  }
+  $ratio: 16rem / $base-size;
+  @return $px * $ratio;
+}
+
+@function px($px, $base-size: 640px) {
+  @if unitless($px) {
+    @return px($px + 0px);
+  }
+  $ratio: 320px / $base-size;
+  @return $px * $ratio;
+}
+
+$device-width: rem(640);
+
+$base-font-size: 14px;
+
+$inline-wrapper-padding: px(10);
+
+//color
+$striking: #252525;
+$global-gray: #808080;
+
+$gray: #EFEFEF;
+
+//item
+$item-content-padding: px(20);
+
+  //purchaseProductItem
+    //商品图片
+$productItemImg-width: rem(150);
+$productItemImg-height: $productItemImg-width;
+
+
+//采购单
+  //快速采购按钮
+$rapidBtn-font-size: $base-font-size;
+$rapidBtn-line-height: $rapidBtn-font-size;
+$rapidBtn-padding-v: px(12);
+$rapidBtn-padding-h: px(12);
+$rapidBtn-height: $rapidBtn-font-size * 2;
+$rapidBtn-width: auto;
+$rapidBtn-border-radius: px(4);
+
+$rapidBtnWrapper-padding: $inline-wrapper-padding;
+$rapidBtnWrapper-height: $rapidBtn-height + $rapidBtnWrapper-padding * 2;
+
+  //采购单handle
+$handleWrapper-padding-v: $inline-wrapper-padding;
+$handleWrapper-padding-h: $handleWrapper-padding-v * 2;
+$handleWrapper-bg-color: $gray;
+$handleWrapper-height: px(74);
+$handleWrapper-font-size: $base-font-size;
+$handleWrapper-border-width: px(2);
+$handleWrapper-border-color: #ddd;
+  //搜索框
+$searchBox-width: rem(320);
+$searchBox-height: px(52);
+    //搜索按钮
+$searchBtn-width: $searchBox-height;
+$searchBtn-height: $searchBtn-width;
+$searchIcon-width: $searchBtn-width / 2;
+$searchIcon-height: $searchIcon-width;
+$searchIcon-offset-x: ($searchBtn-width - $searchIcon-width) / 2;
+$searchIcon-offset-y: ($searchBtn-height - $searchIcon-height) / 2;
+    //input框
+$search-input-padding: px(10);
+$search-input-rpadding: $search-input-padding + $searchBtn-width;
+
+  //目前缺货选项
+$present-bg-color: $handleWrapper-bg-color;
+$present-color: $positive;
+
+  //编辑按钮
+$editBtn-color: $global-gray;
+$editBtn-font-size: $base-font-size;
+
+//采购单列表
+$purchaseProductsContainer-top: $rapidBtnWrapper-height + $handleWrapper-height + 2px;
+//checkbox
+$checkbox-input-width: rem(40);
+$checkbox-input-height: rem(40);
+//productItem tweak
+$productImg-margin-left: px(20);
+
+
+//我的订单
+  //Tab-content
+$ordersTabContent-top: $bar-height + $tabs-height;
+$ordersTabContent-bg-color: $stable;
+  //订单项
+$orderItem-padding: px(20);

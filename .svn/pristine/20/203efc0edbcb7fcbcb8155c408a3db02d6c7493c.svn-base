@@ -1,0 +1,155 @@
+aiyaController.controller('orderDetailController', [
+  '$rootScope',
+  '$scope',
+  '$stateParams',
+  'orderService',
+  '$q',
+  '$ionicHistory',
+  '$timeout',
+  '$ionicScrollDelegate',
+  '$state',
+  'StringUtil',
+  'ENV',
+  'Util',
+  'CommonUtil',
+  function($rootScope,$scope, $stateParams, orderService, $q, $ionicHistory,$timeout,$ionicScrollDelegate,$state,StringUtil,ENV,Util,CommonUtil) {
+    var sn = $stateParams.sn;
+    $scope.paymentStatus = $stateParams.paymentStatus;
+    $scope.paymentStatusDesc = ENV.paymentStatusMap[$stateParams.paymentStatus];
+    $scope.shippingStatus = $stateParams.shippingStatus;
+    $scope.shippingStatusDesc = ENV.shippingStatusMap[$stateParams.shippingStatus];
+    $scope.orderStatus = $stateParams.orderStatus;
+    $scope.orderStatusdesc = ENV.orderStatusMap[$stateParams.orderStatus];
+    $scope.isExpire = $stateParams.isExpire === 'true' ? true : false;
+    console.log('isExpire:'+$scope.isExpire);
+    console.log('shippingStatus:'+$scope.shippingStatus);
+    console.log('paymentStatus:'+$scope.paymentStatus);
+    //init
+    getOrder(sn);
+    function getOrder(sn){
+      orderService.get(sn)
+        .then(function (order) {
+          if($scope.$$destroyed) return $q.reject();
+          order.image = StringUtil.isEmpty(order.image) ? ENV.defaultImg : Util.getFullImg(order.image);
+          _.each(order.productList,function(order){
+            order.image = StringUtil.isEmpty(order.image) ? ENV.defaultImg : Util.getFullImg(order.image);        //具体单个商品图片
+          });
+          $scope.order = order;
+          // console.log('isMonthly:'+$scope.order.isMonthly);
+          console.log(order);
+          //折叠展示商品
+          $scope.show = function ($index, order) {
+            return order.expanded || $index < 2;
+          };
+          $scope.showHandle = function (order) {
+            return !order.expanded
+          };
+          //发票信息
+          console.log($scope.order.isInvoice);
+          $scope.isInvoice = $scope.order.isInvoice;
+          $scope.invoiceTitle = $scope.order.invoiceTitle;
+
+          //订单列表显示与隐藏按钮
+          $scope.orderDetailToggle = "查看全部";
+          $scope.expand = function (order) {
+            if($scope.orderDetailToggle == "查看全部"){
+              $scope.orderDetailToggle = "收起";
+              order.expanded = true;
+              $ionicScrollDelegate.resize();
+            }else{
+              $scope.orderDetailToggle = "查看全部";
+              order.expanded = false;
+              //回到顶部
+              $rootScope.scrollTop();
+            }
+
+          };
+          var setRemainTime = function () {
+            var expireTime = new Date(order.expire).getTime();
+            var remianTime = expireTime - new Date().getTime(),
+              dTime = remianTime / 1000 / (60 * 60 * 24),
+              d = Math.floor(dTime),
+              hTime = (dTime - d) * 24,
+              h = Math.floor(hTime);
+            order.rtime = {d: d, h: h};
+          };
+
+          if(!order.isMonthly && $scope.isExpire && $scope.paymentStatus == '0') {
+            setRemainTime();
+          }
+        })
+        .then(function (order) {
+          console.log('查询物流');
+          //查询物流
+        })
+    }
+
+
+    //确认收货
+    $scope.confirmSingleOrder = function (sn) {
+      CommonUtil.confirm('确认收货后，方可评价，确认要收货吗？', null, '确定', '取消').then(function (res) {
+        if (res) {
+          orderService.confirmOrder(sn)
+            .then(function () {
+              CommonUtil.tip('确认成功');
+            } , function(){
+              CommonUtil.tip('确认失败');
+            });
+        }
+      });
+    };
+
+    //取消订单
+    $scope.cancelSingleOrder = function (sn) {
+      CommonUtil.confirm('订单取消后，只能通过再次购买生成订单，您确定要取消吗', null, '确定', '取消').then(function (res) {
+        if (res) {
+          orderService.cancelOrder(sn)
+            .then(function () {
+              CommonUtil.tip('取消成功');
+              getOrder(sn);
+              // console.log($scope.currentType);
+            }, function () {
+              CommonUtil.tip('取消订单失败');
+            })
+        }
+      });
+    };
+
+    /*再次购买*/
+    $scope.buyAgain = function (id) {
+      var params = {
+        id: id
+      }
+      orderService.buyAgain(params).then(function () {
+        $state.go('purchaseOrderList');
+      }, function (err) {
+        CommonUtil.tip(err);
+      });
+    }
+    /*返回上一页，订单详情页面需要特殊处理，复写父类方法*/
+    $scope.back = function () {
+      //$ionicHistory.goBack();
+      $scope.showSwitch_s = false;
+      $scope.networkError = false;
+      if ($scope.hasClickedBack) {
+        return;
+      }
+      $scope.hasClickedBack = true;
+      $timeout(function () {
+        $scope.hasClickedBack = false;
+      }, 1000);
+      if ($ionicHistory.backView() && $ionicHistory.backView().url.indexOf('orderPay') > 0) {
+        $ionicHistory.goBack(-3);
+      }
+      else {
+        //判断wap是否能获取到上一页路由 没有则返回首页
+        if (!$ionicHistory.backView()) {
+          $state.go('home');
+          return;
+        }
+        ($ionicHistory.backView() && $ionicHistory.backView().url.indexOf('login') > 0) ? $ionicHistory.goBack(-2) : $ionicHistory.goBack();
+      }
+
+    };
+  }
+]);

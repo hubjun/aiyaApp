@@ -1,0 +1,27 @@
+<div class="tabs-icon-top tabs-bottom tabs-standard tabs-color-positive ">
+  <div class="tabs tab-nav">
+    <a class="tab-item" ng-class="{true:'tab-item-active', false: ''}[tabNav.curNav=='home']" ui-sref="home" nav-transition="none">
+      <i class="icon ion-aiya" ng-class="{true: 'icon-home', false: 'icon-home'}[tabNav.curNav=='home']"></i>
+      <span  class="tab-title ">首页</span>
+    </a>
+    <a class="tab-item"  ng-class="{true:'tab-item-active', false: ''}[tabNav.curNav=='brand']"  ui-sref="brand" nav-transition="none">
+      <i class="icon ion-aiya" ng-class="{true: 'icon-icon4', false: 'icon-icon4'}[tabNav.curNav=='brand']"></i>
+      <span  class="tab-title ">品牌索引</span>
+    </a>
+
+    <a class="tab-item"  ng-class="{true:'tab-item-active', false: ''}[tabNav.curNav=='toothOp']" ui-sref="toothOp" nav-transition="none">
+      <i class="icon ion-aiya" ng-class="{true: 'icon-tooth', false: 'icon-tooth'}[tabNav.curNav=='toothOp']"></i>
+      <span  class="tab-title ">齿研社</span>
+    </a>
+<!--
+    <a class="tab-item" ng-class="{true:'tab-item-active', false: ''}[tabNav.curNav=='findAssistant']"  ui-sref="findAssistant" nav-transition="none">
+      <i class="icon" ng-class="{true: 'ion-ios-search-strong', false: 'ion-ios-search'}[tabNav.curNav=='findAssistant']"></i>
+      <span  class="tab-title ">找货助手</span>
+    </a>-->
+
+    <a class="tab-item" ng-class="{true:'tab-item-active', false: ''}[tabNav.curNav=='user']"  ui-sref="user" nav-transition="none">
+      <i class="icon ion-aiya" ng-class="{true: 'icon-wo', false: 'icon-wo'}[tabNav.curNav=='user']"></i>
+      <span  class="tab-title ">我的</span>
+    </a>
+  </div>
+</div>

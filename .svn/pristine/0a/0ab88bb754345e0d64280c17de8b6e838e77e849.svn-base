@@ -1,0 +1,96 @@
+/**
+ * Created by chh on 2016/5/23.
+ */
+aiyaController.controller('commonSelectController',[
+  '$rootScope',
+  '$scope',
+  'userAddressService',
+  'CommonUtil',
+  function($rootScope,$scope,userAddressService,CommonUtil){
+    var selectMode;
+    var localData = {};
+    var sourceData = [];//每一步的数据源
+    var checkData={};   //选中的数据
+    var step=0;
+    function init(){
+      selectMode = $scope.data.selectMode;//选择模式，根据不同的选择模式，绑定不同的数据
+      $scope.data.selectValue = $scope.data.defaultValue;//默认值，非必需，新增则没有，编辑则有
+      $scope.children = $scope.data.children;//接受连续选择模式中传来的数据
+
+
+      userAddressService.getProvinceList().then(function(data){
+        $scope.selectData = data.list;
+      },function(err){
+        CommonUtil.tip(err);
+      });
+      //初始化：根据选择类型来选择数据、设定标题
+      $scope.title ='选择地区';
+      $scope.selectData = localData.selectData;
+      $scope.level = localData.level;
+
+    }
+
+    //前一步
+    $scope.prevStep = function(){
+      if(step==0){
+        $rootScope.closeSelectModal();
+      }else{
+        step--;
+        $scope.data = window.cdfg.utils.deepCopyForObj(sourceData[step]);
+        init();
+      }
+    }
+
+    //选择
+    var isFlag = false; //防止多次点击
+    $scope.selectItem = function (val) {
+      if(isFlag)return false;
+      isFlag = true;
+      $scope.title = val.fullName;/*
+      checkData[selectMode + $scope.level]= window.cdfg.utils.deepCopyForObj(val);
+      $scope.data.selectValue = val.value;//选择效果，让选择的项目为当前选择项
+      $scope.data.defaultValue = val.value;
+      //保存当前步骤的数据源
+      sourceData[step] = window.cdfg.utils.deepCopyForObj($scope.data);*/
+      step++;
+      //判断是否是连续选择 省市县联动
+      var params = {
+        id:val.id
+      }
+      userAddressService.getCityList(params).then(function(data){
+        if(data.list != null && data.list !='') {
+          $scope.selectData = data.list;
+        }else{
+          $rootScope.$broadcast(selectMode, val);
+          $rootScope.closeSelectModal();
+        }
+      },function(err){
+        CommonUtil.tip(err);
+      });
+     /* if (val.children) {
+        //如果是多重选择，则继续选。
+        var childrenData = locationService.formatData($scope.level, val.children);
+        //更新当前页面数据进入第二级
+        $scope.data.defaultValue= $scope.data.defaultValue2;
+        $scope.data.defaultValue2= $scope.data.defaultValue3;
+        $scope.data.children= JSON.stringify(childrenData);
+
+        init();
+      }
+      //如果选完了，就返回。
+      else {
+
+      }*/
+      setTimeout(function(){
+        isFlag = false;
+      },500)
+    };
+    $scope.$on('commonSelect:show',function(e,o){
+      step = 0;
+      checkData=[];
+      sourceData = [];
+      $scope.data=o;
+      init();
+    });
+}]);
+

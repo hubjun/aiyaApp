@@ -1,0 +1,47 @@
+.editDiv {
+  width: 5.5rem;
+  border: 1px solid #B7B7B7;
+  background: #F5F5F5;
+  overflow: hidden;
+  float: right;
+  margin-top: -1.6rem;
+  position: relative;
+}
+.editNum {
+  width: 100%;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  float: left;
+  text-align: center;
+}
+.editLabel .item-content.disable-pointer-events {
+  margin-right: -10px;
+}
+.editDiv .ion-plus, .editDiv .ion-minus {
+  min-width: 10px;
+  min-height: 10px;
+  position: absolute;
+  top: 0;
+  padding: 0 8px;
+  line-height: 31px;
+}
+.editDiv .ion-minus{
+  left: 0;
+}
+.editDiv .ion-plus{
+  right:0;
+}
+button.orderDel,button.removefav{
+  position: absolute;
+  right: 5px;
+  padding: 0.1rem 1rem;
+  border-radius: 6px;
+  border: 0 none;
+  color: white;
+  background: #D7000E;
+}
+button.removefav{
+  right:4rem;
+  background: #FF5F0F;
+}
+

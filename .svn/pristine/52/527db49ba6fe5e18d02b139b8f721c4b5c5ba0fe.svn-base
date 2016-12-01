@@ -1,0 +1,47 @@
+<ion-view view-title="修改密码" class="modifyPwd">
+  <div class="bar bar-header bar-stable">
+    <a class="button button-dark ion-ios-arrow-back icon-left button-clear" ng-click="back()"></a>
+    <h1 class="title">修改密码</h1>
+    <a class="button button-dark ion-ios-more icon-right button-clear" nav-button></a>
+  </div>
+  <ion-content class="has-header">
+    <form name="resetPwdForm" ng-submit="modifyPwdSubmit(resetPwdForm)" novalidate>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input name="oldPwd"
+                 placeholder="{{validate ? '账户密码不能是空' : '请输入您的密码'}}"
+                 ng-model="$parent.oldPwd"
+                 required
+                 ng-class="{'true' : 'input-error'}[resetPwdForm.oldPwd.$invalid && validate]"
+                 focus-me="oldPwdFocus"
+                 type="password">
+        </label>
+        <div class="form-gap"></div>
+        <label class="item item-input">
+          <input name="newPwd"
+                 placeholder="{{validate ? '新密码不能是空' : '请输入您的新密码'}}"
+                 ng-class="{'true' : 'input-error'}[resetPwdForm.newPwd.$invalid && validate]"
+                 ng-model="$parent.newPwd"
+                 required
+                 focus-me="newPwdFocus"
+                 type="password">
+        </label>
+        <div class="form-gap"></div>
+        <label class="item item-input">
+          <input name="newOkPwd"
+                 placeholder="{{validate ? '新密码确认不能是空' : '请再次输入您的新的密码'}}"
+                 ng-class="{'true' : 'input-error'}[resetPwdForm.newOkPwd.$invalid && validate]"
+                 ng-model="$parent.newOkPwd"
+                 required
+                 focus-me="newOkPwdFocus"
+                 type="password">
+        </label>
+      </div>
+      <div class="form-gap"></div>
+
+      <div class="button-bar padding">
+        <button class="button button-positive" type="submit">确 定</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

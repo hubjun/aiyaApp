@@ -1,0 +1,235 @@
+//
+//.brand .bar-header{
+//  height:88px;
+//}
+//.brand .bar-subheader {
+//  top: 88px;
+//  height: 48px;
+//  border-bottom:1px solid white;
+//}
+//.brand .bar-subheader a{
+//  height:64px;
+//}
+//.brand .bar-header .brandBtn{
+//  margin: 20px 5px;
+//}
+//.brand .bar-header input{
+//  border: 1px solid #BEBEBE;
+//  border-radius: 6px;
+//  padding-left: 12px;
+//  margin-top: 20px;
+//  width: 58%;
+//}
+//.brand .bar .button.button-clear{
+//  font-size:16px;
+//}
+.brand{
+  .icon.ion-android-search.placeholder-icon {
+    font-size:20px;
+  }
+}
+.brand .brand-left-btn{
+  margin: 0 10px 0 0;
+}
+#sub_header_list .button.sub_button_select {
+  border-bottom: 4px solid #FF5F0F;
+  position: relative;
+  color:#FF5F0F;
+}
+.brand .bar-subheader .scroll-view.scroll-x{
+  overflow-x:hidden;
+}
+/*tab*/
+/*.tab-nav.tabs {
+    display: none;
+}
+/*首页块*/
+.brand .first-list{
+  //margin-top: 152px;
+  padding-left: 5px;
+}
+.brand .first-list .col{
+  //height: 98px;
+  height: 4.3rem;
+  text-align: center;
+  padding-top: 12px;
+  padding: 4px;
+}
+.brand .first-list .col.light div{
+  text-align:left;
+}
+.brand .first-list .col .icon{
+  font-size:32px;
+}
+/*二级菜单*/
+.subheader-wrap{
+  width:100%;
+  height:44px;
+  position:fixed;
+  top:44px;
+  left:0px;
+  background:white;
+  padding-bottom:2px;
+}
+.subheader-style{
+  width:100%;
+}
+.sub_header_list{
+  height:44px;
+}
+.brand .bar .sub_header_list .button.button-clear{
+
+  border-bottom: 1px solid #eee;
+}
+.brand .sub_header_list .button{
+  width: 20%;
+  color:#666;
+}
+.brand .bar .sub_header_list .button.sub_button_select{
+  border-bottom:2px solid #387ef5;
+  position:relative;
+}
+.brand .col-33 {
+  float:left;
+  border:0 none;
+}
+.brand .itemDiv {
+  display: inline-block;
+  border: 1px solid #F8F8F8;
+  //height: 88px;
+  background: white;
+}
+.brand .itemDiv img {
+  width: 3.8rem;
+  height: 2.55rem;
+  //width: 80%;
+  //height: 60%;
+  margin: 7% 10% 4% 10%;
+  position: relative;
+  max-width: 80%;
+  max-height: 80%;
+  float: left;
+  display: block;
+}
+.brandName{
+  width: 80%;
+  height: auto;
+  position: relative;
+  max-width: 80%;
+  max-height: 20%;
+  margin: 0px 10%;
+  float: left;
+  color: #797979;
+  display: block;
+  font-size: 0.5rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.brandNullImg{
+  width: 3.86rem;
+  height: 5.32rem;
+  display: block;
+  margin: auto;
+  margin-top: 2rem;
+}
+.brandNullTxt{
+  text-align: center;
+  font-size: 0.7rem;
+  color: #6C6C6C;
+  margin-top: 10px;
+}
+/*筛选*/
+ion-popover-view.screening.popover.none.ng-enter.active.ng-enter-active {
+  width: 88%;
+  height: 100%;
+}
+.screening-cover{
+  top: 59px !important;
+  left:49px !important;
+}
+.screening ion-content.scroll-content.ionic-scroll{
+  padding: 20px 10px 10px;
+}
+.screening p {
+  font-size: 1.4em;
+  color: #000000;
+  padding: 10px 0px 0px;
+  margin-left: 3%;
+}
+.brandTypesWrapper {
+  padding-bottom: 10px;
+  border-bottom: 1px solid $gray;
+  &:last-child {
+    border-bottom-width: 0;
+  }
+  .brandMore {
+    min-width: 0;
+    min-height: 0;
+    line-height: 1.3;
+    font-size: $base-font-size;
+  }
+}
+.brandTypes {
+  display: block;
+  overflow: hidden;
+
+  .unselect {
+    position: relative;
+    &:after {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      bottom: -12px;
+      left: -12px;
+      content: '';
+    }
+  }
+}
+ion-item.brandType.item {
+  width: 44%;
+  padding: 0.65rem 0.25rem;
+  margin: 8px 3% 5px 3%;
+  float: left;
+  border-radius: 3px;
+  color: #6f6f6f;
+  font-size: 0.7rem;
+  background: #F4F4F4;
+  cursor: pointer;
+  border: 1px solid $stable;
+
+  &:last-child {
+    border-bottom-width: 1px;
+  }
+  &.active {
+    background-color: $positive;
+    color: #fff;
+    border-color: darken($positive, 0.3);
+  }
+}
+.screening.popover{
+  margin-top: -60px;
+}
+.bar-footer {
+  height: 50px;
+  border: none;
+  padding: 0;
+}
+/*
+ion-footer-bar.brandFooter.bar.bar-footer {
+  height: 90px;
+  border-top: 1px solid #c1c0c0;
+  padding: 16px;
+}
+.brandFooter .buttons {
+  right: 20px;
+  position: absolute;
+}
+.brandFooter .selectFinish {
+  padding: 12px 50px;
+  border-radius: 5px;
+  background: #FF5F0F;
+  color: white;
+  font-size: 1.4em;
+}
+*/

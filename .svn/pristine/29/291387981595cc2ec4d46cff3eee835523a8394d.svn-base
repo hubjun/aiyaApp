@@ -1,0 +1,61 @@
+<ion-view view-title="我的物流" class="mylog stable-bg" hide-tabs="true" hide-nav-bar="true" cache-view="false">
+  <!--header-->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">我的物流</div>
+    <div class="buttons buttons-right">
+      <span class="right-buttons">
+        <button class="button button-dark button-clear ion-ios-more icon-right"></button>
+      </span>
+    </div>
+  </div>
+
+  <ion-content ng-show="logisInfo" class="has-header">
+    <ion-list>
+      <ion-item class="item item-thumbnail-left orderItemStated">
+        <img ng-src="img/ionic.png" class="orderImg"/>
+        <h2 class="stated">物流状态：<span class="sign">{{::logisInfo.shippingStatus}}</span></h2>
+        <p>配送方式：{{::logisInfo.shippingMethodName}}</p>
+        <p>订单号：{{::logisInfo.sn}}</p>
+      </ion-item>
+    </ion-list>
+
+    <div ng-if="logisInfo.logisticsList.length" class="logSubsidiary">
+      <h4 class="logSubTit">物流明细</h4>
+
+      <ion-list class="subList">
+        <ion-item ng-repeat="logisItem in logisInfo.logisticsList" ng-class="{subFirstList: $index === 0}">
+          <div class="stateLine">
+            <div class="LastYuan" ng-if="$index === 0">
+              <div class="insetYuan"><span></span></div>
+            </div>
+            <div class="stateyuan" ng-if="$index > 0"></div>
+          </div>
+          <div class="stateInfo">
+            <p>{{::logisItem.desc}}</p>
+            <p>{{::logisItem.createDate}}</p>
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div ng-if="!logisInfo.logisticsList.length">
+      暂无物流信息
+    </div>
+
+    <div class="logLook">
+      <h4 class="logLookTit">购买此商品的用户同时也购买了</h4>
+      <div class="col col-50 pro-list" ng-repeat="product in floor.productList | limitTo:6">
+        <div class="pro-item">
+          <div class="imgbox">
+            <a href="#">
+              <img ng-src="{{imgUrl}}{{product.image}}" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

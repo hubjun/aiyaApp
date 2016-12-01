@@ -1,0 +1,76 @@
+.rapid-list{
+  .buttons{
+    .bar-header-right{
+      margin: 0 0 0 10px;
+      font-size: 25px;
+    }
+  }
+  .has-badge{
+    position: relative;
+    .badge-aiyaku{
+      width: 20px;
+      height: 18px;
+      position: absolute;
+      top: 0;
+      right: -3px;
+      color: #fff;
+      font-size: 10px;
+      line-height: 12px;
+      padding: 2px 3px 3px;
+      background: #920019;
+    }
+  }
+  .rapidSelect{
+    margin-right:10px;
+  }
+  //搜索
+  .rapid-list-button-repair>a.item-content{
+    padding-right:15px;
+  }
+  .rapidSearch{
+    background:#EFEFEF;
+  }
+  .rapidLabel{
+    background:white;
+    .icon.ion-android-search.placeholder-icon {
+      font-size:20px;
+    }
+  }
+  //列表
+  .rapidName{
+    //overflow: hidden;
+    color:#252525;
+    font-size: rem(30);
+    white-space: normal;
+  }
+  .rapidPrice{
+    position: relative;
+    padding: 8px 0px;
+    button{
+      min-height: 32px;
+      line-height: 32px;
+    }
+  }
+  .rapidOld{
+    color:#919191;
+    font-size: rem(22);
+    text-decoration: line-through;
+  }
+  .rapidNow{
+    color:#FF5F0F;
+    font-size: rem(22);
+    .rapidNowName{
+      font-size:rem(30);
+    }
+  }
+  .rapidBuy{
+    //color: white;
+    //background: #FF5F0F;
+    //border-radius: 7px;
+    //padding: 0px 18px;
+    position: absolute;
+    right: 0;
+    bottom: 8px;
+  }
+}
+

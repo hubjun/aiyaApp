@@ -1,0 +1,234 @@
+.pro-filter-list{
+  .filter-mar10{
+    margin: 0 10px 0 0;
+  }
+  .item-input-wrapper{
+    background: #fff;
+  }
+  .button-bar{
+    width: 120%;
+  }
+  .aiya-subNav{
+    width: 100%;
+    height: 45px;
+    color: #252525;
+    position: relative;
+    overflow: hidden;
+    background-color: #fff;
+    border-bottom: 1px solid #dfdfdf;
+    .selected{
+      color: #FF5F0F!important;
+    }
+    .filter-bar{
+      height: 41px;
+      line-height: 41px;
+      font-size: 17px;
+      text-align: center;
+    }
+    .nav-all{
+      width: 80px;
+      font-size: 16px;
+      position: absolute;
+    }
+    .nav-warp{
+      height: 50px;
+      position: absolute;
+      //left: 90px;
+      left: 10px;
+      right: 80px;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      ul{
+        width: 360px;
+        li{
+          float: left;
+          width: 79px;
+          height: 41px;
+          line-height: 41px;
+          text-align: center;
+          a.toogleTabItemPri{
+            display:block;
+            float: left;
+            color:#000000;
+            width: 60%;
+            text-align: right;
+          }
+          //向下向上字体图标
+          .toogleTabArrow{
+            display: block;
+            padding-left:4px;
+            height:40px;
+            color: #000;
+            float: left;
+            i{
+              display:block;
+              font-size:12px;
+              height:20px;
+
+            }
+            //箭头向上
+            .toogleTabArrowUp{
+              line-height: 35px;
+            }
+            //箭头向下
+            .toogleTabArrowDown{
+              line-height: 10px;
+            }
+          }
+        }
+      }
+    }
+    .list-align{
+      float: right;
+      width: 80px;
+      height: 31px;
+      padding: 6px 0 0 0;
+      margin: 5px 0;
+      text-align: center;
+      border-left: 1px solid #dfdfdf;
+      i{
+        font-size: 23px;
+        color: #6D6D6D;
+      }
+    }
+  }
+  .findNot {
+    width: 3.98rem;
+    height: 4rem;
+    display: block;
+    margin: auto;
+    margin-top: 2rem;
+  }
+  //商品网格、列表显示 start
+  .pro{
+     width:100%;
+     overflow:hidden;
+     a,span{
+       display:block;
+       text-decoration:none;
+       color: #252525;
+     }
+     .pro-warp{
+       background-color:#f3f5f7;
+       width:100%;
+       height:105px;
+       border-top:1px solid #dfdfdf;
+       border-bottom:1px solid #dfdfdf;
+     }
+     .pro-body{
+       width:100%;
+       overflow:hidden;
+     }
+     .pro-body-des{
+       display:inline-block;
+       position:absolute;
+       left:8px;
+       right:8px;
+       img{
+         width:79px;
+         height:79px;
+         border:1px solid #dfdfdf;
+         margin:10px 0 0 10px;
+       }
+       .pro-body-des-text{
+         position:absolute;
+         padding: 3px 0;
+         font-size:12px;
+         left:101px;
+         right:0;
+         top:10px;
+         bottom:10px;
+         .pro-name{
+           font-size: 14px;
+           text-overflow: ellipsis;
+           white-space: nowrap;
+           overflow: hidden;
+         }
+         .fact-price{
+           color: #808080;
+           margin: 9px 0 0 0;
+           font-size: 14px;
+           text-decoration: line-through;
+         }
+         .dis-price{
+           line-height: 26px;
+           color: #FF5F0F;
+           font-size: 15px;
+         }
+         .pro-body-des-con{
+           margin-top:5px;
+         }
+         .detail-enquiry{
+           padding-top: rem(20);
+           line-height: 26px;
+           color: #FF5F0F;
+           font-size: 15px;
+         }
+       }
+     }
+   }
+  .column-list{
+    padding: 5px;
+    .pro-row{
+      float: left;
+      padding: 10px 3px;
+      .list-con{
+        border: 1px solid #dedede;
+        .pro-item{
+          width: 100%;
+          height: 7.45rem;
+          img{
+            width: 100%;
+            height: 7.45rem;
+          }
+        }
+        .list-detail{
+          padding: 7px 3px 3px;
+          p.pro-name{
+            margin: 0;
+            height: 40px;
+            color: #252525;
+            font-size: 14px;
+          }
+          .kind-price{
+            height: 2.09rem;
+            position: relative;
+            padding: 3px 0 0 0;
+            .fact-price{
+              display: block;
+              color: #808080;
+              font-size: 14px;
+              text-decoration: line-through;
+            }
+            .dis-price{
+              line-height: 26px;
+              color: #FF5F0F;
+              font-size: 15px;
+            }
+            .join-cart{
+              position: absolute;
+              width: 0.85rem;
+              height: 0.85rem;
+              top: 25px;
+              right: 16px;
+              cursor: pointer;
+              background: url("../img/joinCart.jpg") no-repeat;
+              background-size: 0.85rem 0.85rem;
+            }
+          }
+          .ycInquiry {
+            height: 2.09rem;
+            .detail-enquiry {
+              display: inline-block;
+              margin: 10px 0 0 5px;
+              line-height: 26px;
+              color: #FF5F0F;
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+  //商品网格、列表显示 end
+}

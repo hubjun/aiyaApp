@@ -1,0 +1,101 @@
+/**
+ * Created by xionghuilin on 2016/5/26.
+ */
+aiyaController.controller('addressController',[
+  '$scope',
+  '$rootScope',
+  '$state',
+  '$stateParams',
+  '$ionicListDelegate',
+  '$timeout',
+  'userAddressService',
+  'CommonUtil',
+  function($scope,$rootScope,$state,$stateParams,$ionicListDelegate,$timeout,userAddressService,CommonUtil){
+
+    $scope.goBack = goBack;
+    //返回上一页
+    function goBack() {
+      //todo 清空缓存
+      //$ionicHistory.goBack();
+      //判断wap是否能获取到上一页路由 没有则返回首页
+      if (!$ionicHistory.backView()) {
+        $state.go('home');
+        return;
+      }
+      ($ionicHistory.backView() && $ionicHistory.backView().url.indexOf('login') > 0) ? $ionicHistory.goBack(-2) : $ionicHistory.goBack();
+    }
+
+
+    //初始化方法
+    $scope.init = function () {
+      $scope.selectedAddress = $stateParams.addrId//左侧checkbox选择框，带过来的以选择地址的id，用于控制左侧checkbox选择框的勾选
+      $scope.selectedItem = $stateParams.addrId;//选择的数据信息，记录选择地址的ID，用于传给地址详情，从地址服务中获取详细信息。
+      userAddressService.getList().then(function(data){
+        $scope.addressList = data.list;
+      },function(err){
+        CommonUtil.tip(err);
+      });
+    };
+
+    //进入页面，刷新页面。
+    $scope.$on('$ionicView.beforeEnter', function () {
+      $scope.init();
+      if($scope.selectedAddress!=""){
+        $scope.addressSet = 0;
+      }
+    });
+
+    //删除地址方法
+    $scope.deleteAddressInfo = function (addressId) {
+      if ($scope.hasShowedPopup) {
+        return;
+      }
+      $scope.hasShowedPopup = true;
+      $timeout(function () {
+        $scope.hasShowedPopup = false;
+      });
+
+      $ionicListDelegate.closeOptionButtons();
+      CommonUtil.confirm('信息删除后不可恢复',null,'确认','取消')
+        .then(function (res) {
+          if (res) {
+            userAddressService.delete(addressId).then(function(data){
+              $scope.init();
+              if ($scope.selectedAddress == addressId) {
+                $rootScope.$broadcast('SELECT_ADDRESS_DELETED', addressId);//通知其他页面，当前选中地址被删除
+              }
+            },function(err){
+              CommonUtil.tip(err);
+            });
+          }
+        });
+    };
+
+    //广播地址信息，广播出ID，需要的在自己页面接收。发送的是全部数据。
+    $scope.selectAddressData = function (addr) {
+      $scope.selectedAddress = addr.id;//勾选上当前地址信息
+      $rootScope.$broadcast('SELECT_ADDRESS', addr);//广播出去
+      $scope.$ionicGoBack();
+    };
+
+    //点击编辑按钮跳转逻辑
+    $scope.editAddress = function (addr) {
+      $rootScope.$broadcast('SELECT_ADDRESS', addr);
+      if ($scope.selectedAddress == addr.id) {//如果没有地址信息，去补全地址，然后直接返回
+        $state.go('addressDetail', {addressId: addr.id, isSelect: true});
+      } else {
+        $state.go('addressDetail', {addressId: addr.id});
+      }
+    };
+    //设置默认地址方法
+    $scope.setDefaultAddress = function (addressId) {
+      $ionicListDelegate.closeOptionButtons();
+      userAddressService.setDefault(addressId).then(function(){
+        $scope.init();
+      },function(err){
+        CommonUtil.tip(err);
+      });
+    };
+
+
+}]);

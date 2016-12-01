@@ -1,0 +1,172 @@
+// //.html{font-size:10px;}
+// .present{
+//   // margin-left: $container-padding-h;
+//   // border: 0 none;
+//   background-color: $present-bg-color;
+//   border-width: 0;
+// }
+// // .present i.checkbox-icon {
+// //   margin-left: -6px;
+// //   width: 20px;
+// //   height: 20px;
+// //   margin-top: 7px;
+// // }
+// // .present.item-checkbox .checkbox {
+// //   margin-left: -8px;
+// //   margin-right: -8px;
+// // }
+// // .present .item-content.disable-pointer-events {
+// //   margin-left: -38px;
+// //   margin-right: -16px;
+// //   margin-top: -10px;
+// // }
+// .orderEdit{
+//   float: right;
+//   // margin-top: -1.4rem;
+//   // color:#252525;
+//   // margin-right: -10px;
+//   // text-decoration:none;
+// }
+// //content
+// //.item-complex .item-content {
+// //  padding-right: 0px;
+// //  padding-bottom: 0px;
+// //}
+// label.orderCheck.item.item-checkbox.ng-valid {
+//   padding: 0px;
+//   margin: 0px;
+//   width: 47px;
+//   float: left;
+//   margin-left: -106px;
+//   border:0 none;
+// }
+// .orderCheck .checkbox.checkbox-input-hidden.disable-pointer-events.checkbox-circle {
+//   padding: 0px;
+//   width: 28px;
+// }
+// .orderCheck .item-content.disable-pointer-events {
+//   padding: 0px;
+//   height: 0px;
+//   margin: 20px;
+// }
+// img.orderImg {
+//   margin-left: -59px;
+//   max-width: 80px;
+//   max-height: 80px;
+// }
+// h2.orderListName,p.orderListNorms,p.orderPrice{
+//   margin-left: 29px;
+// }
+// h2.orderListName {
+//   margin-top: -86px;
+//   white-space: normal;
+// }
+// p.orderListNorms {
+//   margin-top:0.9rem;
+// }
+// p.orderPrice {
+//   margin-top: -20px;
+// }
+// .orderList .item-thumbnail-left, .orderList .item-thumbnail-left .item-content {
+//   min-height: 50px;
+// }
+//
+// /*.orderCheck{
+//   border:1px solid red;
+// }
+// .orderList .item-content {
+//   border: 1px solid;
+//   float: left;
+//   margin-left: 42px;
+// }
+// .orderImg {
+//   border: 1px solid;
+//   margin-left: -11px;
+// }
+// h2.orderListName, .orderListNorms, .orderPrice {
+//   border: 1px solid;
+//   margin-left: -20px;
+// }
+// .orderList .item-thumbnail-left,.orderList .item-thumbnail-left .item-content{
+//   padding-right: 0px;
+// }
+// .orderListRepeat>.item-content {
+//   padding-left: 0px;
+//   padding-right: 0px;
+// }
+//
+//
+//
+//
+//
+// .orderListRepeat>.item-content>label {
+//   border: 0 none;
+// }
+// .orderListRepeat .item-content.disable-pointer-events {
+//   padding-left: 90px;
+//   margin-left: -15px;
+// }
+// .orderListRepeat .item-checkbox .checkbox {
+//   top: 48%;
+//   margin-left: -5px;
+// }
+// .orderList .item-thumbnail-left .item-content .item-image, .item-thumbnail-left .item-content>img:first-child{
+//   left: 1px;
+// }*/
+//
+//
+// .orderListName,.orderListNum{
+//   color:#252525;
+// }
+// .orderListNorms{
+//   color:#878787;
+// }
+// .prometPrice{
+//   color:#FF5F0F;
+// }
+// .marketPrice{
+//   color:#B4B4B4;
+//   text-decoration: line-through;
+//   margin-left: 6px;
+// }
+// .orderListNum{
+//   float:right;
+// }
+//
+// //footer
+// .orderList .bar-footer {
+//   border-top: 1px solid #E4E4E4;
+//   height: 62px;
+// }
+// .selectAll {
+//   border: 0 none;
+//   margin-left: -4px;
+// }
+// .orderTotal {
+//   position: absolute;
+//   right: 5.5rem;
+// }
+// .selectAll .checkbox-circle {
+//   margin-left: -8px;
+//   margin-right: -8px;
+// }
+// .selectAll i.checkbox-icon {
+//   margin-left: -4px;
+// }
+// .selectAll .item-content.disable-pointer-events {
+// /*  margin-top: -9px;*/
+//   margin-left: -20px;
+// }
+// span.sumPrice {
+//   color: #F64501;
+// }
+// button.goCalcu {
+//   position: absolute;
+//   right: 5px;
+//   padding: 0.4rem 0.7rem;
+//   border-radius: 6px;
+//   border: 0 none;
+//   color: white;
+//   background: #FF5F0F;
+//   font-size: 0.8rem;
+// }

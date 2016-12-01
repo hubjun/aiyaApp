@@ -1,0 +1,294 @@
+aiyaController.controller('myOrdersController', [
+  '$scope',
+  '$stateParams',
+  '$timeout',
+  'CommonUtil',
+  'orderService',
+  '$state',
+  '$ionicScrollDelegate',
+  function ($scope, $stateParams, $timeout, CommonUtil, orderService,$state,$ionicScrollDelegate) {
+    var states = [
+      {
+        type: 'all',
+        tabIndex: 0,
+        pageNumber: 1,
+        pageSize: 3,
+        hasMore: true,
+        orders: [],
+        loadPending: false,
+        initated: false
+      },
+      {
+        type: 'wPay',
+        tabIndex: 1,
+        pageNumber: 1,
+        pageSize: 3,
+        hasMore: true,
+        orders: [],
+        loadPending: false,
+        initated: false
+      },
+      {
+        type: 'wDeliver',
+        tabIndex: 2,
+        pageNumber: 1,
+        pageSize: 3,
+        hasMore: true,
+        orders: [],
+        loadPending: false,
+        initated: false
+      },
+      {
+        type: 'wComfirm',
+        tabIndex: 3,
+        pageNumber: 1,
+        pageSize: 3,
+        hasMore: true,
+        orders: [],
+        loadPending: false,
+        initated: false
+      },
+      {
+        type: 'wComment',
+        tabIndex: 4,
+        pageNumber: 1,
+        pageSize: 3,
+        hasMore: true,
+        orders: [],
+        loadPending: false,
+        initated: false
+      }
+    ];
+    var currentState = states[$stateParams.tab];
+
+    $scope.currentTab = currentState.tabIndex;
+
+    $scope.getState = function (type) {
+      return typeof type === 'string' ? _.find(states, {'type': type}) : _.find(states, {'tabIndex': type});
+    };
+
+    $scope.switchState = function (index) {
+      currentState = states[index];
+      $scope.currentTab = currentState.tabIndex;
+      $scope.currentType = currentState.type;
+      if (!currentState.orders.length) {
+        loadMore(currentState);
+      }
+    };
+    //折叠展示商品
+    $scope.show = function ($index, order) {
+      return order.expanded || $index < 2;
+    };
+    $scope.showContentTxt;
+    $scope.showHandle = function (order) {
+      // return !order.expanded && order.productList.length > 2;
+      if(order.productList.length > 2){
+        return true;
+      }
+      return false;
+    };
+    //获取每个订单列表到顶部的距离
+    var orderListScrollTopArr = [];
+    $scope.getOrderListScrollTop = function(){
+      var getAllListDom = document.getElementsByClassName("status-bar");
+      console.log(getAllListDom);
+    }
+
+    //判断用户是第几次点击按钮，第一次状态为展开，第二次状态为收起
+    $scope.clickState = 1;
+    $scope.showContentTxt = "查看全部";
+    $scope.expand = function ($event,$index,order) {
+      //查看全部按钮到顶部的距离
+      $scope.buttonExpandScrollTop;
+      if($scope.clickState==1){
+        $scope.buttonExpandScrollTop = $event.target.offsetTop;
+        order.expanded = true;
+        $scope.clickState = 2;
+        $event.target.innerHTML = "收起";
+        $ionicScrollDelegate.resize();
+      }else{
+        $scope.buttonUnExpandScrollTop = $event.target.offsetTop;
+        $ionicScrollDelegate.$getByHandle("myOrdersHandle").scrollTo(0,$scope.buttonExpandScrollTop-260);
+        order.expanded = false;
+        $scope.show($index,order);
+        $scope.clickState = 1;
+        $event.target.innerHTML = "查看全部";
+      }
+    };
+    $scope.loadMore = loadMore;
+
+    //init
+    loadMore(currentState);
+
+    function loadMore(state) {
+      //loadPending是否加载
+      if (state.loadPending) return;
+      state.loadPending = true;
+      loadOrders(state)
+        .then(function (resp) {
+          state.initated = state.initated ? state.initated : !state.initated;
+          if (!resp.length) {
+            //如果没有返回数据，则不需加载更多，意味着已经加载到最后一页
+            state.hasMore = false;
+          } else {
+            _.each(resp, function (p) {
+              if (p.specificationValuesName == '') {
+                p.isHasSpecification = false;
+              } else {
+                p.isHasSpecification = true;
+              }
+            });
+            state.pageNumber++;
+          }
+        })
+        .finally(function () {
+          state.loadPending = false;
+          state.scope.$broadcast('scroll.infiniteScrollComplete');
+        });
+    };
+    //$scope.cancelSingleOrder = function (sn, $index) {
+      // var loadMore = (function () {
+      //   var pending = false;
+      //   return function () {
+      //     if (pending) return;
+      //     pending = true;
+      //
+      //     var loadMorePromise = getProductsPromise.then(function (products) {
+      //         if (!products.length) {
+      //           $scope.hasMore = false;
+      //         } else {
+      //           _.each(products, function (p, i) {
+      //             console.log(products);
+      //             if (p.specificationValuesName == '') {
+      //               p.isHasSpecification = false;
+      //             } else {
+      //               p.isHasSpecification = true;
+      //             }
+      //             if (p.image == '') {
+      //               p.isHasimage = false;
+      //             } else {
+      //               p.isHasimage = true;
+      //             }
+      //             $scope.purchaseProducts.push(p);
+      //
+      //             _.each($scope.purchaseProducts, function (p) {
+      //               p.isSelected = true;
+      //             });
+      //           });
+      //           checkIsAllSelected();
+      //           pageNumber++;
+      //         }
+      //       })
+      //       .finally(function () {
+      //         pending = false;
+      //       });
+      //     loadMorePromise.abort = getProductsPromise.abort;
+      //     return loadMorePromise;
+      //   };
+      // }());
+
+      $scope.cancelSingleOrder = function (sn,$index) {
+        CommonUtil.confirm('订单取消后，只能通过再次购买生成订单，您确定要取消吗', null, '确定', '取消').then(function (res) {
+          if (res) {
+            orderService.cancelOrder(sn)
+              .then(function () {
+                CommonUtil.tip('取消成功');
+
+                var state;
+                if ($scope.currentType == "wPay") {
+                  state = $scope.getState('wPay');
+                  state.orders.splice($index, 1);
+                } else {
+                  state = $scope.getState('all');
+                  orderService.get(sn)
+                    .then(function(order){
+                      if($scope.$$destroyed) return $q.reject();
+                      state.orders[$index].orderStatus = order.orderStatus;
+                      state.orders[$index].orderStatusDesc = order.orderStatusDesc;
+                    })
+                }
+                $scope.$broadcast("orderCancel", state);
+                // console.log($scope.currentType);
+              }, function () {
+                CommonUtil.tip('取消订单失败');
+              })
+          }
+        });
+      };
+
+      $scope.confirmSingleOrder = function (sn, $index) {
+        CommonUtil.confirm('确认收货后，方可评价，确认要收货吗？', null, '确定', '取消').then(function (res) {
+          if (res) {
+            orderService.confirmOrder(sn)
+              .then(function () {
+                CommonUtil.tip('确认成功');
+                var state = $scope.getState('wComfirm');
+                state.orders.splice($index, 1);
+              } , function(){
+                CommonUtil.tip('确认失败');
+              });
+          }
+        });
+      };
+
+      /*再次购买*/
+      $scope.buyAgain = function (id) {
+        var params = {
+          id: id
+        }
+        orderService.buyAgain(params).then(function () {
+          $state.go('purchaseOrderList');
+        }, function (err) {
+          CommonUtil.tip(err);
+        });
+      }
+
+      function loadOrders(state) {
+        var pn = state.pageNumber,
+          ps = state.pageSize,
+          ti = state.tabIndex;
+        //查看type传给后台的类型
+        //console.log(ti);
+        return orderService.getList(pn, ps, {'type': ti})
+          .then(function (resp) {
+            var _orders = state.orders;
+            _.each(resp, function (order) {
+              _orders.push(order);
+            });
+            return resp;
+          });
+      }
+
+
+  }
+])
+.controller('myOrderAllController', ["$scope", function ($scope) {
+  $scope.state = $scope.getState('all');
+  $scope.state.scope = $scope;
+  $scope.$on("orderCancel",function(e,data){
+    $scope.state = data;
+  });
+  //获取订单列表到顶部的距离
+  $scope.getOrderListScrollTop();
+}])
+.controller('myOrderWpayController', ["$scope", function ($scope) {
+  $scope.state = $scope.getState('wPay');
+  $scope.state.scope = $scope;
+  $scope.$on("orderCancel",function(e,data){
+    $scope.state = data;
+    console.log($scope.state);
+  });
+  //$scope.gopay
+}])
+.controller('myOrderWdeliverController', ["$scope", function ($scope) {
+  $scope.state = $scope.getState('wDeliver');
+  $scope.state.scope = $scope;
+}])
+.controller('myOrderWcomfirmController', ["$scope", function ($scope) {
+  $scope.state = $scope.getState('wComfirm');
+  $scope.state.scope = $scope;
+}])
+.controller('myOrderWcommentController', ["$scope", function ($scope) {
+  $scope.state = $scope.getState('wComment');
+  $scope.state.scope = $scope;
+}]);

@@ -1,0 +1,24 @@
+<ion-view class="emailContent" view-title="手机号码" cache-view="false">
+  <div class="bar bar-header bar-stable">
+    <a class="button button-dark ion-ios-arrow-back icon-left button-clear" ng-click="back()"></a>
+    <h1 class="title">手机号码</h1>
+    <a class="button button-dark ion-ios-more icon-right button-clear" nav-button></a>
+  </div>
+  <ion-content class="has-header">
+    <form name="cellphoneForm" ng-submit="linkMobileOk(cellphoneForm)" novalidate>
+      <div class="padding emailDiv">
+        <input type="text"
+               name="cellPhone"
+               pattern="^1\d{10}$"
+               ng-maxlength="11"
+               ng-model="$parent.mobile "
+               placeholder="{{validate ? '手机号码不能是空哦' : '请输入您的手机号码'}}"
+               required
+               ng-class="{'true' : 'input-error'}[cellphoneForm.cellPhone.$invalid && validate]"
+               focus-me="cellPhoneFocus"
+               class="emailInput">
+        <button class="button button-block button-positive" type="submit">确 定</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

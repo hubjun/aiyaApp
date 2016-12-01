@@ -1,0 +1,176 @@
+.purchaseOrder {
+  .button {
+    min-width: 0;
+    min-height: 0;
+    line-height: 1;
+  }
+  .color-positive {
+    color: $positive;
+  }
+  .color-weak {
+    color: $global-gray;
+  }
+  .color-striking {
+    color: $striking;
+  }
+  .content-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: $bar-height;
+    bottom: $bar-height;
+  }
+  //快速采购
+  .rapidBtnWrapper {
+    padding: $rapidBtnWrapper-padding $rapidBtnWrapper-padding * 2;
+    height: $rapidBtnWrapper-height;
+    .rapidBtn {
+      padding: $rapidBtn-padding-v $rapidBtn-padding-h;
+      border-radius: $rapidBtn-border-radius;
+      font-size: $rapidBtn-font-size;
+      width: $rapidBtn-width;
+      height: $rapidBtn-height;
+      line-height: $rapidBtn-line-height;
+      display: block;
+      text-decoration: none;
+    }
+  }
+  //搜索栏
+  .handleWrapper {
+    @include display-flex();
+    @include align-items(center);
+    padding: $handleWrapper-padding-v $handleWrapper-padding-h;
+    height: $handleWrapper-height;
+    background: $handleWrapper-bg-color;
+    font-size: $handleWrapper-font-size;
+    border-bottom: $handleWrapper-border-width solid $handleWrapper-border-color;
+    //搜索框
+    .searchBox {
+      width: $searchBox-width;
+      height: $searchBox-height;
+      position: relative;
+      border-radius: 3px;
+      //搜索输入框
+      .searchInput {
+        width: 100%;
+        height: 100%;
+        padding: $search-input-padding;
+        padding-right: $search-input-rpadding;
+        border-radius: 3px;
+        border: 1px solid #DCDCDC;
+        font-size: inherit;
+      }
+      //搜索按钮
+      .searchBtn {
+        width: $searchBtn-width;
+        height: $searchBtn-height;
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-left: 1px solid #DCDCDC;
+        &.ion-ios-search::before {
+          font-size: $searchIcon-width;
+          position: absolute;
+          left: $searchIcon-offset-x;
+          top: $searchIcon-offset-y;
+        }
+      }
+    }
+    //是否缺货
+    .present {
+      margin-left: $handleWrapper-padding-h;
+      margin-right: auto;
+      label {
+        font-size: inherit;
+        input {
+          vertical-align: text-bottom;
+          margin-right: 3px;
+          background-color: #fff;
+        }
+      }
+    }
+    //编辑按钮
+    .editBtn {
+      font-size: inherit;
+    }
+  }
+
+  .purchaseProductsContainer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: $purchaseProductsContainer-top;
+    bottom: 0;
+  }
+
+  .errMsg{
+    color: #FF5F0F;
+    white-space: nowrap;
+    font-size: 11px;
+  }
+  //采购单列表
+  .purchaseProducts {
+    .purchaseProduct {
+      &:first-child {
+        border-width: 0;
+      }
+      &:last-child {
+        //border-width: 0;
+      }
+      .item-content {
+        padding: 0;
+        .productImg {
+          margin-left: $productImg-margin-left;
+          width: 3.75rem;
+          height: 3.75rem;;
+        }
+      }
+    }
+  }
+  .cartNull{
+    width: 6.81rem;
+    height: 6rem;
+    display: block;
+    margin: auto;
+    margin-top: 2rem;
+  }
+  .brandNullTxt{
+    color:#212121;
+  }
+  .nullTxt2{
+    color:#F64502;
+  }
+  //footer
+  ion-footer-bar {
+    @include align-items(center);
+    .select-all {
+      .checkbox {
+        vertical-align: middle;
+        margin-left: 5px;
+        margin-right: 10px;
+      }
+    }
+    .sum-price {
+      margin-left: auto;
+      margin-right: 10px;
+      line-height: 1.5;
+    }
+    .move-to-fav {
+      margin-left: auto;
+      margin-right: 10px;
+      width: 100px;
+    }
+    .delete {
+      position: relative !important;
+      width: 100px;
+      top: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+    }
+    .button {
+      padding: 10px 10px;
+      font-size: $base-font-size;
+    }
+
+  }
+}

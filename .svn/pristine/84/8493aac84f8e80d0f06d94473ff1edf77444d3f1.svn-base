@@ -1,0 +1,62 @@
+<ion-view view-title="用户注册" hide-nav-bar="true">
+  <!--header-->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">用户注册</div>
+  </div>
+  <ion-content class="has-header loginCon regCon">
+    <form ng-submit="submit()">
+      <div class="padding emailDiv">
+        <div class="block">
+          <input type="text"
+                 class="emailInput"
+                 ng-model="user.mobile"
+                 placeholder="请输入你的手机号码">
+        </div>
+        <div class="block">
+          <input type="text"
+                 class="emailInput infoCode"
+                 ng-model="user.authCode"
+                 placeholder="请输入短信验证码">
+          <button type="button" class="button button-block codeBtn" ng-click="getAuthCode()" ng-class="paraclass" ng-bind="paracont">免费获取验证码</button>
+        </div>
+
+        <div class="block aiya-item-toggle">
+          <input type="{{pwoTypeHandle ? 'text' : 'password'}}"
+                 class="emailInput regEye1"
+                 ng-model="user.password1"
+                 placeholder="请输入密码">
+          <label class="toggle">
+            <input type="checkbox" ng-model="pwoTypeHandle">
+            <a class="track">
+              <div class="handle"></div>
+            </a>
+          </label>
+        </div>
+
+        <div class="block aiya-item-toggle">
+          <input type="{{ pwcTypeHandle ? 'text' : 'password'}}"
+                 class="emailInput regEye2"
+                 ng-model="user.password2"
+                 placeholder="请再次输入密码">
+          <label class="toggle">
+            <input type="checkbox" ng-model="pwcTypeHandle">
+            <a class="track">
+              <div class="handle"></div>
+            </a>
+          </label>
+        </div>
+
+      </div>
+      <div class="padding regAgree">
+        <input type="checkbox" ng-model="$parent.user.checked">
+        <div class="agreeTxt">同意<span class="userAgree" ui-sref="userAgree">《爱牙库用户注册协议》</span></div>
+      </div>
+      <div class="padding emailDiv">
+        <button ng-disabled="!user.checked" type="submit" class="button button-block button-positive button-next modifyPhone">注册</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,45 @@
+aiyaController.controller('registerController', [
+  '$scope',
+  '$state',
+  'userService',
+  'authCodeService',
+  '$ionicLoading',
+  function($scope, $state, userService, authCodeService, $ionicLoading){
+    var tip = function (msg) {
+      $ionicLoading.show({
+        template: msg,
+        noBackdrop: true,
+        duration: 1500
+      });
+    };
+    $scope.submit = function () {
+      var opt = {
+        username: $scope.user.mobile,
+        password: $scope.user.password1,
+        captchacode: $scope.user.authCode
+      };
+      userService.register(opt)
+        .then(function () {
+          tip('注册成功!即将返回登录页面');
+          setTimeout(function () {
+            $scope.back();
+          }, 1000);
+        }, function (errorMsg) {
+          tip(errorMsg);
+        });
+    };
+    $scope.user = {};
+    $scope.getAuthCode = function () {
+      var mobile = $scope.user.mobile;
+      if(mobile) {
+        authCodeService.get(mobile, 1)
+          .then(function () {
+            tip('验证码已发送!');
+          }, function (errorMsg) {
+            tip(errorMsg);
+          })
+      } else {
+        tip('请输入手机号码！');
+      }
+    };
+  }]);

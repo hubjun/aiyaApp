@@ -1,0 +1,146 @@
+<ion-view class="orderDetail" view-title="订单详情" hide-nav-bar="true" cache-view="false">
+  <!--header-->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">订单详情</div>
+    <div class="buttons buttons-right">
+      <span class="right-buttons">
+        <button class="button button-dark button-clear ion-ios-more icon-right" nav-button></button>
+      </span>
+    </div>
+  </div>
+
+  <ion-content ng-show="order" class="has-header">
+
+    <div class="pay-status">
+      <div class="left-con">
+        <h2>{{::order.orderStatusDesc}}</h2>
+        <div ng-if="order.paymentStatus == '0'">
+          <p>订单将在{{::order.rtime.d}}天{{::order.rtime.h}}小时后</p>
+          <p>自动取消</p>
+        </div>
+      </div>
+      <i class="payment"></i>
+      <!--<i class="delivered"></i>-->
+    </div>
+    <div class="gap"></div>
+
+    <!--<ion-list class="status-delivered">-->
+      <!--<ion-item class="item-icon-left item-icon-right delivered-mar">-->
+        <!--<i class="icon left-con ion-aiya payment-delivered">&#xe610;</i>-->
+        <!--<p>{{::order.logistic.desc}}</p>-->
+        <!--<span>{{::order.logistic.createDate}}</span>-->
+        <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
+      <!--</ion-item>-->
+    <!--</ion-list>-->
+
+    <div class="wait-contact">
+      <div class="row consignee">
+        <span class="col">收货人：{{::order.consignee}}</span>
+        <span class="col">电话：{{::order.phone}}</span>
+      </div>
+      <div class="row address">
+        <span class="col">{{::order.areaName}}{{::order.address}}</span>
+      </div>
+    </div>
+    <div class="gap"></div>
+
+    <ul class="list">
+      <li class="item purchaseProductItem" ng-repeat="product in order.productList" ng-show="show($index, order)">
+        <div class="productImg">
+          <img ng-src="product.image" class=""/>
+        </div>
+        <div class="productDesc">
+          <h2 class="productDesc-title">{{::product.name}}</h2>
+          <p class="productDesc-spec">{{::product.fullName}}</p>
+          <p class="productDesc-price color-positive">
+            <span class="">￥{{::product.price|number:2}}</span>
+          </p>
+        </div>
+        <div class="productNum">×{{::product.quantity}}</div>
+      </li>
+    </ul>
+
+    <!--<ion-list>-->
+      <!--<ion-item>-->
+        <!--<div class="waitPay-list">-->
+          <!--<div class="left-img">-->
+            <!--<a href="#">-->
+              <!--<img src="./img/pro3.png" alt="">-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<div class="mid-detail">-->
+            <!--<span class="name">（宣宇）移动的活动的</span>-->
+            <!--<span class="parames">规格型号：49456489#</span>-->
+            <!--<span class="price">￥39.0</span>-->
+          <!--</div>-->
+          <!--&lt;!&ndash;<div class="right-count">&ndash;&gt;-->
+          <!--<span class="count">X99</span>-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</div>-->
+      <!--</ion-item>-->
+      <!--<ion-item>-->
+        <!--<div class="waitPay-list">-->
+          <!--<div class="left-img">-->
+            <!--<a href="#">-->
+              <!--<img src="./img/pro3.png" alt="">-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<div class="mid-detail">-->
+            <!--<span class="name">（宣宇）移动的活动的</span>-->
+            <!--<span class="parames">规格型号：49456489#</span>-->
+            <!--<span class="price">￥39.0</span>-->
+          <!--</div>-->
+          <!--&lt;!&ndash;<div class="right-count">&ndash;&gt;-->
+          <!--<span class="count">X99</span>-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</div>-->
+      <!--</ion-item>-->
+    <!--</ion-list>-->
+
+    <!--<div class="moreOrders">-->
+      <!--<ul class="list">-->
+        <!--<li class="item" ng-click="expand(order)">查看全部</li>-->
+      <!--</ul>-->
+    <!--</div>-->
+
+    <ion-list>
+      <ion-item class="payment-list">
+        <div class="pay">
+          <h2>运费</h2>
+          <span>￥{{::order.freight|number:2}}</span>
+        </div>
+      </ion-item>
+      <ion-item class="payment-list">
+        <div class="pay">
+          <h2>实付款（含运费）</h2>
+          <span>￥{{::order.amount|number:2}}</span>
+        </div>+
+      </ion-item>
+    </ion-list>
+    <div class="gap"></div>
+
+    <ion-list>
+      <ion-item class="payment-info">
+        <div>
+          <div class="li">订单编号：{{::order.sn}}</div>
+          <div class="li">创建日期：{{::order.createDate}}</div>
+          <div class="li">配送方式：{{::order.shippingMethodName}}</div>
+          <div class="li">支付方式：{{::order.paymentMethodName}}</div>
+          <div class="li">留言：{{::order.memo}}</div>
+        </div>
+      </ion-item>
+    </ion-list>
+    <!--<div class="gap"></div>-->
+    <!--<ion-list>-->
+      <!--<ion-item class="invoice">-->
+        <!--<h2>发票信息</h2>-->
+        <!--<div class="li">发票类型：</div>-->
+        <!--<div class="li">发票抬头：</div>-->
+        <!--<div class="li">发票内容：</div>-->
+      <!--</ion-item>-->
+    <!--</ion-list>-->
+  </ion-content>
+</ion-view>

@@ -1,0 +1,22 @@
+aiyaController.controller('modifyPwdController', [
+  '$scope',
+  '$state',
+  '$ionicLoading',
+  'CommonUtil',
+  'userService',
+  function($scope,$state,$ionicLoading,CommonUtil,userService){
+    $scope.modifyPwdSubmit = function(){
+      var opt = {
+        oldPwd: $scope.oldPwd,
+        password: $scope.newOkPwd,
+      };
+      userService.resetPwd(opt)
+        .then(function(){
+          CommonUtil.tip('密码修改成功');
+        }, function(error){
+          CommonUtil.tip(error);
+        })
+    }
+
+  }
+]);

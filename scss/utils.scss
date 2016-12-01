@@ -1,0 +1,51 @@
+//数字表单控件
+.ctr-number {
+  display: inline-block;
+  //width: 97px;
+  height: 22px;
+  background-color: lighten($gray, 0.8);
+  border: 1px solid #ccc;
+  font-size: 18px;
+  .minus,
+  .plus {
+    &.button {
+      background-color: lighten($gray, 0.8);
+      padding: 0;
+      width: 20px;
+      height: 20px;
+      font-size: 16px;
+      border-width: 0;
+      line-height: 20px;
+    }
+    display: inline-block;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+  }
+  .count {
+    display: inline-block;
+    text-align: center;
+    width: 36px;
+    height: 20px;
+    line-height: 20px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+  }
+}
+
+//loading
+.aiya-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(center);
+}

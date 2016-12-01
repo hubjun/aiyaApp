@@ -1,0 +1,17 @@
+angular.module('starter.services')
+
+  .factory('filterProList', ['$resource', 'ENV', function($resource, ENV) {
+    return {
+      filterProList: function() {
+        return $resource(ENV.siteUrl + 'product/search/list', {
+          categoryIds: '@categoryIds',
+          keyword: '@keyword',
+          salesDesc: '@salesDesc',
+          dateDesc: '@dateDesc',
+          priceOrder: '@priceOrder',
+          pageNumber: '@pageNumber',
+          pageSize: '@pageSize'
+        });
+      }
+    }
+  }]);

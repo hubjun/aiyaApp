@@ -1,0 +1,63 @@
+<ion-view class="myOrders" hide-nav-bar="true">
+  <!-- header -->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">我的订单</div>
+    <div class="buttons buttons-right">
+      <span class="right-buttons">
+        <!--<button class="button" ui-sref="rapidList"><i class="icon ion-ios-search"></i></button>-->
+        <button class="button button-dark button-clear ion-ios-more icon-right" nav-button></button>
+      </span>
+    </div>
+  </div>
+
+  <!--tab-->
+  <div class="tabs-striped tabs-top tabs-color-positive tabs-background-light">
+    <div class="tabs">
+      <a class="tab-item" ng-class="{active: currentTab === 0}" ng-click="switchState(0)">全部</a>
+      <a class="tab-item" ng-class="{active: currentTab === 1}" ng-click="switchState(1)">待付款</a>
+      <a class="tab-item" ng-class="{active: currentTab === 2}" ng-click="switchState(2)">待发货</a>
+      <a class="tab-item" ng-class="{active: currentTab === 3}" ng-click="switchState(3)">待收货</a>
+      <a class="tab-item" ng-class="{active: currentTab === 4}" ng-click="switchState(4)">待评价</a>
+    </div>
+
+    <div ng-show="currentTab === 0" class="tab-content">
+      <div ng-if="!getState(0).initated" class="aiya-loading"><ion-spinner class="spinner-positive" icon="dots"></ion-spinner><div class="aiyaLoading">正在加载</div></div>
+      <div ng-if="getState(0).initated && !getState(0).order.length" class="icon-empty-wrapper"><i class="icon-empty"></i></div>
+      <ion-content delegate-handle="myOrdersHandle">
+        <div ng-include="'templates/user/myOrderList.html'" ng-controller="myOrderAllController"></div>
+      </ion-content>
+    </div>
+
+    <div ng-show="currentTab === 1" class="tab-content">
+      <div ng-if="!getState(1).initated" class="aiya-loading"><ion-spinner class="spinner-positive" icon="dots"></ion-spinner><div class="aiyaLoading">正在加载</div></div>
+      <ion-content delegate-handle="myOrdersHandle">
+         <div ng-include="'templates/user/myOrderList.html'" ng-controller="myOrderWpayController"></div>
+      </ion-content>
+    </div>
+
+    <div ng-show="currentTab === 2" class="tab-content">
+      <div ng-if="!getState(2).initated" class="aiya-loading"><ion-spinner class="spinner-positive" icon="dots"></ion-spinner><div class="aiyaLoading">正在加载</div></div>
+      <ion-content>
+        <div ng-include="'templates/user/myOrderList.html'" ng-controller="myOrderWdeliverController"></div>
+      </ion-content>
+    </div>
+
+    <div ng-show="currentTab === 3" class="tab-content">
+      <div ng-if="!getState(3).initated" class="aiya-loading"><ion-spinner class="spinner-positive" icon="dots"></ion-spinner><div class="aiyaLoading">正在加载</div></div>
+      <ion-content>
+        <div ng-include="'templates/user/myOrderList.html'" ng-controller="myOrderWcomfirmController"></div>
+      </ion-content>
+    </div>
+
+    <div ng-show="currentTab === 4" class="tab-content">
+      <div ng-if="!getState(4).initated" class="aiya-loading"><ion-spinner class="spinner-positive" icon="dots"></ion-spinner><div class="aiyaLoading">正在加载</div></div>
+      <ion-content>
+        <div ng-include="'templates/user/myOrderList.html'" ng-controller="myOrderWcommentController"></div>
+      </ion-content>
+    </div>
+  </div>
+
+</ion-view>

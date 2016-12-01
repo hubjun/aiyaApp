@@ -1,0 +1,64 @@
+aiyaController.controller('brandController',[
+  '$scope',
+  '$ionicPopover',
+  'brandService',
+  '$state',
+  '$ionicLoading',
+  '$timeout',
+  function($scope,$ionicPopover,brandService,$state,$ionicLoading,$timeout){
+    $scope.tabNav={curNav:'brand'};
+    var searchParam = {
+      keyword: '',
+      makeType: ''
+    };
+    $scope.state = 0;
+    $scope.tabShow = 'ALL';
+    $scope.filterCategoryFrist = '';
+    $scope.init = init;
+
+    $scope.$on('$ionicView.beforeEnter',function(){
+      $scope.init();
+    });
+
+    function init(){
+      brandService.search(searchParam).get(function(resp){
+        $scope.brandList = resp.data.list;
+        $scope.state = 200;
+      },function(err){
+        $scope.state = 500;
+      });
+    }
+
+    $scope.changeTab=function(val){
+      $scope.tabShow = val;
+      //数据请求
+      if(val == 'ALL'){
+        searchParam.makeType = '';
+      }else if(val == 'IMPORT'){
+        searchParam.makeType = false;
+      }else if(val == 'HOME'){
+        searchParam.makeType = true;
+      }
+      $ionicLoading.show(angular.extend({
+        noBackdrop  : true,
+        hideOnStateChange : true
+      }, {}));
+      $timeout(function(){
+        $scope.init();
+        $ionicLoading.hide();
+      },500);
+    }
+
+    $scope.jumpBrandCategory = function(bId){
+      $state.go('filterList', {'brandId':bId});
+      console.log('品牌id:'+bId);
+    };
+
+    //下拉更新
+    $scope.doRefresh=function(){
+      $scope.init();
+      $scope.$broadcast('scroll.refreshComplete');
+    }
+
+
+  }]);

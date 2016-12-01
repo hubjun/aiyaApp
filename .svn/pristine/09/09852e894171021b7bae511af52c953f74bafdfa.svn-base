@@ -1,0 +1,244 @@
+aiyaController.controller('purchaseOrderController', [
+  '$scope',
+  '$ionicLoading',
+  '$ionicScrollDelegate',
+  'CommonUtil',
+  'StringUtil',
+  'Util',
+  'favoriteService',
+  'orderService',
+  'purchaseOrderService',
+  '$state',
+  '$ionicHistory',
+  function($scope,$ionicLoading, $ionicScrollDelegate, CommonUtil, StringUtil, Util,favoriteService, orderService, purchaseOrderService, $state,$ionicHistory) {
+
+    $scope.order = "canClick";
+    //过滤条件
+    $scope.filter = {
+      isOutStock: false,
+      keyword: '',
+      makeType:'',      //是否国产
+      categoryIds:'',
+      brandIds:'',
+      first:null,        //一级目录
+      second:null,      //二级目录
+      area:'',        //是否为国产品牌
+      brands:''
+    };
+
+    $scope.purchaseProducts = [];
+
+    $scope.init = function(){
+      purchaseOrderService.clearState();
+      $scope.state = purchaseOrderService.getState();
+      var pending = false;
+      if(pending) return;
+      pending = true;
+      var getProductsPromise = purchaseOrderService.getProducts( $scope.filter);
+      var loadMorePromise = getProductsPromise.then(function (products) {
+        $scope.purchaseProducts = products;
+        checkIsAllSelected();
+        console.log($scope.purchaseProducts);
+        purchaseOrderService.select($scope.purchaseProducts);
+      })
+        .finally(function () {
+          pending = false;
+        });
+      loadMorePromise.abort = getProductsPromise.abort;
+    };
+
+    var checkIsAllSelected = function () {
+      $scope.isAllSelected = _.filter($scope.purchaseProducts,{canClick: true}).length === _.filter($scope.purchaseProducts, {isSelected: true}).length &&  _.filter($scope.purchaseProducts,{canClick:true}).length != 0;
+    };
+
+    //全选
+    $scope.toggleSelectAll = function () {
+      if($scope.isAllSelected) {
+        _.each(_.filter($scope.purchaseProducts,{canClick:true}), function (p) {
+          p.isSelected = true;
+        });
+        purchaseOrderService.select($scope.purchaseProducts);
+      } else {
+        _.each($scope.purchaseProducts, function (p) {
+          p.isSelected = false;
+        });
+        purchaseOrderService.unselect();
+      }
+    };
+
+    //单选
+    $scope.toggleSelectOne = function (product) {
+      if(product.isSelected) {
+        purchaseOrderService.select(product);
+      } else {
+        purchaseOrderService.unselect(product);
+      }
+      checkIsAllSelected();
+    };
+
+    //编辑数量
+    $scope.changeNumber = function (product) {
+      var product = {'productList':[{'productId': product.id,'quantity':product.quantity }]};
+      purchaseOrderService.setQuantity(product);
+    };
+
+    //删除
+    $scope.deleteProduct = function (products) {
+      var selectedProducts = _.filter($scope.purchaseProducts, {isSelected: true});
+      if(selectedProducts.length) {
+        CommonUtil.confirm('确定要删除商品吗？',null,'确定','取消').then(function(res){
+          if(res) {
+            purchaseOrderService.removeProduct(selectedProducts)
+              .then(function () {
+                _.pullAllWith(products, selectedProducts, function (p1, p2) {
+                  return p1.id === p2.id;
+                });
+                purchaseOrderService.unselect(selectedProducts);
+                checkIsAllSelected();
+                $scope.purchaseProducts = _.filter($scope.purchaseProducts, {isSelected: false});
+                CommonUtil.tip('删除成功');
+                if($scope.purchaseProducts.length == 0){
+                  $state.go('purchaseOrderList');
+                }
+              })
+          }else{
+            $scope.init();
+          }
+        });
+      }else {
+        CommonUtil.tip('请选择要删除的商品');
+      }
+    };
+
+    $scope.singleDelete = function(id){
+      //console.log(id);
+      purchaseOrderService.removeSingle(id)
+        .then(function(){
+          $scope.init();
+          CommonUtil.tip('删除成功');
+        },function(errMsg){
+          CommonUtil.tip(errMsg);
+        });
+    };
+    //结算
+    $scope.goOrderProcess = function(){
+      var selectedProducts = _.filter($scope.purchaseProducts, {isSelected: true});
+      if(selectedProducts.length){
+        /*检测购买商品是否存在错误商品*/
+        if(_.filter(selectedProducts,{hasErr: true}).length > 0){
+          CommonUtil.tip('结算商品列表存在问题，请检查');
+          return;
+        }
+        var ids, quantitys;
+        if(!angular.isArray(selectedProducts)){
+          ids = [selectedProducts.id];
+          quantitys = [selectedProducts.quantity];
+        }else {
+          ids = _.map(selectedProducts, 'id');
+          quantitys = _.map(selectedProducts, 'quantity');
+          ids = ids.join(',');
+          quantitys = quantitys.join(',');
+        }
+        var product = {
+          ids: ids,
+          quantitys: quantitys
+        };
+        $state.go('orderOk', {productInfo:product});
+      }else{
+        CommonUtil.tip('请选择需要结算的商品');
+      }
+
+    };
+    //库存检测
+    var directBuyPrecheck = function(){
+      var selectedProducts = _.filter($scope.purchaseProducts, {isSelected: true});
+      var opt = {
+        id: selectedProducts.id,
+        directQuantity: selectedProducts.quantity
+      }
+      return orderService.directBuyPrecheck(opt);
+    };
+
+    $scope.collectProduct = function(products){
+      var selectedProducts = _.filter($scope.purchaseProducts, {isSelected: true});
+      if(selectedProducts.length){
+        favoriteService.addProduct(selectedProducts)
+          .then(function(){
+            _.pullAllWith(products, selectedProducts, function (p1, p2) {
+              return p1.id === p2.id;
+            });
+            purchaseOrderService.unselect(selectedProducts);
+            checkIsAllSelected();
+
+            CommonUtil.tip('收藏成功');
+          }, function(err){
+            CommonUtil.tip(err);
+          })
+      }else {
+        CommonUtil.tip('请选择要收藏的商品');
+      }
+
+    };
+
+    //监听过滤条件
+    $scope.$watch('filter.isOutStock', function (newValue, oldValue) {
+      if(newValue !== oldValue) {
+        $scope.init();
+        $ionicScrollDelegate.scrollTop();
+      }
+    });
+    $scope.$watch('filter.keyword', function (newValue, oldValue) {
+      if(newValue !== oldValue) {
+        $scope.keyword = newValue;
+        $scope.init();
+        $ionicScrollDelegate.scrollTop();
+      }
+    });
+
+    $scope.purchaseSearch = function(){
+      if(!$scope.filter.keyword == '') {
+        $scope.init();
+        $ionicScrollDelegate.scrollTop();
+      }else {
+        CommonUtil.tip('请输入您要搜索的关键字');
+      }
+    };
+
+    $scope.$on('$ionicView.enter',function(){
+      $scope.init();
+    });
+
+    $scope.onFinish = function(){
+        $scope.filter.makeType = StringUtil.isNotEmpty($scope.filter.area) ? $scope.filter.area.value: '';
+        if($scope.filter.brands != null && $scope.filter.brands !== '' && $scope.filter.brands.length > 0){
+          _.each($scope.filter.brands,function(n,k){
+            if($scope.filter.brands.length === k+1){
+              $scope.filter.brandIds += n.id
+            }else{
+              $scope.filter.brandIds += n.id + ',';
+            }
+          });
+        }else{
+          $scope.filter.brandIds = '';
+        }
+        if(StringUtil.isNotEmpty($scope.filter.first)){
+          $scope.filter.categoryIds = $scope.filter.first.id;
+          if(StringUtil.isNotEmpty($scope.filter.second)){
+            $scope.filter.categoryIds += ',' + $scope.filter.second.id;
+          }
+        } else{
+          $scope.filter.categoryIds = '';
+        }
+        $scope.init();
+      }
+
+    //完成
+    $scope.complete = function(){
+      if ($ionicHistory.backView()) {
+        $ionicHistory.goBack()
+      }else{
+        $state.go('purchaseOrderList');
+      }
+    }
+  }
+]);

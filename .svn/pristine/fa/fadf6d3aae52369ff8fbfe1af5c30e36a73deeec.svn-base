@@ -1,0 +1,41 @@
+aiyaController.controller('mylogController', [
+  '$scope',
+  '$stateParams',
+  'logisticService',
+  'CommonUtil',
+  'StringUtil',
+  'ENV',
+  'Util',
+  function ($scope, $stateParams, logisticService, CommonUtil, StringUtil, ENV, Util) {
+
+    var shippingStatusDesc = ['未发货','部分发货', '已发货', '部分退货', '已退货', '用户收货', '已收货(已签收)'];
+
+    $scope.init = init;
+    $scope.hasLogistics = false;
+
+    $scope.$on('$ionicView.beforeEnter',function(){
+      $scope.init();
+    })
+
+    //初始化
+    function init(){
+      logisticService.get($stateParams.sn).then(function (data) {
+        $scope.expresssn = data.expresssn;
+        $scope.logisticsList = data.logisticsList;
+        if(data.logisticsList == '' || data.logisticsList == null){
+          $scope.hasLogistics = true;
+        }
+        $scope.productList = data.productList;
+        $scope.shippingMethodName = data.shippingMethodName;
+        $scope.shippingStatus = shippingStatusDesc[data.shippingStatus];
+        $scope.sn = data.sn;
+        $scope.thumbnail = StringUtil.isEmpty(data.thumbnail) ? ENV.defaultImg : Util.getFullImg(data.thumbnail);
+        _.each($scope.productList,function(p,index){
+          p.image = StringUtil.isEmpty(p.image) ? ENV.defaultImg  : Util.getFullImg(p.image);
+        });
+      },function(err){
+        CommonUtil.tip(err);
+      });
+    }
+  }
+]);

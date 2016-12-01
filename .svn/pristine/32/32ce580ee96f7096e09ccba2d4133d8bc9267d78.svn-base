@@ -1,0 +1,84 @@
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+
+
+//ionic定义变量和自定义变量
+@import "variable";
+//mixins
+@import "mixins";
+//utils
+@import "utils";
+//layout
+@import "layout";
+//商品项
+@import "purchaseProductItem";
+//home
+@import "home";
+// brand
+@import "brand";
+//首页，本月推荐
+@import "moreMR";
+//产品分类
+@import "productCategory";
+//找货助手
+@import "findAssistant";
+//我的订单
+@import "myOrders";
+//我的采购单
+@import "orderList";
+@import "orderEdit";
+@import "purchaseOrder";
+//我的物流
+@import "mylog.scss";
+//快速采购
+@import "rapidList";
+//我的收藏夹
+@import "favorite";
+//我的爱牙库
+@import 'myaiyaku';
+//商品详情
+@import 'productInfo';
+//产品列表筛选
+@import "filterProductList";
+//收货地址
+@import 'address';
+//收货地址详情
+@import 'addressDetail';
+//用户信息
+@import 'userInfo';
+//订单确认
+@import "orderOk";
+//订单确认选择收货地址
+//@import "orderAddress";
+//订单支付
+@import "orderPay";
+//订单支付成功
+@import "paySuccess";
+//订单详情，待付款、已付款、已发货
+@import "orderDetail";
+//登入
+@import "login";
+//齿研社
+@import "toothOp";
+//齿研社-立即询价
+@import "toothOpEnquiry";
+//联系我们、关于我们
+@import "about";
+//联系我们
+@import "linkUs";
+
+@import "specificationPopup";

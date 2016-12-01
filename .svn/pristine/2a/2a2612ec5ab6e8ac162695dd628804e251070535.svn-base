@@ -1,0 +1,61 @@
+aiyaController.controller('loginController', [
+  '$scope',
+  '$state',
+  '$ionicLoading',
+  'StringUtil',
+  'userService',
+  function($scope, $state, $ionicLoading,StringUtil, userService){
+    var userList = [{
+      'name':'',
+      'password':'',
+    }];
+    $scope.userList = userList;
+    var tip = function (msg) {
+      $ionicLoading.show({
+        template: msg,
+        noBackdrop: true,
+        duration: 1500
+      });
+    };
+    $scope.login = function () {
+      var isPass = true;
+      var msg = '';
+      for(var i = 0; i< $scope.userList.length; i++){
+        var item = $scope.userList[i];
+        if(StringUtil.isEmpty(item.name)){
+          msg = '请输入用户名/手机号！';
+          isPass = false;
+          break;
+        }
+        if(StringUtil.isEmpty(item.password)){
+          msg = '请输入您的密码！';
+          isPass = false;
+          break;
+        }
+      }
+      if(isPass) {
+        var opt = {
+          username: $scope.userList[0].name,
+          password: $scope.userList[0].password,
+          usertype: 1
+        };
+        $ionicLoading.show({template: '<div>登录中<ion-spinner icon="dots" style="vertical-align: middle;display:inline-block;height: 28px;width: 28px;fill: #fff"></ion-spinner></div>'});
+        $scope.$on('$destroy', function () {
+          $ionicLoading.hide();
+        });
+        userService.login(opt)
+          .then(function () {
+            $ionicLoading.hide();
+            tip('登录成功！');
+            setTimeout(function () {
+              $scope.back();
+            }, 1000);
+          }, function (errorMsg) {
+            $ionicLoading.hide();
+            tip(errorMsg);
+          });
+      }else{
+        $ionicLoading.show({template:msg,noBackDrop:true,duration:2000});
+      }
+    }
+  }]);

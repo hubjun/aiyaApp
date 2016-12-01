@@ -1,0 +1,165 @@
+aiyaController.controller('filterListCtrl', [
+  '$scope',
+  '$ionicLoading',
+  'CommonUtil',
+  '$q',
+  '$timeout',
+  'userService',
+  '$stateParams',
+  //'productService',
+  'filterProList',
+  function($scope,$ionicLoading,CommonUtil,$q,$timeout,userService,$stateParams,filterProList){
+
+  //页面激活时
+  $scope.$on('$ionicView.enter', function(){
+    console.log('view.enter');
+    data();
+    //$scope.init();
+  });
+  var timeout;
+  var filterCategoryInfo = $stateParams.fristCategoryId;
+  var keyword = $stateParams.keyword;
+  var brandId = $stateParams.brandId;
+  console.log('分类ID：'+filterCategoryInfo);
+
+  $scope.toggleDisplay = true;
+  $scope.isColumnHide = false;
+  $scope.isRowlistHide = true;
+
+  $scope.tabCur = 'sales';
+
+  $scope.moreData = true;
+  $scope.obj_datalist = new Array();
+  $scope.paging_parameter = {
+      markeType:'',
+      brandIds: brandId,
+      categoryIds: filterCategoryInfo,
+      keyword: keyword,
+      salesDesc: '',
+      dateDesc: '',
+      priceOrder: '',
+      pageNumber: 1,
+      pageSize: 6
+  };
+
+  $scope.toggleList = function(){
+    if($scope.isRowlistHide == true){
+        $scope.isRowlistHide = false;
+        $scope.isColumnHide = true;
+
+        $scope.toggleDisplay = false;
+    }else{
+        $scope.isRowlistHide = true;
+        $scope.isColumnHide = false;
+
+        $scope.toggleDisplay = true;
+    }
+  }
+
+  //$scope.init = function(){
+  //  productService.getList($scope.params).then(function(data){
+  //    if(data.list.length > 0){
+  //      $scope.obj_datalist = data.list;
+  //    }else{
+  //      $scope.moreData = false;
+  //    }
+  //  },function(err){
+  //    CommonUtil.tip(err);
+  //  });
+  //};
+
+  $scope.sortBy = function(val){
+      $scope.tabCur = val;
+      if(val == 'sales'){
+          $scope.paging_parameter.salesDesc = true;
+          $scope.paging_parameter.dateDesc = '';
+          $scope.paging_parameter.priceOrder = '';
+      }else if(val == 'new'){
+          $scope.paging_parameter.dateDesc = true;
+          $scope.paging_parameter.salesDesc = '';
+          $scope.paging_parameter.priceOrder = '';
+      }else if(val == 'pri'){
+          $scope.paging_parameter.priceOrder = 'desc';
+          $scope.paging_parameter.dateDesc = '';
+          $scope.paging_parameter.salesDesc = '';
+      }
+      //$scope.init();
+      data(true);
+  };
+
+  //关键字搜索
+  $scope.$watch('keyValue', function(newVal, oldVal){
+    //console.log('newVal'+ newVal + '  oldVal:'+oldVal);
+    if($scope.keyValue){
+      if(timeout){
+        $timeout.cancel(timeout);
+      }
+      $scope.paging_parameter.keyword = $scope.keyValue;
+      timeout = $timeout(function(){
+        filterProList.filterProList().get($scope.paging_parameter,
+          function(rs){
+            if(rs.data.list.length > 0){
+              $scope.obj_datalist = new Array();
+              $.each(rs.data.list, function(i, item){
+                $scope.obj_datalist.push(item);
+              })
+            }else{
+              $scope.moreData = false;
+            }
+          }
+        )
+      }, 500);
+    }
+  });
+
+  var data = function(isOther){
+    console.log(1212);
+    filterProList.filterProList().get($scope.paging_parameter, function(rs){
+      if(rs.code === 1){
+        if(rs.data.list.length > 0){
+          if(isOther){
+            $scope.obj_datalist = new Array();
+          }
+          $.each(rs.data.list, function(i, item){
+            $scope.obj_datalist.push(item);
+          })
+        }else{
+          $scope.moreData = false;
+        }
+      }else {
+        CommonUtil.tip(rs.msg);
+      }
+    })
+  };
+
+  /*当前用户*/
+  userService.getInfo()
+    .then(function(data){
+      $scope.currentUser = data;
+    },function(err){
+      CommonUtil.tip(err);
+    });
+
+  //下拉刷新
+  $scope.doFilterFresh = function(){
+      //$scope.init();
+      data();
+      $scope.$broadcast("scroll.refreshComplete");
+  }
+
+  //上拉刷新
+  $scope.loadMoreList = function(){
+      //debugger
+      CommonUtil.tip('加载中...',true,300);
+      $scope.paging_parameter.pageNumber++;
+      //var message = JSON.stringify($scope.paging_parameter);
+      //$scope.init();
+      data();
+
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+      $timeout(function(){
+        $ionicLoading.hide();
+      },1500);
+  };
+
+}]);

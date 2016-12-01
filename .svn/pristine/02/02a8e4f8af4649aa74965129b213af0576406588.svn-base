@@ -1,0 +1,211 @@
+<ion-view class="order-ok" hide-nav-bar="true" view-title="订单确认">
+  <div class="bar bar-header bar-stable">
+    <a class="button button-dark ion-ios-arrow-back icon-left button-clear" ng-click="back()"></a>
+    <h1 class="title">订单确认</h1>
+    <a class="button button-dark ion-ios-more icon-right button-clear" nav-button></a>
+  </div>
+
+  <ion-content class="has-header" scrollbar-y="false">
+    <ion-list>
+      <ion-item class="item-icon-right" ui-sref="address({addrId:receiverInfo.id})" ng-if="receiverInfo != null && receiverInfo != ''">
+        <div class="address">
+            <div class="contact row">
+                <span class="customer col">{{receiverInfo.consignee}}</span>
+                <span class="phone col">{{receiverInfo.phone}}</span>
+            </div>
+            <p>{{receiverInfo.areaName}}{{receiverInfo.address}}</p>
+        </div>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+      <ion-item class="item-icon-right"  ui-sref="address" ng-if="receiverInfo == null || receiverInfo == ''">
+        <span class="noAddress">
+          您还没有收货信息，请设置
+        </span>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+
+    <div class="gap"></div>
+    <ion-list>
+      <ion-item ng-repeat="product in products">
+          <div class="product-list row pad-0">
+              <div class="left-img col-27">
+                  <a href="#">
+                    <img ng-src="{{imgUrl}}{{product.image}}" alt="">
+                  </a>
+              </div>
+              <div class="mid-detail col-73">
+                  <span class="name" ui-sref="productInfo({id:product.id})">{{product.name | characters :28 :false}}</span>
+                  <span class="name" ng-if="product.specificationValue">规格型号：{{product.specificationValue}}</span>
+                  <span class="price">{{product.truePrice | currency : '￥'}}</span>
+              </div>
+              <!--<div class="right-count">-->
+                  <span class="count">×{{product.quantity}}</span>
+              <!--</div>-->
+          </div>
+      </ion-item>
+
+      <ion-item class="item-input-inset">
+        <div class="item-input-wrapper">
+          <input class="aiyaku-input-bar leaveMsg" type="text" placeholder="给爱牙库留言：" ng-model="orderInfo.memo"/>
+        </div>
+      </ion-item>
+
+      <!--促销活动-->
+      <ion-item class="item-icon-right" ng-click="showPromotion()" ng-if="promotionList != null && promotionList.length > 0">
+        <div class="column-item" ng-repeat="promotion in promotionList| limitTo:1">
+          <h2>促销活动</h2>
+          <span>{{promotion.title}}</span>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <div class="column-item total">
+          <h2>共{{totalQuantity}}件商品</h2>
+          <span><b>商品总额：</b>{{totalPrice | currency: '￥'}}</span>
+        </div>
+      </ion-item>
+
+      <!--配送方式-->
+      <ion-item class="item-icon-right" ng-click="showShippingMethod()" ng-if="defaultShippingMethod != null">
+        <div class="column-item">
+          <h2>配送方式</h2>
+          <span>{{defaultShippingMethod.name}}</span>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <div class="column-item freight">
+            <h2>运费</h2>
+            <span>{{defaultShippingMethod.first_price | currency: '￥'}}</span>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <div class="row column-item discount pad-0">
+            <div class="col-20">
+                <h2>优惠码</h2>
+            </div>
+            <div class="col-80 item-input-inset pad-0">
+                <div class="item-input-wrapper item-button-right pad-0 couponBtn">
+                    <input class="aiyaku-input-bar" type="text" placeholder="输入您的优惠码" ng-model="orderInfo.coupon"/>
+                    <button class="button button-positive" ng-click="orderInfo.hasCoupon ? couponCancel() : couponSure()">{{orderInfo.hasCoupon ? '取消' : '确定'}}</button>
+                </div>
+            </div>
+        </div>
+      </ion-item>
+      <!--优惠卷折扣-->
+      <ion-item ng-show="orderInfo.hasCoupon">
+        <div class="column-item freight">
+          <h2>优惠券折扣：</h2>
+          <span>-{{couponPrice | currency: '￥'}}</span>
+        </div>
+      </ion-item>
+      <!--优惠金额-->
+      <ion-item ng-show="promotionPrice > 0">
+        <div class="column-item freight">
+          <h2>优惠金额：</h2>
+          <span>-{{promotionPrice | currency: '￥'}}</span>
+        </div>
+      </ion-item>
+      <ion-item class="bill pad-0">
+        <div class="item item-toggle">
+             <p>是否开据发票</p>
+             <label class="toggle">
+                 <input type="checkbox" ng-model="pushBill.checked"  ng-change="toggleBillChange()" ng-click="scrollBottom()">
+                  <a class="track">
+                    <div class="handle"></div>
+                  </a>
+          </label>
+        </div>
+      </ion-item>
+      <ion-item id="sada" class="item-input-inset" ng-show="orderInfo.isInvoice">
+        <div class="item-input-wrapper">
+          <input class="aiyaku-input-bar" type="text" placeholder="发票抬头：" ng-model="orderInfo.invoiceTitle">
+        </div>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+  <ion-footer-bar class="orderOkfooter">
+    <div class="row pad-0 column-item list-total">
+      <span class="col-total col-75"><b>应付总额：</b>{{allPrice | currency: '￥'}}</span>
+      <button class="col-25 button button-positive" ng-click="createOrder()">提交订单</button>
+    </div>
+  </ion-footer-bar>
+</ion-view>
+
+<!--配送方式modal-->
+<script id="modal-shipping.html" type="text/ng-template">
+  <div class="modal aiya-modal aiya-popover-shipping">
+    <ion-header-bar>
+      <span class="title">配送方式</span>
+    </ion-header-bar>
+    <ion-content scrollbar-y="false">
+        <div class="item item-icon-right" ng-repeat="shippingMethod in shippingMethodList" ng-click="selectShippingMethod(shippingMethod)">
+          <span>
+             {{shippingMethod.name}}
+            <span class="description" ng-if="shippingMethod.description != ''">
+              ({{shippingMethod.description}})
+            </span>
+          </span>
+          <i ng-if="defaultShippingMethod.id === shippingMethod.id" class="icon ion-ios-checkmark-empty assertive"/>
+        </div>
+    </ion-content>
+    <ion-footer-bar>
+      <div class="button-bar">
+        <button class="button button-positive" ng-click="shippingMethodConfirm()">确定</button>
+      </div>
+    </ion-footer-bar>
+  </div>
+</script>
+
+<!--活动详情-->
+<script id="modal-promotion.html" type="text/ng-template">
+  <div class="modal aiya-modal aiya-popover-promotion">
+    <ion-header-bar>
+      <span class="title">活动</span>
+    </ion-header-bar>
+    <ion-content scrollbar-y="false">
+      <ion-item ng-repeat="promotion in promotionList">
+        <i class="icon  ion-hook"></i>
+        <span>{{promotion.title}}</span>
+      </ion-item>
+    </ion-content>
+    <ion-footer-bar>
+      <div class="button-bar">
+        <button class="button button-positive" ng-click="closePromotion()">确定</button>
+      </div>
+    </ion-footer-bar>
+  </div>
+</script>
+
+<!--义齿加工订单协议说明-->
+<script id="modal-YC.html" type="text/ng-template">
+  <div class="modal aiya-modal">
+    <ion-header-bar>
+      <span class="title matterTit">注意事项</span>
+    </ion-header-bar>
+    <ion-content>
+      <div class="orderMatter">
+        1.因义齿类商品需要加工，固跟订单内其他商品不能同时发货。具体发货时间以齿研社加工完成时间为准。
+      </div>
+      <div class="orderMatter">
+        2.齿研社承担牙科的寄件邮费(不承担牙科寄件过程中产生的破损，丢失等物流风险)，请牙科尽量选择顺丰快递(到付)。
+      </div>
+      <div class="orderMatter">
+        3.义齿类产品消费满199元，由齿研社承担来模及回寄费用。
+      </div>
+      <div class="orderMatter">
+        4.寄件地址请到订单详情里面查看。
+      </div>
+    </ion-content>
+    <ion-footer-bar>
+      <div class="button-bar">
+        <button class="button button-positive matterAgree" ng-click="YCConfirm()">同意</button>
+      </div>
+    </ion-footer-bar>
+  </div>
+</script>

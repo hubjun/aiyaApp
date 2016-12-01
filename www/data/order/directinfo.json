@@ -1,0 +1,24 @@
+{
+  "code": 1,
+  "msg": "成功",
+  "data": {
+    "sn":"2016021545",
+    "freight":"10.00",
+    "consignee":"ss",
+    "phone":"13022555551",
+    "address":"广东省深圳市",
+    "totalPrice":"100.00",
+    "amount":100,
+    "productList":[
+      {
+        "id":1,
+        "name":"",
+        "fullName":"",
+        "specificationName":"规格型号",
+        "specificationValue":"#11",
+        "price":"39.00",
+        "image":"/upload/image/201506/57c5a94d-f6fd-4389-9e11-1434be6cd712-medium.jpg"
+      }
+    ]
+  }
+}

@@ -1,0 +1,208 @@
+aiyaController.controller('orderListOk', [
+  '$scope',
+  '$rootScope',
+  '$ionicScrollDelegate',
+  'userAddressService',
+  '$stateParams',
+  'orderService',
+  '$ionicLoading',
+  '$state',
+  'CommonUtil',
+  '$ionicPopover',
+  function($scope,$rootScope,$ionicScrollDelegate,userAddressService,$stateParams,orderService,$ionicLoading,$state,CommonUtil,$ionicPopover){
+
+    $scope.orderInfo = {
+      hasCoupon:false,        /*是否有优惠*/
+      coupon : '',            /*优惠码*/
+      isInvoice : false,     /*是否开具发票*/
+      invoiceTitle : '',      /*发票抬头*/
+      memo : ''              /*备注*/
+    }
+    $scope.defaultShippingMethod; //配送方式
+    $scope.tempShippingMethod;
+    //界面方法绑定
+    initPageFn();
+
+    $scope.pushBill = {
+        checked: false
+    }
+
+  $scope.toggleBillChange = function(){
+    $scope.orderInfo.isInvoice = $scope.pushBill.checked;
+  }
+
+  $scope.scrollBottom = function(){
+    $ionicScrollDelegate.scrollBottom();
+  }
+    var product = $stateParams.productInfo;
+      orderService.directInfo(product).then(function(data){
+        $scope.receiverInfo = data.receiverInfo;
+        $scope.products = data.products;
+        $scope.totalPrice = data.totalPrice;//应付总额
+        $scope.expressFee = _.gt(parseFloat(data.totalPrice),199) ? 0 : 12;
+        $scope.allPrice =_.add($scope.totalPrice,$scope.expressFee);
+        $scope.totalQuantity = data.totalQuantity;
+        //活动
+        $scope.promotionList = data.promotionList;
+        //配送方式
+        $scope.shippingMethodList = data.shippingMethodList;
+        if($scope.shippingMethodList != null && $scope.shippingMethodList.length > 0){
+          $scope.defaultShippingMethod = $scope.shippingMethodList[0];
+          $scope.tempShippingMethod = $scope.shippingMethodList[0];
+        }
+      },function(err){
+        console.log(err);
+      });
+
+    //优惠码确认
+    $scope.couponSure = function(){
+      if($scope.orderInfo.coupon == null || $scope.orderInfo.coupon == ''){
+        return;
+      }
+      var params = {
+        code:$scope.orderInfo.coupon,
+        directBuyIds:product.ids,
+        directQuantitys:product.quantitys
+      }
+      orderService.couponInfo(params).then(function(data){
+        $scope.orderInfo.hasCoupon = true;
+        $scope.couponPrice = data.couponPrice;
+        $scope.finalPrice = data.finalPrice;
+        /*应付金额*/
+        $scope.allPrice = $scope.allPrice - $scope.couponPrice;
+      },function(err){
+        CommonUtil.tip(err);
+        console.log(err);
+      });
+    }
+
+    /*优惠码取消*/
+    $scope.couponCancel = function(){
+      $scope.allPrice += $scope.couponPrice;
+      $scope.orderInfo.hasCoupon = false;
+    }
+
+    /*订单提交*/
+    $scope.createOrder = function(){
+      if(hasYCProduct()){
+        $scope.showYC();
+        return;
+      }
+      confirmInfo();
+    }
+    //切换收货地址
+    $rootScope.$on('SELECT_ADDRESS', function (event, data) {
+        $scope.receiverInfo = data;
+    });
+
+    //选中的收货地址被删除
+    $rootScope.$on('SELECT_ADDRESS_DELETED', function (event,data) {
+      $scope.receiverInfo = data;
+
+    });
+    //选中的收货地址被修改
+    $rootScope.$on('SELECT_ADDRESS_CHANGED', function (event, data) {
+      $scope.receiverInfo = data;
+
+    });
+
+    function initPageFn(){
+      //显示快递配送方式
+      $ionicPopover.fromTemplateUrl('popover-shipping.html', {
+          scope: $scope
+        }).then(function (popover) {
+          $scope.shippingPopover = popover;
+        });
+
+      //显示详细活动
+      $ionicPopover.fromTemplateUrl('popover-promotion.html',{
+          scope:$scope
+        }).then(function(popover){
+          $scope.promotionPopover = popover;
+        });
+
+      //显示义齿加工详细信息
+      $ionicPopover.fromTemplateUrl('popover-YC.html',{
+        scope:$scope
+      }).then(function(popover){
+        $scope.YCPopover = popover;
+      });
+      }
+    //
+    $scope.showShippingMethod = function(){
+      $scope.shippingPopover.show();
+    }
+
+    $scope.shippingMethodConfirm = function(){
+      $scope.shippingPopover.hide().then(function(){
+       $scope.defaultShippingMethod = $scope.tempShippingMethod;
+    });
+    }
+
+    $scope.selectShippingMethod = function(shippingMethod){
+      $scope.tempShippingMethod = shippingMethod;
+    }
+
+    $scope.showPromotion = function(){
+      $scope.promotionPopover.show();
+    }
+
+    $scope.closePromotion = function(){
+      $scope.promotionPopover.hide();
+    }
+
+    $scope.showYC = function(){
+      $scope.YCPopover.show();
+    }
+
+    $scope.YCConfirm = function(){
+      $scope.YCPopover.hide().then(function(){
+        confirmInfo();
+      });
+    }
+
+    $scope.$on('$destroy',function(){
+      /*当模型消除时候，清除*/
+      $scope.shippingPopover.remove();
+      $scope.promotionPopover.remove();
+      $scope.YCPopover.remove();
+    });
+
+    //订单中是否有义齿加工类商品
+    function hasYCProduct(){
+      return _.filter($scope.products,{isYcInquiry:true}).length > 0 ? true : false
+    }
+
+    //具体提交订单确认信息
+    function confirmInfo(){
+      var productList = new Array();
+      if(product != null && product !=''){
+        var ids = (product.ids+"").split(',');
+        var quantitys = product.quantitys.toString().split(',');
+        for(var i = 0; i < ids.length; i++){
+          var tempProduct = {
+            productId:'',
+            quantity:''
+          }
+          tempProduct.productId = ids[i];
+          tempProduct.quantity = quantitys[i];
+          productList.push(tempProduct);
+        }
+      }
+      var params = {
+        receiverId : $scope.receiverInfo.id,
+        memo: $scope.orderInfo.memo,
+        isInvoice: $scope.orderInfo.isInvoice,
+        couponCode: $scope.orderInfo.hasCoupon ? $scope.orderInfo.coupon : '',
+        invoiceTitle: $scope.orderInfo.invoiceTitle,
+        shippingMethod: $scope.defaultShippingMethod.id,
+        productList:productList
+      }
+      orderService.create(params).then(function(data){
+        $state.go('orderPay',{sn:data.sn});
+      },function(err){
+        CommonUtil.tip(err);
+        console.log("订单提交:" + err);
+      });
+    }
+}]);

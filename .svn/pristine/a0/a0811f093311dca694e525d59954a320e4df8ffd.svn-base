@@ -1,0 +1,142 @@
+<ion-view class="tooth-op" view-title="齿研社" cache-view="false">
+
+  <div class="bar bar-header item-input-inset bar-stable">
+    <!--<button class="ion-ios-arrow-left icon-left button-dark button-clear mar-right-10" ui-sref="home"></button>-->
+    <label class="item-input-wrapper">
+      <i class="icon ion-android-search placeholder-icon"></i>
+      <input type="search" ng-model="keyValue" placeholder="输入要搜索的关键字">
+    </label>
+    <button class="button button-clear">
+      <a class="button button-clear" tooth-category-filter ng-model="toothPageParame.categoryIds" on-finish="filterOk()">筛选</a>
+      <!--ng-click="openPopover($event)"-->
+      <a class="button ion-more button-dark button-clear" nav-button></a>
+    </button>
+  </div>
+  <!--选择排序-->
+  <div class = "toogle-bar-wrap toogle-bar-wrap-hide" ng-show="errState != 500">
+    <div class="toogle-bar bar-subheader toogleTab toothBarPositionName toogle-bar-hide">
+      <span class = "toogleTabItem" ng-class = "{true:'toogleTabItemActive',false:''}[opNav==1]" ng-click="listBySale()">销量</span>
+      <span class = "toogleTabItem" ng-class = "{true:'toogleTabItemActive',false:''}[opNav==2]"  ng-click="listByDate()">新品</span>
+        <span class = "toogleTabItem" ng-show="isAuthoriz" ng-click = "priStatus()">
+          <a class = "toogleTabItemPri" ng-class = "{true:'toogleTabItemActive',false:''}[opNav==3]">价格</a><div class = "toogleTabArrow">
+            <i class="icon ion-aiya toogleTabArrowUp" ng-class = "{true:'toogleTabItemActive',false:''}[opNav==3&&clickStatus==1]">&#xe620;</i>
+            <i class="icon ion-aiya toogleTabArrowDown" ng-class = "{true:'toogleTabItemActive',false:''}[opNav==3&&clickStatus==2]">&#xe61f;</i>
+          </div>
+        </span>
+
+      <div class="toogle-icon ion-aiya">
+        <i ng-class="{true: 'icon-fenlei1', false: 'icon-fenlei'}[toothDisplay]" ng-click="toothToggle()"></i>
+      </div>
+    </div>
+  </div>
+  <div ng-if="errState == 500" ng-include="'templates/error/network.html'" ng-click="data()"></div>
+  <ion-content class="has-header" delegate-handle="toothOpHandle" on-scroll="onToothOpContentScroll()" scrollbar-y="false" ng-show="errState != 500">
+    <ion-refresher
+      pulling-text="下拉刷新哦！"
+      refreshing-text="刷新完毕"
+      on-refresh="doToothFresh()">
+    </ion-refresher>
+    <div class="slider-tooth">
+      <ion-slide-box does-continue="true" slide-interva="2000" show-pager="true" auto-play="true">
+        <ion-slide ng-repeat="toothAd in toothSlider">
+          <a ng-href="{{toothAd.url_mobile}}">
+            <img ng-src="{{toothAd.path}}" alt="{{toothAd.title}}">
+          </a>
+        </ion-slide>
+      </ion-slide-box>
+    </div>
+
+    <!--选择排序-->
+    <div class = "toogle-bar-wrap">
+    <div class="toogle-bar bar-subheader toogleTab">
+      <span class = "toogleTabItem" ng-class = "{true:'toogleTabItemActive',false:''}[opNav==1]" ng-click="listBySale()">销量</span>
+      <span class = "toogleTabItem" ng-class = "{true:'toogleTabItemActive',false:''}[opNav==2]" ng-click="listByDate()">新品</span>
+      <span class = "toogleTabItem" ng-show="isAuthoriz" ng-click = "priStatus()">
+        <a class = "toogleTabItemPri" ng-class = "{true:'toogleTabItemActive',false:''}[opNav==3]">价格</a><div class = "toogleTabArrow">
+          <i class="icon ion-aiya toogleTabArrowUp" ng-class = "{true:'toogleTabItemActive',false:''}[opNav==3&&clickStatus==1]">&#xe620;</i>
+          <i class="icon ion-aiya toogleTabArrowDown" ng-class = "{true:'toogleTabItemActive',false:''}[opNav==3&&clickStatus==2]">&#xe61f;</i>
+        </div>
+      </span>
+
+      <div class="toogle-icon ion-aiya">
+        <i ng-class="{true: 'icon-fenlei1', false: 'icon-fenlei'}[toothDisplay]" ng-click="toothToggle()"></i>
+      </div>
+    </div>
+    </div>
+    <!--单行显示列表 start-->
+    <div class="pro" ng-hide="isToothRowlistHide">
+      <div class="pro-warp" ng-repeat="items in obj_toothlist" ng-if="obj_toothlist.length>=1">
+        <div class="pro-body">
+          <div class="pro-body-des">
+            <a ng-href="#/product/info/{{items.id}}">
+              <img ng-src="{{items.image}}" alt="{{items.fullName}}">
+            </a>
+            <div class="pro-body-des-text">
+              <span class="pro-name">{{items.name | characters: 25:false}}</span>
+              <div ng-show="(items.isYcInquiry) && (isAuthoriz && items.isYcInquiry)">
+                <span class="dis-price-single">{{items.price | currency: '￥'}}</span>
+                <span class="fact-price">{{items.marketPrice | currency: '￥'}}</span>
+              </div>
+              <span ng-show="items.isYcInquiry && !isAuthoriz" class="dis-price" ui-sref="toothOpEnquiry">立即询价</span>
+              <!--<div class="pro-body-des-con">-->
+                <!--<span>{{item.haoping}}%好评</span>-->
+                <!--<span>256人已购买</span>-->
+              <!--</div>-->
+              <span class="join-cart" ng-if="!items.isYcInquiry || isAuthoriz" product-specification-filter product-id="{{items.id}}"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--单选显示列表 end-->
+
+    <!--网格显示列表 start-->
+    <div class="column-list" ng-hide="isToothRowColumnHide">
+      <div class="col col-50 pro-row" ng-repeat="lt in obj_toothlist" ng-if="obj_toothlist.length>=1">
+        <div class="list-con">
+          <div class="pro-item">
+            <div class="imgbox">
+              <a ng-href="#/product/info/{{lt.id}}">
+                <img ng-src="{{lt.image}}" alt="{{lt.fullname}}">
+              </a>
+            </div>
+          </div>
+          <div class="list-detail">
+            <p class="pro-name">{{lt.name | characters:19:false}}</p>
+            <div class="kind-price" ng-show="(lt.isYcInquiry) && (lt.isYcInquiry && isAuthoriz)">
+              <span class="dis-price">{{lt.price | currency: '￥'}}</span>
+              <span class="fact-price">{{lt.marketPrice | currency: '￥'}}</span>
+              <span class="join-cart"></span>
+            </div>
+            <span class="detail-enquiry" ng-show="lt.isYcInquiry && !isAuthoriz" ui-sref="toothOpEnquiry">立即询价</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ng-if="!hasMore() && obj_toothlist.length > 0" class="commonBottom">已经到底啦~</div>
+    <!--网格显示列表 end-->
+
+    <!--<div ng-if="obj_toothlist.length==0 && errState !=500">-->
+      <!--<img ng-src="./img/findNot.png" class="findNot">-->
+      <!--<p class="brandNullTxt">Sorry~暂无相关的信息</p>-->
+    <!--</div>-->
+    <div ng-if="obj_toothlist.length == 0" ng-include="'templates/common/searchNull.html'"/>
+    <ion-infinite-scroll
+      ng-if="hasMore()"
+      on-infinite="toothLoadMore()"
+      icon="icon-svg-loading"
+      immediate-check="false"
+      distance="3%">
+    </ion-infinite-scroll>
+  </ion-content>
+
+  <!--<div class="noMore" ng-if="toothMoredata">-->
+    <!--<span>没有更多咯...</span>-->
+  <!--</div>-->
+  <ion-footer-bar>
+    <div ng-include="'templates/tabs.html'"></div>
+  </ion-footer-bar>
+
+  <a class="helpButton ion-aiya" ng-click="linkHelp()">&#xe617;</a>
+  <a class="scrollTop" ng-click="scrollTop()" ng-if="showToTopImage"></a>
+</ion-view>

@@ -1,0 +1,73 @@
+aiyaController.controller('brandController',[
+  '$scope',
+  '$ionicPopover',
+  'brandService',
+  '$state',
+  function($scope,$ionicPopover,brandService,$state){
+    $scope.tabNav={curNav:'brand'};
+    var searchParam = {
+      keyword: '',
+      makeType: ''
+    };
+    $scope.tabShow = 'ALL';
+    $scope.brandList = brandService.search(searchParam);
+    $scope.filterCategoryFrist = '';
+
+    $scope.changeTab=function(val){
+      $scope.tabShow = val;
+      //数据请求
+      if(val == 'ALL'){
+        searchParam.makeType = '';
+      }else if(val == 'IMPORT'){
+        searchParam.makeType = false;
+      }else if(val == 'HOME'){
+        searchParam.makeType = true;
+      }
+      $scope.brandList = brandService.search(searchParam);
+    }
+
+    $scope.jumpBrandCategory = function(bId){
+      $state.go('filterList', {'brandId':bId});
+      console.log('品牌id:'+bId);
+    };
+
+    //下拉更新
+    $scope.doRefresh=function(){
+      brandService.search(searchParam);
+      $scope.$broadcast('scroll.refreshComplete');
+    }
+
+    //上拉更新
+    $scope.loadMore=function(){
+      console.log('加载更多数据');
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    }
+
+    //$ionicPopover.fromTemplateUrl("ez-popover.html", {
+    //    scope: $scope
+    //  })
+    //  /*   .cssClass(function(){
+    //   $scope.background=red;
+    //   })*/
+    //  .then(function(popover){
+    //    $scope.popover = popover;
+    //  })
+    //$scope.openPopover = function($event) {
+    //  $scope.popover.show($event);
+    //};
+    //$scope.closePopover = function() {
+    //  $scope.popover.hide();
+    //};
+    ////销毁事件回调处理：清理popover对象
+    //$scope.$on("$destroy", function() {
+    //  $scope.popover.remove();
+    //});
+    //// 隐藏事件回调处理
+    //$scope.$on("popover.hidden", function() {
+    //  // Execute action
+    //});
+    ////删除事件回调处理
+    //$scope.$on("popover.removed", function() {
+    //  // Execute action
+    //});
+  }]);

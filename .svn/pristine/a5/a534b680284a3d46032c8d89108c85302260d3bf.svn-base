@@ -1,0 +1,130 @@
+//公共复选框
+.checkbox {
+  padding: 0;
+  input {
+    float: left;
+    width: $checkbox-input-width;
+    height: $checkbox-input-height;
+    &:after {
+      width: $checkbox-input-width / 2;
+      height: $checkbox-input-width / 4;
+    }
+  }
+  span{
+    float: right;
+    padding: 0 0 0 7px;
+  }
+}
+.myaiyaku{
+  background-color:#F4F4F4;
+
+  .user-info{
+    @include display-flex();
+    @include align-items(center);
+    padding: 0 20px;
+    background: url("../img/myaiyaku/bg.jpg") no-repeat ;
+    .user-avatar {
+      @include flex(0, 0, 60px);
+      width: 60px;
+      height: 60px;
+      border-radius: 100%;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .user-name {
+      margin-left: 10px;
+      height: 50px;
+      color: #fff;
+      font-size: $base-font-size * 1.3;
+      overflow: hidden;
+      .name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .vip {
+        margin-top: 3px;
+        background: url(../img/myaiyaku/vip.png);
+        background-size: cover;
+        width: 35px;
+        height: 20px;
+      }
+    }
+
+    -moz-background-size:100% 100%;
+    background-size:100% 100%;
+    height: 100px;
+    .item-content {
+      background-color: transparent;
+    }
+  }
+  .left-icon{
+    height:55px;
+    width:32px;
+  }
+  .orders{
+    background: url("../img/myaiyaku/orders.png") no-repeat;
+    background-size: 80%;
+    background-position: center center;
+  }
+  .purchase{
+    background: url("../img/myaiyaku/purchase.png") no-repeat;
+    background-size: 80%;
+    background-position: center center;
+  }
+  .collect{
+    background: url("../img/myaiyaku/collect.png") no-repeat;
+    background-size: 80%;
+    background-position: center center;
+  }
+  .settings{
+    background: url("../img/myaiyaku/set.png") no-repeat;
+    background-size: 80%;
+    background-position: center center;
+  }
+  .message{
+    background: url("../img/myaiyaku/news.png") no-repeat;
+    background-size: 80%;
+    background-position: center center;
+  }
+  .waitpay{
+
+  }
+  .wait-item{
+    padding:6px;
+    .col{
+      text-align: center;
+      .name{
+        padding-top:2px;
+      }
+    }
+  }
+  .gap{
+    padding:0.5em;
+  }
+
+  .right-tip{
+    color:#555555;
+    float:right;
+  }
+
+  .bar-footer {
+    height: 50px;
+    border: none;
+    padding: 0;
+  }
+}
+//设置
+.setting{
+  .logout{
+    padding: 0px 12px 8px;
+    button{
+      min-height: 31px;
+      line-height: 32px;
+      font-size: 13px;
+    }
+  }
+}

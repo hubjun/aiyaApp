@@ -1,0 +1,150 @@
+/*采用这种注入编译后期js压缩*/
+aiyaController.controller('HomeCtrl',[
+  '$rootScope',
+  '$scope',
+  '$state',
+  'index',
+  'ENV',
+  'CommonUtil',
+  '$location',
+  '$window',
+  '$ionicSlideBoxDelegate',
+  '$ionicScrollDelegate',
+  '$timeout',
+  'Util',
+  'StringUtil',
+  function($rootScope,$scope,$state,index,ENV,CommonUtil,$location,$window,$ionicSlideBoxDelegate,$ionicScrollDelegate,$timeout,Util,StringUtil){
+  //页面激活时
+  $scope.tabNav={curNav:'home'};
+    $scope.showToTopImage = false;
+  $scope.$on('$ionicView.enter', function(){
+    //console.log('view.enter');
+    $ionicSlideBoxDelegate.update();
+  });
+  var loadData = function(){
+    index.recommedproductlist().get(null,function(rs){
+      if(rs.code == 1){
+        $scope.recommedproductlist = rs.data.list;
+       //图片显示
+        _.each($scope.recommedproductlist,function(p){
+          p.image = StringUtil.isEmpty(p.image) ? ENV.defaultImg : Util.getFullImg(p.image);        //具体单个商品图片
+        });
+      } else {
+        CommonUtil.tip(rs.msg);
+      }
+    }, function(err){
+      CommonUtil.tip(err);
+    });
+
+    index.floorproductlist().get(null,function(rs){
+      if(rs.code == 1){
+        $scope.floorproductlist = rs.data.list;
+        console.log($scope.floorproductlist);
+        _.each($scope.floorproductlist,function(p){
+          _.each(p.brandList,function(p){
+            p.logo = StringUtil.isEmpty(p.logo) ? ENV.defaultImg : Util.getFullImg(p.logo);      //具体单个品牌图片
+          });
+          _.each(p.productList,function(p){
+            p.image = StringUtil.isEmpty(p.image) ? ENV.defaultImg : Util.getFullImg(p.image);        //具体单个商品图片
+          })
+        });
+      } else {
+        CommonUtil.tip(rs.msg);
+      }
+    },function(err){
+      CommonUtil.tip('网络错误');
+    });
+  }
+  loadData();
+
+  //轮播图
+  var adlistOpt = {
+    beginDate: '',
+    endDate: '',
+    positionId: 27
+  };
+  $scope.adList = null;
+  index.getAdlist(adlistOpt)
+    .then(function(ads){
+      $scope.adList = ads.list;
+    },function(errMsg){
+      CommonUtil.tip(errMsg);
+    });
+
+  //$scope.purchaseCounts = index.purchaseCount();
+  index.purchaseCount().get(function(rs){
+    if(rs.code === 1 ){
+        $scope.purchaseCounts = rs.data;
+    }
+  });
+
+  $scope.setFloorHeadStyle = function(floor){
+    var floorStyle = '';
+    switch (floor){
+      case '1F':
+        floorStyle = 'head1';
+        break;
+      case '2F':
+        floorStyle = 'head2';
+        break;
+      case '3F':
+        floorStyle = 'head3';
+        break;
+      case '4F':
+        floorStyle = 'head4';
+        break;
+      case '5F':
+        floorStyle = 'head5';
+        break;
+      case '6F':
+        floorStyle = 'head6';
+        break;
+      case '7F':
+        floorStyle = 'head7';
+        break;
+      case '8':
+        floorStyle = 'head8';
+        break;
+      default :
+        floorStyle = 'head1';
+    }
+    return floorStyle;
+  }
+
+  $scope.doHomeRresh = function(){
+    loadData();
+    $scope.$broadcast("scroll.refreshComplete");
+  };
+
+  //搜索跳转
+  $scope.jumpSearchPage = function(){
+    $state.go('homeSearch');
+  };
+
+  /*监听路由判断网路状态*/
+  $rootScope.$on('$stateChangeStart',function(event){
+    if (navigator.connection) {
+      var networdType = navigator.connection.type;
+      if (networdType.toUpperCase().indexOf('NONE') > -1 || networdType.toUpperCase().indexOf('UNKNOWN') > -1) {
+        event.preventdefault();
+        var oldUrl = $location.url();
+        $location.url('/network');
+        $location.replace();
+      }
+    }
+  });
+
+  /*列表滚动，判断是否显示返回顶部*/
+  $scope.onContentScroll = function() {
+    if (!$ionicScrollDelegate.$getByHandle('homeHandle')) {
+      return;
+    }
+    $timeout(function () {
+        var position = $ionicScrollDelegate.$getByHandle('homeHandle').getScrollPosition();//获取滚动位置
+        if (position) {
+          $scope.showToTopImage = position.top > $rootScope.deviceHeight / 3.0;//大于屏幕高度1/3时显示【返回顶部】
+        }
+      }, 1000//1秒后跳转回去
+    );
+  }
+}]);

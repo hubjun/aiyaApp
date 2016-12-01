@@ -1,0 +1,145 @@
+<ion-view class="home-page" hide-nav-bar="true" view-title="爱牙库-优质牙科材料商城">
+  <button id="1013" ng-show="false">义齿加工</button>
+  <button id="1003" ng-show="false">耗材咨询</button>
+    <div class="bar-aiyaku bar bar-header item-input-inset bar-assertive">
+      <button class="button icon-left ion-aiya button-clear bar-header-left" ui-sref="mainCategory">&#xe605;</button>
+      <label class="item-input-wrapper">
+        <i class="icon ion-android-search placeholder-icon"></i>
+        <input type="text" focus-me="homeInputFocus" ng-focus="jumpSearchPage()" placeholder="搜索你要的产品">
+      </label>
+      <button class="button icon-right ion-aiya button-large button-clear has-badge bar-header-right" ui-sref="purchaseOrderList">
+        &#xe60b;<i class="badge badge-aiyaku">{{purchaseCounts.cartquantity}}</i>
+      </button>
+    </div>
+    <div ng-show="errState == 500" ng-include="'templates/error/network.html'" ng-click="loadData()"></div>
+
+    <ion-content scrollbar-y="false" class="has-header" delegate-handle="homeHandle" on-scroll="onContentScroll()" ng-show="errState!=500">
+      <ion-refresher
+        pulling-text="松手刷新哦..."
+        refreshing-text="刷新完成"
+        on-refresh="doHomeRresh()">
+      </ion-refresher>
+
+      <!--幻灯广告 start-->
+      <div class="home-slide">
+          <ion-slide-box does-continue="true" slide-interva="2000" show-pager="true" auto-play="true">
+            <ion-slide ng-repeat="ad in adList">
+              <a ng-href="{{ad.url}}">
+                <img ng-src="{{ad.path}}" alt="{{ad.title}}">
+              </a>
+            </ion-slide>
+          </ion-slide-box>
+      </div>
+      <!--幻灯广告 end-->
+      <div class="first-recommend">
+            <!--本月推荐 start-->
+            <div class="head-recommend">
+                <div class="row">
+                  <div class="col title-recom">
+                    <h2>本月推荐</h2>
+                  </div>
+                  <!--<div class="col col-50 recom-more">-->
+                    <!--<span ui-sref="filterList">查看更多 ></span>-->
+                  <!--</div>-->
+                </div>
+            </div>
+            <div class="row month-cell-padding">
+            <div class="col pad-h-0" ng-repeat="recommedproduct in recommedproductlist | limitTo: 3 " ui-sref="productInfo({id:recommedproduct.id})">
+              <div class="recomm-list">
+                <div class="recommend-item">
+                  <div class="imgbox">
+                    <img ng-src="{{recommedproduct.image}}" alt="{{recommedproduct.name}}">
+                  </div>
+                </div>
+                <div class="pro-detail">
+                  <p class="pro-name">{{recommedproduct.name | characters:15: false}}</p>
+                  <div ng-if="!recommedproduct.isYcInquiry || isAuthoriz" class="pro-price">
+                    <span class="discount-pri">{{recommedproduct.price | currency:'￥'}}</span>
+                    <span class="fact-pri">{{recommedproduct.marketPrice | currency:'￥'}}</span>
+                  </div>
+                  <div ng-if="recommedproduct.isYcInquiry && !isAuthoriz" class="pro-price">
+                    <span class="discount-pri isYcInquiry" ui-sref="toothOpEnquiry">立即询价</span>
+                  </div>
+                  <!--<span ng-if="recommedproduct.isYcInquiry && !isAuthoriz" ui-sref="toothOpEnquiry" class="money">立即询价</span>-->
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <!--本月推荐 end-->
+            <!--首页楼层 start-->
+              <div ng-repeat="floor in floorproductlist">
+
+                <div class="floor-head" >
+
+                  <div class="row row-line">
+                    <div class="img-icon" ng-class="setFloorHeadStyle(floor.floor)" >
+                      <span></span>
+
+                    </div>
+                    <h3 class="floorTitle">{{floor.productCategoryName}}</h3>
+                    <div class="col col-center fl-more">
+                      <span ng-click="jumpCategoryByFloorId(floor.productCategoryId)">查看更多&nbsp;></span>
+                    </div>
+                </div>
+              </div>
+                <div class="floor-ad">
+                <div class="row">
+                  <div class="col-71 fl-slide">
+                      <ion-slide-box does-continue="true" show-pager="true" auto-play="true">
+                        <ion-slide ng-repeat ="adPosition in floor.adPositionList" >
+                          <div>
+                            <a ng-href="{{adPosition.url_mobile}}">
+                              <img ng-src="{{adPosition.path}}">
+                            </a>
+                          </div>
+                        </ion-slide>
+                      </ion-slide-box>
+                  </div>
+                  <div class="col-28 col-offset-1 ad-con">
+                    <div class="fl-img" ng-repeat="brand in floor.brandList | limitTo:2">
+                      <img ng-src="{{brand.logo}}" ng-click="jumpSearchById(brand.id)" alt="">
+                      <!--<a ng-href="{{brand.url_mobile}}">-->
+                        <!--<img ng-src="{{imgUrl}}{{brand.logo}}" alt="">-->
+                      <!--</a>-->
+                    </div>
+                  </div>
+                </div>
+
+                  <div class="col col-50 pro-list" ng-repeat="product in floor.productList | limitTo:4" ui-sref="productInfo({id:product.id})">
+                    <div class="list-con">
+                      <div class="pro-item">
+                        <div class="imgbox">
+                          <img ng-src="{{product.image}}" alt="">
+                        </div>
+                      </div>
+                      <div class="list-detail">
+                        <div class="list-name">
+                          <p class="pro-name">{{product.name}}</p>
+                        </div>
+
+                        <div class="list-price">
+                          <span class="dis-pri">{{product.price | currency:'￥'}}</span>
+                          <span class="fact-pri">{{product.marketPrice | currency:'￥'}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!--首页楼层 end-->
+            </div>
+            <div ng-include="'templates/common/bottomTxt.html'"/>
+      </div>
+
+    </ion-content>
+    <div class="helpButton ion-aiya" ng-click="linkHelp()">&#xe617;
+      <span>客服</span>
+    </div>
+    <div class="scrollTop"  ng-click="scrollTop()" ng-if="showToTopImage">↑
+      <span>顶部</span>
+    </div>
+    <ion-footer-bar>
+      <div ng-include="'templates/tabs.html'"></div>
+    </ion-footer-bar>
+</ion-view>

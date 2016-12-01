@@ -1,0 +1,73 @@
+<ion-view class="stable-bg brand" hide-nav-bar="true" view-title="品牌索引">
+
+  <div class="bar bar-header item-input-inset stable-bg">
+<!--    <a class="button icon-left ion-ios-arrow-left button-clear button-dark brand-left-btn" ng-click="back('#/home')"></a>-->
+    <label class="item-input-wrapper">
+      <i class="icon ion-android-search placeholder-icon"></i>
+      <input type="search" ng-model="searchParam.keyword" placeholder="品牌索引">
+    </label>
+    <button class="button button-clear">
+      <a class="button button-clear button-dark" brand-category-filter ng-model="searchParam.id" on-finish="onFinish()">筛选</a>
+      <a class="button ion-more button-clear button-dark" nav-button></a>
+    </button>
+  </div>
+
+  <div class="bar bar-subheader">
+    <ion-scroll direction="x" scrollbar-x="false" >
+      <div class="button-bar sub_header_list" id="sub_header_list">
+        <a class="button button-clear " ng-click="changeTab('ALL')" ng-class="{'ALL':'sub_button_select'}[tabShow]">全部品牌</a>
+        <a class="button button-clear" ng-click="changeTab('IMPORT')" ng-class="{'IMPORT':'sub_button_select'}[tabShow]">进口品牌</a>
+        <a class="button button-clear" ng-click="changeTab('HOME')" ng-class="{'HOME':'sub_button_select'}[tabShow]">国产品牌</a>
+      </div>
+    </ion-scroll>
+  </div>
+  <ion-content class="has-subheader" scrollbar-y="false" delegate-handle="brandHandle">
+    <ion-refresher
+      pulling-text="下拉刷新..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
+    <div ng-if="errState == 500" ng-include="'templates/error/network.html'" ng-click="init()"></div>
+    <div class="first-list">
+      <ion-list ng-if="brandList.length>=1">
+       <!-- <div class="aiya-loading"><ion-spinner class="spinner-positive" icon="dots"></ion-spinner><div class="aiyaLoading">正在加载</div></div>-->
+        <ion-item class="item-avatar item-icon-right col col-33 stable-bg" ng-repeat="x in brandList">
+          <a class="itemDiv" ng-click="jumpBrandCategory(x.id)">
+            <img ng-src="{{imgUrl}}{{x.logo}}">
+            <span class="brandName">{{x.name}}</span>
+          </a>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div ng-if="brandList.length==0">
+      <img ng-src="./img/searchNull.png" class="brandNullImg">
+      <p class="brandNullTxt">Sorry~暂无相关的信息</p>
+    </div>
+    <ion-infinite-scroll ng-if="hasMore()" on-infinite="loadMore()"  icon="icon-svg-loading" distance="1%" style="height:auto;"></ion-infinite-scroll>
+  </ion-content>
+  <ion-footer-bar>
+    <div ng-include="'templates/tabs.html'"></div>
+  </ion-footer-bar>
+</ion-view>
+
+<script id="ez-popover.html" type="text/ng-template">
+  <ion-popover-view class="screening" style="top: 1px; left: 162px; margin-left: 0px; opacity: 1;">
+    <ion-content>
+      <p>全部分类</p>
+      <ion-list class="brandTypes">
+        <ion-item class="brandType" ng-repeat="item in filterCategoryFrist" ng-click = "classifySearch(item.name)">{{item.name}}</ion-item>
+        <!--<ion-item class="brandType">医用耗材类</ion-item>-->
+        <!--<ion-item class="brandType">口腔科常用器械</ion-item>-->
+        <!--<ion-item class="brandType">车针/扩锉/磨头</ion-item>-->
+        <!--<ion-item class="brandType">修复、充填类</ion-item>-->
+        <!--<ion-item class="brandType">其他产品类</ion-item>-->
+        <!--<ion-item class="brandType">种植产品类</ion-item>-->
+        <!--<ion-item class="brandType">口腔设备类</ion-item>-->
+      </ion-list>
+    </ion-content>
+    <!--<ion-footer-bar class="brandFooter">
+      <div class="row pad-0">
+        <button class="col-25 col-offset-75 button button-positive" ng-click="doSomething()">完成</button>
+      </div>
+    </ion-footer-bar>-->
+  </ion-popover-view>
+</script>

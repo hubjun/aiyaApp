@@ -1,0 +1,68 @@
+/*
+*单行图文,价格,规格模板样式
+*包含数量编辑指令样式
+*/
+.purchaseProductItem {
+  @include display-flex();
+  @include align-items(center);
+  padding: $item-content-padding;
+  //商品图片
+  .productImg {
+    border: 1px solid #eee;
+    @include flex(0, 0, $productItemImg-width);
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  //商品描述
+  .productDesc {
+    @include align-self(stretch);
+    @include flex(1);
+    @include display-flex();
+    @include flex-direction(column);
+    overflow : hidden;
+    text-overflow: ellipsis;
+    font-size: $base-font-size;
+    margin-left: 10px;
+    margin-right: auto;
+    //商品描述的标题
+    .productDesc-title {
+      white-space: normal;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      font-size: inherit;
+    }
+    //规格
+    .productDesc-spec {
+      min-height: 22px;
+      margin: 5px 0 4px 0;
+      word-wrap: break-word;
+      color: $global-gray;
+      font-size: inherit;
+    }
+    //价格
+    .productDesc-price {
+      margin: auto 0 0;
+      margin-bottom: 5px;
+      font-size:rem(22);
+      .facPriName{
+        font-size:rem(30);
+      }
+      .marPri{
+        padding: 0 0 0 rem(18);
+        color: #919191;
+        text-decoration: line-through;
+      }
+    }
+  }
+  //购买数量
+  .productNum {
+    position: absolute;
+    right: 10px;
+    bottom: 19px;
+    margin-left: 10px;
+    @include align-self(flex-end);
+  }
+}

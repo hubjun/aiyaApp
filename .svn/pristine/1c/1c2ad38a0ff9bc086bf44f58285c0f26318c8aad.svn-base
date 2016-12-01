@@ -1,0 +1,52 @@
+.favorite{
+  .favoCon{
+    margin-bottom: 46px;
+  }
+  .img{
+    float: right;
+    width: 20px;
+    height: 20px;
+  }
+  .content{
+    padding: 0;
+
+    .checkbox{
+      border: 0 none;
+    }
+  }
+
+  .bar-footer {
+    border-top: 1px solid #E4E4E4;
+    height: 48px;
+  }
+
+  .faOldPrice{
+    color:#B4B4B4;
+    text-decoration: line-through;
+  }
+
+  .faNewPrice{
+    color:#FF5F0F;
+  }
+
+  .item-content{
+    padding-top: 8px;
+    padding-left: 106px;
+    min-height: 100px;
+  }
+  .edit{
+    .item-thumbnail-left{
+       .item-content>img:first-child {
+         left: 56px;
+       }
+    }
+  }
+  .editHeight{
+    height:46px;
+  }
+  .select-all{
+      .checkbox{
+        padding:7px 4px;
+      }
+  }
+}

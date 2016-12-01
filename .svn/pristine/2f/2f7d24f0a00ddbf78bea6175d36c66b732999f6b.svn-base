@@ -1,0 +1,69 @@
+<ion-view view-title="我的物流" class="mylog stable-bg" hide-nav-bar="true" cache-view="false">
+  <!--header-->
+  <div class="bar bar-header bar-stable">
+    <button class="button back-button buttons" ng-click="back()">
+      <i class="button ion-ios-arrow-back icon-left button-dark button-clear" ></i>
+    </button>
+    <div class="title">我的物流</div>
+    <div class="buttons buttons-right">
+      <span class="right-buttons">
+        <button class="button button-dark button-clear ion-ios-more icon-right"></button>
+      </span>
+    </div>
+  </div>
+
+  <ion-content class="has-header">
+    <ion-list>
+      <ion-item class="item item-thumbnail-left orderItemStated">
+        <img ng-src="img/ionic.png" class="orderImg"/>
+        <h2 class="stated">物流状态：<span class="sign">{{::shippingStatus}}</span></h2>
+        <p>配送方式：{{::shippingMethodName}}</p>
+        <p>订单号：{{::sn}}</p>
+      </ion-item>
+    </ion-list>
+
+    <div ng-if="logisticsList" class="logSubsidiary">
+      <h4 class="logSubTit">物流明细</h4>
+
+      <ion-list class="subList">
+        <ion-item ng-repeat="logisItem in logisticsList" ng-class="{subFirstList: $index === 0}">
+          <div class="stateLine">
+            <div class="LastYuan" ng-if="$index === 0">
+              <div class="insetYuan"><span></span></div>
+            </div>
+            <div class="stateyuan" ng-if="$index > 0"></div>
+          </div>
+          <div class="stateInfo">
+            <p>{{::logisItem.desc}}</p>
+            <p>{{::logisItem.createDate}}</p>
+          </div>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div ng-if="!logisticsList">
+      暂无物流信息
+    </div>
+
+    <div class="logLook">
+      <h4 class="logLookTit">购买此商品的用户同时也购买了</h4>
+      <ion-item class="no-border like-item">
+        <div class="col col-50 pro-list"  ng-repeat="product in productList | limitTo: 4" ui-sref="productInfo({id:product.id})">
+          <div class="list-con">
+            <div class="pro-item">
+              <img ng-src="{{product.image}}" alt="">
+            </div>
+            <div class="list-detail">
+              <p class="pro-name">{{product.name}}</p>
+              <div class="list-price">
+                <span class="dis-pri">{{product.price | currency:'￥'}}</span>
+                <span class="fact-pri">{{product.marketPrice | currency:'￥'}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

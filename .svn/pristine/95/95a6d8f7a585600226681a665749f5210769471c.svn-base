@@ -1,0 +1,11 @@
+/* 以下为地址列表 */
+.addressDetail {
+  .addr-background{
+    background: #f3f5f5;
+  }
+  .padding{
+    border-right: none;
+    border-left: none;
+  }
+}
+
